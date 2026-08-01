@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Design Studio — Custom Closet</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="design.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">CUSTOM <span>CLOSET</span></a>
+  <div class="studio-nav-title">Design Studio</div>
+  <a href="index.html" class="nav-back">← Back to shop</a>
+</nav>
+
+<div class="studio-steps">
+  <div class="sstep active" id="sstep-1"><div class="sstep-num">1</div><span>Choose garment</span></div>
+  <div class="sstep-line"></div>
+  <div class="sstep" id="sstep-2"><div class="sstep-num">2</div><span>Pick color</span></div>
+  <div class="sstep-line"></div>
+  <div class="sstep" id="sstep-3"><div class="sstep-num">3</div><span>Add design</span></div>
+  <div class="sstep-line"></div>
+  <div class="sstep" id="sstep-4"><div class="sstep-num">4</div><span>Contact us</span></div>
+</div>
+
+<!-- ===== SCREEN 1: GARMENT PICKER ===== -->
+<div class="studio-screen active" id="screen-1">
+  <div class="screen-heading">
+    <h2>What are you customising?</h2>
+    <p>Pick your garment to get started</p>
+  </div>
+  <div class="garment-picker-grid">
+    <div class="garment-pick-card" onclick="selectGarment('oversize')">
+      <div class="gpc-img-wrap"><img src="image/oversize-white-front.png" alt="Oversize" onerror="this.src='image/oversize-empty-front.png'"/></div>
+      <div class="gpc-info"><h3>Oversize T-Shirt</h3><p>Drop shoulder, boxy fit, 280 GSM</p></div>
+      <div class="gpc-arrow">→</div>
+    </div>
+    <div class="garment-pick-card" onclick="selectGarment('hoodie')">
+      <div class="gpc-img-wrap"><img src="image/hoodie-white-front.png" alt="Hoodie" onerror="this.src='image/hoodie-empty-front.png'"/></div>
+      <div class="gpc-info"><h3>Hoodie</h3><p>Pullover, fleece lined, kangaroo pocket</p></div>
+      <div class="gpc-arrow">→</div>
+    </div>
+    <div class="garment-pick-card" onclick="selectGarment('tshirt')">
+      <div class="gpc-img-wrap"><img src="image/tshirt-white-front.png" alt="T-Shirt" onerror="this.src='image/tshirt-empty-front.png'"/></div>
+      <div class="gpc-info"><h3>Regular Fit T-Shirt</h3><p>Classic cut, round neck, 100% cotton</p></div>
+      <div class="gpc-arrow">→</div>
+    </div>
+    <div class="garment-pick-card" onclick="selectGarment('polo')">
+      <div class="gpc-img-wrap"><img src="image/polo-white-front.png" alt="Polo" onerror="this.src='image/polo-empty-front.png'"/></div>
+      <div class="gpc-info"><h3>Polo T-Shirt</h3><p>Collar neck, premium cotton, clean fit</p></div>
+      <div class="gpc-arrow">→</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 2: COLOR + VIEW PREVIEW ===== -->
+<div class="studio-screen" id="screen-2">
+  <div class="preview-layout">
+
+    <!-- LEFT: color + view + size only -->
+    <div class="preview-controls">
+      <button class="back-btn" onclick="goToStep(1)">← Back</button>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">View</div>
+        <div class="view-btn-group">
+          <button class="vbtn active" data-view="front" onclick="switchPreviewView('front',this)">Front</button>
+          <button class="vbtn" data-view="back" onclick="switchPreviewView('back',this)">Back</button>
+          <button class="vbtn" data-view="side" onclick="switchPreviewView('side',this)">Side</button>
+        </div>
+      </div>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Color — <span id="colorLabel">White</span></div>
+        <div class="color-swatch-grid" id="colorSwatchGrid">
+          <!-- Populated by JS based on garment -->
+        </div>
+      </div>
+
+      <div class="ctrl-section">
+        <div class="ctrl-label">Size</div>
+        <div class="size-btn-row">
+          <button class="sbtn" onclick="selectSize(this)">XS</button>
+          <button class="sbtn" onclick="selectSize(this)">S</button>
+          <button class="sbtn active" onclick="selectSize(this)">M</button>
+          <button class="sbtn" onclick="selectSize(this)">L</button>
+          <button class="sbtn" onclick="selectSize(this)">XL</button>
+          <button class="sbtn" onclick="selectSize(this)">XXL</button>
+        </div>
+      </div>
+
+      <button class="next-step-btn" onclick="goToStep(3)">Add my design →</button>
+    </div>
+
+    <!-- CENTER: garment photo (empty, colored) -->
+    <div class="preview-photo-wrap">
+      <div class="preview-photo-card">
+        <img id="previewPhoto" class="preview-photo-img" src="" alt="Garment"/>
+        <div class="preview-loading" id="previewLoading" style="display:none;"><div class="mini-spinner"></div></div>
+      </div>
+      <div class="preview-photo-label" id="previewPhotoLabel">Loading...</div>
+    </div>
+
+    <!-- RIGHT: garment info -->
+    <div class="preview-info-panel">
+      <div class="pip-garment-name" id="pipGarmentName">Oversize T-Shirt</div>
+      <div class="pip-details">
+        <div class="pip-row"><span>Fabric</span><strong id="pipFabric">100% Cotton</strong></div>
+        <div class="pip-row"><span>GSM</span><strong id="pipGSM">280 GSM</strong></div>
+        <div class="pip-row"><span>Fit</span><strong id="pipFit">Boxy / Drop shoulder</strong></div>
+        <div class="pip-row"><span>Print</span><strong>DTG / Screen print</strong></div>
+        <div class="pip-row"><span>Ships in</span><strong>5–7 days</strong></div>
+      </div>
+      <div class="pip-note">
+        💡 Select your color above, then click <strong>"Add my design"</strong> to upload your artwork.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 3: DESIGN STUDIO ===== -->
+<div class="studio-screen" id="screen-3">
+  <div class="studio-layout-3">
+
+    <!-- LEFT: tools -->
+    <div class="left-panel">
+      <button class="back-btn" onclick="goToStep(2)">← Change color</button>
+
+      <!-- PNG NOTE — prominent -->
+      <div class="png-note">
+        <div class="png-note-icon">⚠️</div>
+        <div>
+          <strong>Upload PNG without background</strong> for best preview result. JPG with white background will look like a square block on your garment.
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-label">Design tools</div>
+        <div class="tool-grid">
+          <button class="tool-btn" onclick="scaleDesign(1.12)">🔍 Bigger</button>
+          <button class="tool-btn" onclick="scaleDesign(0.88)">🔍 Smaller</button>
+          <button class="tool-btn" onclick="rotateDesign(15)">↻ +15°</button>
+          <button class="tool-btn" onclick="rotateDesign(-15)">↺ −15°</button>
+          <button class="tool-btn" onclick="flipDesign()">↔ Flip</button>
+          <button class="tool-btn danger" onclick="deleteDesign()">🗑 Delete</button>
+        </div>
+        <p class="placement-hint">💡 Drag anywhere on the garment</p>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-label">Add text</div>
+        <input type="text" id="textInput" class="text-field" placeholder="Your text..." maxlength="30"/>
+        <div class="font-row">
+          <select id="fontSelect" class="font-select">
+            <option value="Inter">Inter</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Impact">Impact</option>
+            <option value="Courier New">Courier</option>
+            <option value="Arial">Arial</option>
+          </select>
+          <input type="color" id="textColor" value="#000000" class="color-picker"/>
+        </div>
+        <div class="font-size-row">
+          <label>Size</label>
+          <input type="range" id="fontSize" min="12" max="80" value="36" class="size-slider"
+                 oninput="document.getElementById('fontSizeVal').textContent=this.value"/>
+          <span id="fontSizeVal">36</span>px
+        </div>
+        <button class="add-text-btn" onclick="addText()">+ Add text</button>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-label">Quantity</div>
+        <div class="qty-row">
+          <div class="qty-controls">
+            <button onclick="changeQty(-1)">−</button>
+            <span id="qtyDisplay">1</span>
+            <button onclick="changeQty(1)">+</button>
+          </div>
+          <span class="qty-note">Min. 1 piece</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER: canvas -->
+    <div class="center-panel">
+      <div class="canvas-top-bar">
+        <span id="studioLabel">Oversize T-Shirt · White</span>
+        <div class="mini-view-toggle">
+          <button class="mvbtn active" id="mvbtn-front" onclick="switchStudioView('front',this)">
+            Front <span class="vdot" id="vdot-front"></span>
+          </button>
+          <button class="mvbtn" id="mvbtn-back" onclick="switchStudioView('back',this)">
+            Back <span class="vdot" id="vdot-back"></span>
+          </button>
+          <button class="mvbtn" id="mvbtn-side" onclick="switchStudioView('side',this)">
+            Side <span class="vdot" id="vdot-side"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="canvas-wrap" id="canvasWrap">
+        <img id="canvasGarmentImg" class="canvas-garment-img" src="" alt="Garment"/>
+        <canvas id="designCanvas"></canvas>
+        <div class="print-zone-guide" id="printZoneGuide"><span>Upload design →</span></div>
+      </div>
+
+      <button class="clear-btn" onclick="clearCurrentView()">✕ Clear this view</button>
+    </div>
+
+    <!-- RIGHT: upload + WhatsApp CTA -->
+    <div class="right-panel">
+
+      <div class="panel-section">
+        <div class="panel-label">Upload design per view</div>
+        <div class="view-tabs">
+          <button class="vtab active" id="vtab-front" onclick="activateViewTab('front',this)">
+            Front <span class="vdot-sm" id="vtdot-front"></span>
+          </button>
+          <button class="vtab" id="vtab-back" onclick="activateViewTab('back',this)">
+            Back <span class="vdot-sm" id="vtdot-back"></span>
+          </button>
+          <button class="vtab" id="vtab-side" onclick="activateViewTab('side',this)">
+            Side <span class="vdot-sm" id="vtdot-side"></span>
+          </button>
+        </div>
+
+        <div class="view-instr" id="viewInstr">
+          Add design for <strong>Front</strong> view. Skip any view by switching without uploading.
+        </div>
+
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+          <div class="upload-icon">📁</div>
+          <p id="uploadZoneText">Click or drag to upload<br>
+            <span>⚠️ PNG without background — best result<br>JPG also accepted · Max 10MB</span>
+          </p>
+          <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="uploadDesign(event)"/>
+        </div>
+
+        <div class="view-status-list">
+          <div class="vsl-row" id="vsl-front"><span class="vsl-dot" id="vsldot-front"></span><span>Front —</span><em id="vsltxt-front">No design</em></div>
+          <div class="vsl-row" id="vsl-back"><span class="vsl-dot" id="vsldot-back"></span><span>Back —</span><em id="vsltxt-back">No design</em></div>
+          <div class="vsl-row" id="vsl-side"><span class="vsl-dot" id="vsldot-side"></span><span>Side —</span><em id="vsltxt-side">No design</em></div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="order-summary-box">
+        <div class="panel-label">Order summary</div>
+        <div class="summary-rows">
+          <div class="summary-row"><span>Garment</span><strong id="sumGarment">Oversize T-Shirt</strong></div>
+          <div class="summary-row"><span>Color</span><strong id="sumColor">White</strong></div>
+          <div class="summary-row"><span>Size</span><strong id="sumSize">M</strong></div>
+          <div class="summary-row"><span>Quantity</span><strong id="sumQty">1</strong></div>
+          
+        </div>
+
+        <!-- WHATSAPP CTA — design studio only -->
+        <div class="wa-cta-box">
+          <p class="wa-cta-title">📲 Next step — send us your design</p>
+          <p class="wa-cta-desc">
+            After previewing your placement here, send us your <strong>final high-res PNG or PDF without background</strong> on WhatsApp. We'll confirm size, placement &amp; price before printing.
+          </p>
+          <button class="wa-proceed-btn" onclick="proceedToWhatsApp()">
+            💬 Contact us on WhatsApp →
+          </button>
+          <p class="wa-note">We'll reply within 2–4 hours · No payment yet</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="design.js"></script>
+</body>
+</html>
