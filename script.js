@@ -43,7 +43,7 @@ const TRENDING_PRODUCTS = [
     badge: 'Trending',
     colors: ['#1a1a1a'],
     images: {
-      front: `${CL}/F1-3-front.jpg`,
+      front: `${CL}/F1-2-front.jpg`,
       back:  `${CL}/F1-3-back.jpg`
     }
   },
