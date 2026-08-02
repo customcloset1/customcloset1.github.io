@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
     <a href="index.html" class="logo wordmark-logo">
       <span class="wordmark-text">CustomCloset</span>
@@ -24,37 +23,23 @@
     <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
   </nav>
 
-  <!-- GEN-Z TICKER -->
   <div class="ticker-wrap">
     <div class="ticker">
-      <span>🔥 Custom drip, no cap</span>
-      <span>•</span>
-      <span>⚡ New drops weekly</span>
-      <span>•</span>
-      <span>🎨 Upload your design</span>
-      <span>•</span>
-      <span>👕 Oversize · Hoodies · Tees · Lowers</span>
-      <span>•</span>
-      <span>💳 Pay via UPI</span>
-      <span>•</span>
-      <span>🚚 Ships in 5–7 days</span>
-      <span>•</span>
-      <span>🔥 Custom drip, no cap</span>
-      <span>•</span>
-      <span>⚡ New drops weekly</span>
-      <span>•</span>
-      <span>🎨 Upload your design</span>
-      <span>•</span>
-      <span>👕 Oversize · Hoodies · Tees · Lowers</span>
-      <span>•</span>
-      <span>💳 Pay via UPI</span>
-      <span>•</span>
-      <span>🚚 Ships in 5–7 days</span>
-      <span>•</span>
+      <span>🔥 Custom drip, no cap</span><span>•</span>
+      <span>⚡ New drops weekly</span><span>•</span>
+      <span>🎨 Upload your design</span><span>•</span>
+      <span>👕 Oversize · Hoodies · Tees · Lowers</span><span>•</span>
+      <span>💳 Pay via UPI</span><span>•</span>
+      <span>🚚 Ships in 5–7 days</span><span>•</span>
+      <span>🔥 Custom drip, no cap</span><span>•</span>
+      <span>⚡ New drops weekly</span><span>•</span>
+      <span>🎨 Upload your design</span><span>•</span>
+      <span>👕 Oversize · Hoodies · Tees · Lowers</span><span>•</span>
+      <span>💳 Pay via UPI</span><span>•</span>
+      <span>🚚 Ships in 5–7 days</span><span>•</span>
     </div>
   </div>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#trending" onclick="toggleMenu()">Trending</a>
     <a href="#customize" onclick="toggleMenu()">Customize</a>
@@ -63,17 +48,13 @@
     <a href="design.html" class="mobile-cta">Start Designing</a>
   </div>
 
-  <!-- HERO — full bleed image with text overlay -->
   <section class="hero-full">
-    <!-- Background image -->
     <img
-      src="https://res.cloudinary.com/bsgynj2j/image/upload/f_auto,q_auto/garments/front-page.png"
+      src="https://res.cloudinary.com/bsgynj2j/image/upload/front-page.png"
       alt="Custom Closet — Oversize, T-Shirts, Hoodies, Polo"
       class="hero-bg-img"
     />
-    <!-- Dark gradient overlay so text stays readable -->
     <div class="hero-overlay"></div>
-    <!-- Text block — sits on the left over the image -->
     <div class="hero-text-block">
       <p class="hero-eyebrow">YOUR DESIGN. YOUR DRIP. ✦</p>
       <h1 class="hero-title">Wear what<br><em>you imagine.</em></h1>
@@ -82,12 +63,9 @@
         <a href="#trending" class="btn-primary">Shop trending</a>
         <a href="design.html" class="btn-outline-light">Design your own</a>
       </div>
-
     </div>
   </section>
 
-  <!-- ============ TRENDING SECTION ============ -->
-  <!-- ANIMATED STATS STRIP -->
   <div class="stats-strip">
     <div class="stat-item"><span class="stat-num" data-target="4">0</span><span class="stat-plus"> garments</span><div class="stat-label">To customise</div></div>
     <div class="stat-divider"></div>
@@ -102,8 +80,6 @@
       <h2>Trending items</h2>
       <p class="section-sub">Ready-made styles loved by our customers. Order as-is or customize further.</p>
     </div>
-
-    <!-- CATEGORY FILTER TABS -->
     <div class="filter-tabs">
       <button class="tab active" onclick="filterProducts('all', this)">All</button>
       <button class="tab" onclick="filterProducts('tshirt', this)">T-Shirts</button>
@@ -111,25 +87,14 @@
       <button class="tab" onclick="filterProducts('polo', this)">Polo</button>
       <button class="tab" onclick="filterProducts('oversize', this)">Oversizes</button>
     </div>
-
-    <!-- TRENDING PRODUCTS GRID -->
-    <!-- Trending items rendered by JS - 15 per page -->
-    <div class="trending-grid" id="trendingGrid">
-      <!-- JS injects cards here -->
-    </div>
-
-    <!-- Pagination -->
+    <div class="trending-grid" id="trendingGrid"></div>
     <div class="pagination" id="pagination">
       <button class="page-btn" id="prevBtn" onclick="changePage(-1)" disabled>← Previous</button>
       <div class="page-numbers" id="pageNumbers"></div>
       <button class="page-btn" id="nextBtn" onclick="changePage(1)">Next →</button>
     </div>
-
-        <!-- end trending-grid -->
   </section>
-  <!-- Pagination placeholder - see script.js for logic -->
 
-  <!-- ============ CUSTOMISE SECTION ============ -->
   <section class="customize-section" id="customize">
     <div class="customize-inner">
       <div class="customize-text">
@@ -146,7 +111,7 @@
       </div>
       <div class="customize-visual">
         <div class="studio-preview-img-wrap">
-          <img src="https://res.cloudinary.com/bsgynj2j/image/upload/f_auto,q_auto/garments/design-studio.jpeg"
+          <img src="https://res.cloudinary.com/bsgynj2j/image/upload/design-studio.png"
                alt="Design Studio Preview"
                class="studio-preview-img"/>
         </div>
@@ -154,40 +119,22 @@
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
   <section class="how-it-works" id="how-it-works">
     <div class="section-header">
       <p class="section-eyebrow">Simple process</p>
       <h2>How it works</h2>
     </div>
     <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Shop or design</h3>
-        <p>Browse trending items and buy directly, or open the design studio and create something unique.</p>
-      </div>
+      <div class="step"><div class="step-num">01</div><h3>Shop or design</h3><p>Browse trending items and buy directly, or open the design studio and create something unique.</p></div>
       <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Confirm your order</h3>
-        <p>Review your item, size, color, and design. Tick the confirmation box to lock it in.</p>
-      </div>
+      <div class="step"><div class="step-num">02</div><h3>Confirm your order</h3><p>Review your item, size, color, and design. Tick the confirmation box to lock it in.</p></div>
       <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Pay via UPI</h3>
-        <p>Scan our QR code or use your UPI ID. Pay instantly with GPay, PhonePe, or Paytm.</p>
-      </div>
+      <div class="step"><div class="step-num">03</div><h3>Pay via UPI</h3><p>Scan our QR code or use your UPI ID. Pay instantly with GPay, PhonePe, or Paytm.</p></div>
       <div class="step-arrow">→</div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h3>We deliver</h3>
-        <p>Your order ships in 5–7 days. Tracking link sent to you on WhatsApp.</p>
-      </div>
+      <div class="step"><div class="step-num">04</div><h3>We deliver</h3><p>Your order ships in 5–7 days. Tracking link sent to you on WhatsApp.</p></div>
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="contact-inner">
       <h2>Let's talk 👋</h2>
@@ -202,13 +149,10 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-logo">
-        <span class="wordmark-text wordmark-sm">CustomCloset</span>
-      </div>
-      <p>Made with care in Pune </p>
+      <div class="footer-logo"><span class="wordmark-text wordmark-sm">CustomCloset</span></div>
+      <p>Made with care in Pune</p>
       <div class="footer-links">
         <a href="#trending">Trending</a>
         <a href="#customize">Customize</a>

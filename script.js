@@ -2,32 +2,7 @@
 // CUSTOM CLOSET — Main JavaScript
 // ============================================
 
-// ============================================
-// TRENDING PRODUCTS — ADD YOUR LISTINGS HERE
-// ============================================
-// HOW TO USE:
-//   • Only products you add below appear on the site.
-//   • Add as many or as few as you like (max 15 shown per page).
-//   • To add a product, copy the template below and fill in the details.
-//   • To remove a product, delete its { ... } block.
-//   • The site automatically shows only what's here — no placeholders.
-//
-// TEMPLATE:
-//   { id: <unique number>,
-//     category: 'tshirt' | 'hoodie' | 'polo' | 'oversize',
-//     name: 'Product Name',
-//     desc: 'Short description',
-//     price: 599,
-//     original: 849,
-//     badge: 'Bestseller' | 'New' | 'Hot' | 'Trending' | '',
-//     colors: ['#hexcode', '#hexcode'],
-//     images: { front: 'CLOUDINARY_URL', back: 'CLOUDINARY_URL' }
-//   },
-//
-// ──────────────────────────────────────────────
-// ADD YOUR PRODUCTS BELOW THIS LINE:
-// ──────────────────────────────────────────────
-const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload/f_auto,q_auto/garments';
+const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
 
 const TRENDING_PRODUCTS = [
   {
@@ -40,8 +15,8 @@ const TRENDING_PRODUCTS = [
     badge: 'Trending',
     colors: ['#1a1a1a'],
     images: {
-      front: `${CL}/F1-1-front.png`,
-      back:  `${CL}/F1-1-back.png`
+      front: `${CL}/F1-1-front.jpg`,
+      back:  `${CL}/F1-1-back.jpg`
     }
   },
   {
@@ -54,8 +29,8 @@ const TRENDING_PRODUCTS = [
     badge: 'Trending',
     colors: ['#1a1a1a'],
     images: {
-      front: `${CL}/F1-2-front.png`,
-      back:  `${CL}/F1-2-back.png`
+      front: `${CL}/F1-2-front.jpg`,
+      back:  `${CL}/F1-2-back.jpg`
     }
   },
   {
@@ -68,8 +43,8 @@ const TRENDING_PRODUCTS = [
     badge: 'Trending',
     colors: ['#1a1a1a'],
     images: {
-      front: `${CL}/F1-2-front.png`,
-      back:  `${CL}/F1-3-back.png`
+      front: `${CL}/F1-3-front.jpg`,
+      back:  `${CL}/F1-3-back.jpg`
     }
   },
   {
@@ -82,19 +57,17 @@ const TRENDING_PRODUCTS = [
     badge: 'Trending',
     colors: ['#1a1a1a'],
     images: {
-      front: `${CL}/spiderman1-front.png`,
-      back:  `${CL}/spiderman1-back.png`
+      front: `${CL}/spiderman1-front.jpg`,
+      back:  `${CL}/spiderman1-back.jpg`
     }
   },
 ];
-// ──────────────────────────────────────────────
 
 const ITEMS_PER_PAGE = 15;
 let currentPage = 1;
 let currentFilter = 'all';
 let filteredProducts = [...TRENDING_PRODUCTS];
 
-// ── BUILD PRODUCT CARD HTML ──
 function buildCard(p) {
   const discount = Math.round((1 - p.price / p.original) * 100);
   const badge = p.badge
@@ -108,7 +81,6 @@ function buildCard(p) {
   const cardId = `card-${p.id}`;
   const imgs = p.images || {};
 
-  // Two slides only: Front and Back — no labels shown
   const slides = [
     { key: 'front', icon: emoji, hint: 'Front view' },
     { key: 'back',  icon: '🔄',  hint: 'Back view'  },
@@ -159,7 +131,6 @@ function buildCard(p) {
   </div>`;
 }
 
-// ── SLIDER HELPERS ──
 function getSlideCount(cardId) { return 2; }
 
 function setSlide(cardId, idx) {
@@ -179,47 +150,32 @@ function slideNav(cardId, dir) {
   setSlide(cardId, current + dir);
 }
 
-// ── RENDER PRODUCTS ──
 function renderProducts() {
   const grid = document.getElementById('trendingGrid');
   if (!grid) return;
-
-  // Empty state — no products added yet (or none in this category)
   if (filteredProducts.length === 0) {
     const isFiltered = currentFilter !== 'all';
     grid.innerHTML = `
-      <div class="trending-empty" style="
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 64px 24px;
-        color: #888;
-      ">
+      <div class="trending-empty" style="grid-column:1/-1;text-align:center;padding:64px 24px;color:#888;">
         <div style="font-size:48px;margin-bottom:16px;">${isFiltered ? '🔍' : '🛍️'}</div>
         <h3 style="font-size:20px;font-weight:600;color:#222;margin-bottom:8px;">
           ${isFiltered ? 'No items in this category yet' : 'No trending items yet'}
         </h3>
         <p style="font-size:14px;line-height:1.6;max-width:360px;margin:0 auto;">
-          ${isFiltered
-            ? 'Switch to <strong>All</strong> or check back soon — new items are on the way.'
-            : 'Products will appear here as you add them. Add your first listing to get started!'}
+          ${isFiltered ? 'Switch to <strong>All</strong> or check back soon.' : 'Products will appear here as you add them.'}
         </p>
       </div>`;
     renderPagination();
     return;
   }
-
   const start = (currentPage - 1) * ITEMS_PER_PAGE;
   const pageItems = filteredProducts.slice(start, start + ITEMS_PER_PAGE);
   grid.innerHTML = pageItems.map(buildCard).join('');
   renderPagination();
-  // Re-run scroll animations on new cards
   setTimeout(setupScrollAnimations, 60);
-  if (currentPage > 1) {
-    document.getElementById('trending')?.scrollIntoView({ behavior: 'smooth' });
-  }
+  if (currentPage > 1) document.getElementById('trending')?.scrollIntoView({ behavior: 'smooth' });
 }
 
-// ── PAGINATION ──
 function renderPagination() {
   const total = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const pageNums = document.getElementById('pageNumbers');
@@ -227,7 +183,6 @@ function renderPagination() {
   const nextBtn  = document.getElementById('nextBtn');
   const pag      = document.getElementById('pagination');
   if (!pageNums) return;
-
   pageNums.innerHTML = '';
   for (let i = 1; i <= total; i++) {
     const b = document.createElement('button');
@@ -247,7 +202,6 @@ function changePage(delta) {
   renderProducts();
 }
 
-// ── FILTER TABS ──
 function filterProducts(category, clickedTab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   clickedTab.classList.add('active');
@@ -259,19 +213,16 @@ function filterProducts(category, clickedTab) {
   renderProducts();
 }
 
-// ── WISHLIST ──
 function toggleWishlist(heart) {
   heart.textContent = heart.textContent === '♡' ? '♥' : '♡';
   heart.style.color = heart.textContent === '♥' ? 'red' : '';
 }
 
-// ── MOBILE MENU ──
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   if (menu) menu.classList.toggle('open');
 }
 
-// ── SMOOTH SCROLL ──
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -283,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
   animateCounters();
 });
 
-// ── SCROLL ANIMATIONS ──
 function setupScrollAnimations() {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -313,7 +263,6 @@ function setupScrollAnimations() {
   });
 }
 
-// ── COUNTER ANIMATION ──
 function animateCounters() {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -334,7 +283,6 @@ function animateCounters() {
   document.querySelectorAll('.stat-num').forEach(c => obs.observe(c));
 }
 
-// ── HERO GARMENT PICKER ──
 const HERO_GARMENTS = {
   oversize: { name: 'Oversize Tee',  gsm: '240 GSM' },
   hoodie:   { name: 'Hoodie',        gsm: '370 GSM' },
@@ -345,10 +293,7 @@ const HERO_GARMENTS = {
 function switchHeroGarment(type, btn) {
   document.querySelectorAll('.hg-item').forEach(el => el.classList.remove('active'));
   const target = document.querySelector(`.hg-item[data-garment="${type}"]`);
-  if (target) {
-    target.classList.add('active');
-    setHeroColorOnElement(target, '#f0f0f0', '#d0d0d0');
-  }
+  if (target) { target.classList.add('active'); setHeroColorOnElement(target, '#f0f0f0', '#d0d0d0'); }
   document.querySelectorAll('.hptab').forEach(t => t.classList.remove('active'));
   if (btn) btn.classList.add('active');
   const g = HERO_GARMENTS[type];

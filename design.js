@@ -1,96 +1,90 @@
 // ============================================
 // CUSTOM CLOSET — Design Studio JS
-// No "with person" — color photos only
-// Polo replaces Pants
-// WhatsApp CTA instead of payment
 // ============================================
 
-// ── GARMENT CONFIG ──
 const GARMENTS = {
   oversize: {
     name: 'Oversize T-Shirt', price: 699,
     fabric: '100% Cotton', gsm: '240 GSM', fit: 'Boxy / Drop shoulder',
     colors: [
-      { key:'black',     label:'Black',          hex:'#1a1a1a' },
-      { key:'maroon',    label:'Maroon',          hex:'#7f1d1d' },
-      { key:'lavender',  label:'Light Lavender',  hex:'#c4b5fd' },
-      { key:'cream',     label:'Cream (Off-White)',hex:'#fef9f0' },
-      { key:'beige',     label:'Beige (Sand)',     hex:'#d4c5a9' },
-      { key:'white',     label:'White',            hex:'#ffffff' },
-      { key:'olive',     label:'Olive Green',      hex:'#4b5320' },
-      { key:'brown',     label:'Dark Brown',       hex:'#5c3317' },
-      { key:'sky-blue',  label:'Sky Blue',         hex:'#87ceeb' },
-      { key:'navy',      label:'Navy Blue',        hex:'#1e3a5f' },
-      { key:'red',       label:'Red',              hex:'#dc2626' },
-      { key:'charcoal',  label:'Charcoal Grey',    hex:'#374151' }
+      { key:'black',     label:'Black',           hex:'#1a1a1a' },
+      { key:'maroon',    label:'Maroon',           hex:'#7f1d1d' },
+      { key:'lavender',  label:'Light Lavender',   hex:'#c4b5fd' },
+      { key:'cream',     label:'Cream (Off-White)', hex:'#fef9f0' },
+      { key:'beige',     label:'Beige (Sand)',      hex:'#d4c5a9' },
+      { key:'white',     label:'White',             hex:'#ffffff' },
+      { key:'olive',     label:'Olive Green',       hex:'#4b5320' },
+      { key:'brown',     label:'Dark Brown',        hex:'#5c3317' },
+      { key:'sky-blue',  label:'Sky Blue',          hex:'#87ceeb' },
+      { key:'navy',      label:'Navy Blue',         hex:'#1e3a5f' },
+      { key:'red',       label:'Red',               hex:'#dc2626' },
+      { key:'charcoal',  label:'Charcoal Grey',     hex:'#374151' }
     ]
   },
   hoodie: {
     name: 'Hoodie', price: 999,
     fabric: '100% Cotton', gsm: '280 GSM', fit: 'Relaxed / Pullover',
     colors: [
-      { key:'yellow',      label:'Yellow',          hex:'#fbbf24' },
-      { key:'orange',      label:'Orange',           hex:'#f97316' },
-      { key:'neon-green',  label:'Neon Green',       hex:'#84cc16' },
-      { key:'lavender',    label:'Lavender',         hex:'#c4b5fd' },
-      { key:'pink',        label:'Baby Pink',        hex:'#fbb6ce' },
-      { key:'sky-blue',    label:'Sky Blue',         hex:'#87ceeb' },
-      { key:'royal-blue',  label:'Royal Blue',       hex:'#1d4ed8' },
-      { key:'light-grey',  label:'Light Grey',       hex:'#d1d5db' },
-      { key:'white',       label:'White',            hex:'#ffffff' },
-      { key:'black',       label:'Black',            hex:'#1a1a1a' },
-      { key:'navy',        label:'Navy Blue',        hex:'#1e3a5f' },
-      { key:'dark-green',  label:'Dark Green',       hex:'#14532d' },
-      { key:'maroon',      label:'Maroon',           hex:'#7f1d1d' },
-      { key:'red',         label:'Red',              hex:'#dc2626' }
+      { key:'yellow',      label:'Yellow',        hex:'#fbbf24' },
+      { key:'orange',      label:'Orange',        hex:'#f97316' },
+      { key:'neon-green',  label:'Neon Green',    hex:'#84cc16' },
+      { key:'lavender',    label:'Lavender',      hex:'#c4b5fd' },
+      { key:'pink',        label:'Baby Pink',     hex:'#fbb6ce' },
+      { key:'sky-blue',    label:'Sky Blue',      hex:'#87ceeb' },
+      { key:'royal-blue',  label:'Royal Blue',    hex:'#1d4ed8' },
+      { key:'light-grey',  label:'Light Grey',    hex:'#d1d5db' },
+      { key:'white',       label:'White',         hex:'#ffffff' },
+      { key:'black',       label:'Black',         hex:'#1a1a1a' },
+      { key:'navy',        label:'Navy Blue',     hex:'#1e3a5f' },
+      { key:'dark-green',  label:'Dark Green',    hex:'#14532d' },
+      { key:'maroon',      label:'Maroon',        hex:'#7f1d1d' },
+      { key:'red',         label:'Red',           hex:'#dc2626' }
     ]
   },
   tshirt: {
     name: 'Regular Fit T-Shirt', price: 599,
     fabric: '100% Cotton', gsm: '180 GSM', fit: 'Classic / Regular',
     colors: [
-      { key:'yellow',      label:'Yellow',           hex:'#fbbf24' },
-      { key:'purple',      label:'Purple / Lavender', hex:'#a855f7' },
-      { key:'grey',        label:'Grey',             hex:'#9ca3af' },
-      { key:'sky-blue',    label:'Sky Blue',         hex:'#87ceeb' },
-      { key:'teal',        label:'Dark Teal Green',  hex:'#0f766e' },
-      { key:'pink',        label:'Pink',             hex:'#f472b6' },
-      { key:'maroon',      label:'Maroon',           hex:'#7f1d1d' },
-      { key:'neon-green',  label:'Neon Lime Green',  hex:'#84cc16' },
-      { key:'red',         label:'Red',              hex:'#dc2626' },
-      { key:'black',       label:'Black',            hex:'#1a1a1a' },
-      { key:'cream',       label:'Beige / Cream',    hex:'#fef9f0' },
-      { key:'white',       label:'White',            hex:'#ffffff' },
-      { key:'orange',      label:'Orange',           hex:'#f97316' },
-      { key:'navy',        label:'Navy Blue',        hex:'#1e3a5f' }
+      { key:'yellow',      label:'Yellow',            hex:'#fbbf24' },
+      { key:'lavender',    label:'Purple / Lavender',  hex:'#a855f7' },
+      { key:'grey',        label:'Grey',               hex:'#9ca3af' },
+      { key:'sky-blue',    label:'Sky Blue',           hex:'#87ceeb' },
+      { key:'teal',        label:'Dark Teal Green',    hex:'#0f766e' },
+      { key:'pink',        label:'Pink',               hex:'#f472b6' },
+      { key:'maroon',      label:'Maroon',             hex:'#7f1d1d' },
+      { key:'neon-green',  label:'Neon Lime Green',    hex:'#84cc16' },
+      { key:'red',         label:'Red',                hex:'#dc2626' },
+      { key:'black',       label:'Black',              hex:'#1a1a1a' },
+      { key:'cream',       label:'Beige / Cream',      hex:'#fef9f0' },
+      { key:'white',       label:'White',              hex:'#ffffff' },
+      { key:'orange',      label:'Orange',             hex:'#f97316' },
+      { key:'navy',        label:'Navy Blue',          hex:'#1e3a5f' }
     ]
   },
   polo: {
     name: 'Polo T-Shirt', price: 649,
     fabric: '100% Cotton', gsm: '220 GSM', fit: 'Regular / Collar neck',
     colors: [
-      { key:'red',         label:'Red',              hex:'#dc2626' },
-      { key:'maroon',      label:'Maroon',           hex:'#7f1d1d' },
-      { key:'neon-green',  label:'Neon Green',       hex:'#84cc16' },
-      { key:'white',       label:'White',            hex:'#ffffff' },
-      { key:'light-grey',  label:'Light Grey',       hex:'#d1d5db' },
-      { key:'orange',      label:'Orange',           hex:'#f97316' },
-      { key:'black',       label:'Black',            hex:'#1a1a1a' },
-      { key:'pink',        label:'Light Pink',       hex:'#fbb6ce' },
-      { key:'royal-blue',  label:'Royal Blue',       hex:'#1d4ed8' },
-      { key:'cream',       label:'Cream / Beige',    hex:'#fef9f0' },
-      { key:'yellow',      label:'Yellow',           hex:'#fbbf24' },
-      { key:'dark-green',  label:'Dark Green',       hex:'#14532d' },
-      { key:'navy',        label:'Navy Blue',        hex:'#1e3a5f' },
-      { key:'sky-blue',    label:'Sky Blue',         hex:'#87ceeb' }
+      { key:'red',         label:'Red',           hex:'#dc2626' },
+      { key:'maroon',      label:'Maroon',        hex:'#7f1d1d' },
+      { key:'neon-green',  label:'Neon Green',    hex:'#84cc16' },
+      { key:'white',       label:'White',         hex:'#ffffff' },
+      { key:'light-grey',  label:'Light Grey',    hex:'#d1d5db' },
+      { key:'orange',      label:'Orange',        hex:'#f97316' },
+      { key:'black',       label:'Black',         hex:'#1a1a1a' },
+      { key:'pink',        label:'Light Pink',    hex:'#fbb6ce' },
+      { key:'royal-blue',  label:'Royal Blue',    hex:'#1d4ed8' },
+      { key:'cream',       label:'Cream / Beige', hex:'#fef9f0' },
+      { key:'yellow',      label:'Yellow',        hex:'#fbbf24' },
+      { key:'dark-green',  label:'Dark Green',    hex:'#14532d' },
+      { key:'navy',        label:'Navy Blue',     hex:'#1e3a5f' },
+      { key:'sky-blue',    label:'Sky Blue',      hex:'#87ceeb' }
     ]
   }
 };
 
-// ── WHATSAPP ──
 const WA_NUMBER = '918766948989';
 
-// ── STATE ──
 let state = {
   garment: 'oversize',
   colorKey: 'white',
@@ -101,7 +95,6 @@ let state = {
   activeView: 'front'
 };
 
-// ── PER-VIEW CANVAS DATA ──
 const views = {
   front: { canvas:null, ready:false, hasDesign:false, fileName:'' },
   back:  { canvas:null, ready:false, hasDesign:false, fileName:'' },
@@ -109,11 +102,11 @@ const views = {
 };
 let visibleView = 'front';
 
-// ── PHOTO PATH — Cloudinary ──
-const CLOUDINARY_BASE = 'https://res.cloudinary.com/bsgynj2j/image/upload/f_auto,q_auto/garments';
+// ── PHOTO PATH — Cloudinary (no folder, no version) ──
+const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
 
 function getPhotoPath(garment, colorKey, view) {
-  return `${CLOUDINARY_BASE}/${garment}-${colorKey}-${view}.png`;
+  return `${CL}/${garment}-${colorKey}-${view}.png`;
 }
 
 // ============================================
@@ -129,15 +122,9 @@ function goToStep(step) {
     else if (i === step) el.classList.add('active');
   }
   document.getElementById('screen-'+step)?.classList.add('active');
-
-  if (step === 2) {
-    buildColorSwatches();
-    loadPreviewPhoto();
-    updateInfoPanel();
-  }
+  if (step === 2) { buildColorSwatches(); loadPreviewPhoto(); updateInfoPanel(); }
   if (step === 3) {
     ['front','back','side'].forEach(v => initViewCanvas(v));
-    // Make front canvas wrapper visible
     ['front','back','side'].forEach(v => {
       const fc = views[v].canvas;
       if (fc?.wrapperEl) fc.wrapperEl.style.display = v==='front' ? 'block' : 'none';
@@ -157,10 +144,8 @@ function goToStep(step) {
 // ============================================
 function selectGarment(type) {
   state.garment = type;
-  // Pick first color as default
   state.colorKey   = GARMENTS[type].colors[0].key;
   state.colorLabel = GARMENTS[type].colors[0].label;
-  // Reset view data
   ['front','back','side'].forEach(v => {
     views[v].hasDesign = false; views[v].fileName = '';
     if (views[v].canvas) { views[v].canvas.clear(); views[v].canvas.renderAll(); }
@@ -170,7 +155,7 @@ function selectGarment(type) {
 }
 
 // ============================================
-// SCREEN 2 — PREVIEW
+// SCREEN 2
 // ============================================
 function buildColorSwatches() {
   const grid = document.getElementById('colorSwatchGrid');
@@ -198,10 +183,7 @@ function selectColor(key, label, btn) {
   loadPreviewPhoto();
   updateSummary();
   updateStudioLabel();
-  // Also update canvas garment photo if on screen 3
-  if (document.getElementById('screen-3').classList.contains('active')) {
-    showCanvasView(visibleView);
-  }
+  if (document.getElementById('screen-3').classList.contains('active')) showCanvasView(visibleView);
 }
 
 function switchPreviewView(view, btn) {
@@ -220,13 +202,10 @@ function loadPreviewPhoto() {
   img.style.opacity = '0';
   const t = new Image();
   t.onload = () => {
-    img.src = path;
-    img.style.transition = 'opacity 0.3s';
-    img.style.opacity = '1';
+    img.src = path; img.style.transition = 'opacity 0.3s'; img.style.opacity = '1';
     if (loading) loading.style.display = 'none';
   };
   t.onerror = () => {
-    // fallback to white
     img.src = getPhotoPath(state.garment, 'white', state.previewView);
     img.style.opacity = '1';
     if (loading) loading.style.display = 'none';
@@ -239,10 +218,7 @@ function loadPreviewPhoto() {
 function updateInfoPanel() {
   const g = GARMENTS[state.garment];
   const s = (id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
-  s('pipGarmentName', g.name);
-  s('pipFabric',      g.fabric);
-  s('pipGSM',         g.gsm);
-  s('pipFit',         g.fit);
+  s('pipGarmentName', g.name); s('pipFabric', g.fabric); s('pipGSM', g.gsm); s('pipFit', g.fit);
 }
 
 function selectSize(btn) {
@@ -261,16 +237,11 @@ function initViewCanvas(view) {
   const el = document.createElement('canvas');
   el.id = 'canvas-'+view;
   wrap.appendChild(el);
-
   const fc = new fabric.Canvas('canvas-'+view, { selection:true, preserveObjectStacking:true });
   views[view].canvas = fc;
-
   if (fc.wrapperEl) {
-    Object.assign(fc.wrapperEl.style, {
-      position:'absolute', top:'0', left:'0', zIndex:'10', display:'none'
-    });
+    Object.assign(fc.wrapperEl.style, { position:'absolute', top:'0', left:'0', zIndex:'10', display:'none' });
   }
-
   fc.on('object:added', () => {
     views[view].hasDesign = true;
     if (visibleView===view) document.getElementById('printZoneGuide')?.classList.add('hidden');
@@ -290,15 +261,12 @@ function showCanvasView(view) {
   const img  = document.getElementById('canvasGarmentImg');
   const wrap = document.getElementById('canvasWrap');
   if (!img || !wrap) return;
-
   const path = getPhotoPath(state.garment, state.colorKey, view);
   views[view].ready = false;
   img.style.opacity = '0';
   img.onload = null; img.onerror = null;
-
   img.onload = () => {
-    img.style.transition = 'opacity 0.3s';
-    img.style.opacity = '1';
+    img.style.transition = 'opacity 0.3s'; img.style.opacity = '1';
     function sizeCanvas(tries) {
       const w = img.clientWidth || img.offsetWidth || 480;
       const h = img.clientHeight || img.offsetHeight || Math.round(w*1.2);
@@ -311,54 +279,38 @@ function showCanvasView(view) {
         });
         wrap.style.height = h+'px';
         views[view].ready = true;
-
-        // Show/hide each view's fabric wrapper
         ['front','back','side'].forEach(v => {
           const fc = views[v].canvas;
           if (fc?.wrapperEl) fc.wrapperEl.style.display = v===view ? 'block' : 'none';
         });
-
         const guide = document.getElementById('printZoneGuide');
-        if (guide) {
-          if (views[view].hasDesign) guide.classList.add('hidden');
-          else guide.classList.remove('hidden');
-        }
+        if (guide) { if (views[view].hasDesign) guide.classList.add('hidden'); else guide.classList.remove('hidden'); }
         views[view].canvas?.renderAll();
-      } else if (tries>0) {
-        requestAnimationFrame(()=>sizeCanvas(tries-1));
-      }
+      } else if (tries>0) { requestAnimationFrame(()=>sizeCanvas(tries-1)); }
     }
     requestAnimationFrame(()=>sizeCanvas(15));
   };
-  img.onerror = () => {
-    img.src = getPhotoPath(state.garment, 'white', view);
-    img.style.opacity = '1';
-  };
+  img.onerror = () => { img.src = getPhotoPath(state.garment, 'white', view); img.style.opacity = '1'; };
   img.src = path;
   updateStudioLabel();
 }
 
-// Studio view toggle buttons
 function switchStudioView(view, btn) {
   document.querySelectorAll('.mvbtn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  // Sync right panel tab
   activateViewTab(view, document.getElementById('vtab-'+view));
 }
 
-// Right panel view tabs
 function activateViewTab(view, btn) {
   state.activeView = view;
   document.querySelectorAll('.vtab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  // Sync top toggle
   document.querySelectorAll('.mvbtn').forEach(b => b.classList.remove('active'));
   document.getElementById('mvbtn-'+view)?.classList.add('active');
   showCanvasView(view);
   updateRightPanel();
 }
 
-// ── UPLOAD ──
 function uploadDesign(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -370,9 +322,8 @@ function uploadDesign(event) {
     showCanvasView(view);
     function tryPlace(n) {
       const fc = views[view].canvas;
-      if (fc && views[view].ready && fc.width>10) {
-        placeDesignOnCanvas(fc, dataUrl, view, file.name);
-      } else if (n>0) setTimeout(()=>tryPlace(n-1), 120);
+      if (fc && views[view].ready && fc.width>10) placeDesignOnCanvas(fc, dataUrl, view, file.name);
+      else if (n>0) setTimeout(()=>tryPlace(n-1), 120);
       else placeDesignOnCanvas(views[view].canvas, dataUrl, view, file.name);
     }
     tryPlace(20);
@@ -395,8 +346,7 @@ function placeDesignOnCanvas(fc, dataUrl, view, fileName) {
       transparentCorners:false, borderColor:'#b45309', cornerStyle:'circle'
     });
     fc.clear(); fc.add(img); fc.setActiveObject(img); fc.renderAll();
-    views[view].hasDesign = true;
-    views[view].fileName  = fileName;
+    views[view].hasDesign = true; views[view].fileName = fileName;
     const uz = document.getElementById('uploadZone');
     const uzText = document.getElementById('uploadZoneText');
     if (uz) uz.classList.add('uploaded');
@@ -406,7 +356,6 @@ function placeDesignOnCanvas(fc, dataUrl, view, fileName) {
   });
 }
 
-// Drag and drop
 window.addEventListener('DOMContentLoaded', () => {
   const uz = document.getElementById('uploadZone');
   if (!uz) return;
@@ -423,7 +372,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ── TOOLS ──
 function getActiveCanvas() { return views[visibleView]?.canvas; }
 function scaleDesign(f)  { const fc=getActiveCanvas(); if(!fc)return; const o=fc.getActiveObject(); if(o){o.set({scaleX:o.scaleX*f,scaleY:o.scaleY*f});fc.renderAll();} }
 function rotateDesign(d) { const fc=getActiveCanvas(); if(!fc)return; const o=fc.getActiveObject(); if(o){o.set('angle',(o.angle||0)+d);fc.renderAll();} }
@@ -437,7 +385,6 @@ function clearCurrentView() {
   document.getElementById('printZoneGuide')?.classList.remove('hidden');
 }
 
-// ── TEXT ──
 function addText() {
   const fc=getActiveCanvas(); if(!fc)return;
   const text=document.getElementById('textInput').value.trim();
@@ -458,7 +405,6 @@ document.addEventListener('keydown',e=>{
   if((e.key==='Delete'||e.key==='Backspace')&&!e.target.matches('input,textarea,select')) deleteDesign();
 });
 
-// ── VIEW DOTS + STATUS ──
 function syncViewDots() {
   ['front','back','side'].forEach(v=>{
     const has=views[v].hasDesign;
@@ -468,9 +414,9 @@ function syncViewDots() {
 }
 function updateStatusList() {
   ['front','back','side'].forEach(v=>{
-    const row=document.getElementById('vsl-'+v);
     const dot=document.getElementById('vsldot-'+v);
     const txt=document.getElementById('vsltxt-'+v);
+    const row=document.getElementById('vsl-'+v);
     const has=views[v].hasDesign;
     if(row) row.classList.toggle('has-design',has);
     if(dot) dot.style.background=has?'#16a34a':'#d1d5db';
@@ -496,7 +442,6 @@ function updateRightPanel() {
   }
 }
 
-// ── MISC ──
 function updateStudioLabel() {
   const lbl=document.getElementById('studioLabel');
   if(lbl) lbl.textContent=`${GARMENTS[state.garment].name} · ${state.colorLabel}`;
@@ -508,34 +453,24 @@ function changeQty(d){
 function updateSummary(){
   const g=GARMENTS[state.garment];
   const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
-  s('sumGarment',g.name); s('sumColor',state.colorLabel);
-  s('sumSize',state.size); s('sumQty',state.qty);
-  // Price not shown in design studio — only on trending/shop page
+  s('sumGarment',g.name); s('sumColor',state.colorLabel); s('sumSize',state.size); s('sumQty',state.qty);
 }
 
-// ── WHATSAPP PROCEED (design studio only) ──
 function proceedToWhatsApp() {
   const g = GARMENTS[state.garment];
   const viewsSummary = ['front','back','side']
     .filter(v => views[v].hasDesign)
     .map(v => v.charAt(0).toUpperCase()+v.slice(1))
     .join(', ') || 'None uploaded yet';
-
   const msg = encodeURIComponent(
     `Hi Custom Closet! 👋\n\n` +
     `I've designed a custom garment on your website:\n` +
-    `• Garment: ${g.name}\n` +
-    `• Color: ${state.colorLabel}\n` +
-    `• Size: ${state.size}\n` +
-    `• Quantity: ${state.qty}\n` +
-    `• Views designed: ${viewsSummary}\n` +
-    `\n` +
+    `• Garment: ${g.name}\n• Color: ${state.colorLabel}\n• Size: ${state.size}\n• Quantity: ${state.qty}\n• Views designed: ${viewsSummary}\n\n` +
     `I'll send my final high-res PNG/PDF design without background. Please confirm placement, size details and final price. 🙏`
   );
   window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
 }
 
-// ── INIT ──
 window.addEventListener('load',()=>{
   updateSummary(); goToStep(1);
   const type=new URLSearchParams(window.location.search).get('type');
