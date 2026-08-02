@@ -4,105 +4,178 @@
 
 const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
 
+// ══════════════════════════════════
+// SIZE CHARTS PER GARMENT
+// ══════════════════════════════════
+const SIZE_CHARTS = {
+  oversize: {
+    label: 'Oversize T-Shirt',
+    cols: ['Size','Chest (in)','Length (in)'],
+    rows: [['S','40–42','24'],['M','42–44','25'],['L','44–46','26'],['XL','46–48','27'],['XXL','48–50','28']]
+  },
+  hoodie: {
+    label: 'Hoodie',
+    cols: ['Size','Chest (in)','Length (in)'],
+    rows: [['S','38','25'],['M','40','26'],['L','42','27'],['XL','44','28'],['XXL','46','29']]
+  },
+  polo: {
+    label: 'Polo T-Shirt',
+    cols: ['Size','Chest (in)','Length (in)'],
+    rows: [['S','36','25'],['M','38','26'],['L','40','27'],['XL','42','28'],['XXL','44','29']]
+  },
+  tshirt: {
+    label: 'Regular T-Shirt',
+    cols: ['Size','Chest (in)','Length (in)'],
+    rows: [['S','38','25'],['M','40','26'],['L','42','27'],['XL','44','28'],['XXL','46','29']]
+  }
+};
+
+// ══════════════════════════════════
+// PRODUCTS
+// ══════════════════════════════════
 const TRENDING_PRODUCTS = [
   {
-    id: 1,
-    category: 'oversize',
-    name: 'Legend in Red',
-    desc: '240 GSM, Drop Shoulder, French Terry Cotton',
-    price: 499,
-    original: 999,
-    badge: 'Trending',
-    colors: ['#1a1a1a'],
-    images: {
-      front: `${CL}/F1-1-front.jpg`,
-      back:  `${CL}/F1-1-back.jpg`
-    }
+    id:1, category:'oversize', name:'Legend in Red',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    images:{ front:`${CL}/F1-1-front.jpg`, back:`${CL}/F1-1-back.jpg` }
   },
   {
-    id: 2,
-    category: 'oversize',
-    name: 'The GOAT Edition',
-    desc: '240 GSM, Drop Shoulder, French Terry Cotton',
-    price: 499,
-    original: 999,
-    badge: 'Trending',
-    colors: ['#1a1a1a'],
-    images: {
-      front: `${CL}/F1-2-front.jpg`,
-      back:  `${CL}/F1-2-back.jpg`
-    }
+    id:2, category:'oversize', name:'The GOAT Edition',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    images:{ front:`${CL}/F1-2-front.jpg`, back:`${CL}/F1-2-back.jpg` }
   },
   {
-    id: 3,
-    category: 'oversize',
-    name: 'The Red Legacy',
-    desc: '240 GSM, Drop Shoulder, French Terry Cotton',
-    price: 499,
-    original: 999,
-    badge: 'Trending',
-    colors: ['#1a1a1a'],
-    images: {
-      front: `${CL}/F1-2-front.jpg`,
-      back:  `${CL}/F1-3-back.jpg`
-    }
+    id:3, category:'oversize', name:'The Red Legacy',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    images:{ front:`${CL}/F1-2-front.jpg`, back:`${CL}/F1-3-back.jpg` }
   },
   {
-    id: 4,
-    category: 'oversize',
-    name: 'Spider-Verse Legacy Tee – Black Edition',
-    desc: '240 GSM, Drop Shoulder, French Terry Cotton',
-    price: 499,
-    original: 999,
-    badge: 'Trending',
-    colors: ['#1a1a1a'],
-    images: {
-      front: `${CL}/spiderman1-front.jpg`,
-      back:  `${CL}/spiderman1-back.jpg`
-    }
+    id:4, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    images:{ front:`${CL}/spiderman1-front.jpg`, back:`${CL}/spiderman1-back.jpg` }
   },
 ];
 
-const ITEMS_PER_PAGE = 15;
-let currentPage = 1;
-let currentFilter = 'all';
-let filteredProducts = [...TRENDING_PRODUCTS];
+// ══════════════════════════════════
+// CART
+// ══════════════════════════════════
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('cc_cart') || '[]'); } catch { return []; }
+}
+function saveCart(cart) {
+  localStorage.setItem('cc_cart', JSON.stringify(cart));
+  updateCartBadge();
+}
+function updateCartBadge() {
+  const cart = getCart();
+  const total = cart.reduce((s,i) => s + i.qty, 0);
+  document.querySelectorAll('.cart-badge').forEach(b => {
+    b.textContent = total;
+    b.classList.toggle('show', total > 0);
+  });
+}
+function addToCart(product, size) {
+  const cart = getCart();
+  const key = `${product.id}-${size}`;
+  const existing = cart.find(i => i.key === key);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({
+      key, id: product.id, name: product.name,
+      category: product.category, size,
+      price: product.price, original: product.original,
+      img: product.images.front, color: 'Black', qty: 1
+    });
+  }
+  saveCart(cart);
+  showCartToast(product.name, size);
+}
+function showCartToast(name, size) {
+  let toast = document.getElementById('cartToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'cartToast';
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:9999;transition:opacity 0.3s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.2);';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = `✅ Added to cart — ${name} (${size})`;
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+}
 
+// ══════════════════════════════════
+// SIZE CHART POPUP
+// ══════════════════════════════════
+function openSizeChart(category) {
+  const chart = SIZE_CHARTS[category] || SIZE_CHARTS.oversize;
+  const overlay = document.getElementById('sizeChartOverlay');
+  // Populate tabs
+  const tabs = document.querySelectorAll('.sc-tab');
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === category));
+  // Populate table
+  renderSizeTable(category);
+  overlay.classList.add('open');
+}
+function closeSizeChart() {
+  document.getElementById('sizeChartOverlay').classList.remove('open');
+}
+function switchSizeTab(cat, btn) {
+  document.querySelectorAll('.sc-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderSizeTable(cat);
+}
+function renderSizeTable(cat) {
+  const chart = SIZE_CHARTS[cat] || SIZE_CHARTS.oversize;
+  const thead = document.getElementById('scThead');
+  const tbody = document.getElementById('scTbody');
+  if (!thead || !tbody) return;
+  thead.innerHTML = `<tr>${chart.cols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
+  tbody.innerHTML = chart.rows.map(r=>
+    `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`
+  ).join('');
+}
+
+// ══════════════════════════════════
+// BUILD PRODUCT CARD
+// ══════════════════════════════════
 function buildCard(p) {
   const discount = Math.round((1 - p.price / p.original) * 100);
   const badge = p.badge
-    ? `<div class="trend-badge ${p.badge==='New'?'new':p.badge==='Hot'?'hot':''}">${p.badge}</div>`
-    : '';
+    ? `<div class="trend-badge ${p.badge==='New'?'new':p.badge==='Hot'?'hot':''}">${p.badge}</div>` : '';
   const colors = p.colors.map(c =>
     `<span class="color-dot" style="background:${c};${['#fff','#fef9f0'].includes(c)?'border:1.5px solid #ddd;':''}" title="${c}"></span>`
   ).join('');
-
   const emoji = p.category==='hoodie'?'🧥':p.category==='polo'?'👔':p.category==='oversize'?'🩱':'👕';
   const cardId = `card-${p.id}`;
   const imgs = p.images || {};
 
-  const slides = [
-    { key: 'front', icon: emoji, hint: 'Front view' },
-    { key: 'back',  icon: '🔄',  hint: 'Back view'  },
-  ];
-
-  const slidesHtml = slides.map((s, i) => {
+  const slidesHtml = [
+    { key:'front', icon:emoji }, { key:'back', icon:'🔄' }
+  ].map((s,i) => {
     const src = imgs[s.key];
     const inner = src
       ? `<img src="${src}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"/>`
-      : `<div class="trend-placeholder-icon">${s.icon}</div><span class="img-hint">${s.hint} · Photo coming soon</span>`;
-    return `
-    <div class="tslide ${i===0?'active':''}" data-slide="${i}">
-      <div class="trend-img ${src?'':'placeholder-img'}">${inner}</div>
-    </div>`;
+      : `<div class="trend-placeholder-icon">${s.icon}</div>`;
+    return `<div class="tslide ${i===0?'active':''}" data-slide="${i}"><div class="trend-img ${src?'':'placeholder-img'}">${inner}</div></div>`;
   }).join('');
 
-  const dotsHtml = slides.map((s, i) => `
-    <button class="tslide-dot ${i===0?'active':''}" onclick="setSlide('${cardId}',${i})"></button>`
+  const dotsHtml = [0,1].map(i =>
+    `<button class="tslide-dot ${i===0?'active':''}" onclick="setSlide('${cardId}',${i})"></button>`
+  ).join('');
+
+  const sizes = ['S','M','L','XL','XXL'];
+  const sizeBtns = sizes.map((s,i) =>
+    `<button class="card-size-btn ${i===1?'active':''}" onclick="selectCardSize(this,'${cardId}')">${s}</button>`
   ).join('');
 
   return `
-  <div class="trend-card" data-category="${p.category}" id="${cardId}">
+  <div class="trend-card" data-category="${p.category}" id="${cardId}" data-selected-size="M">
     <div class="trend-img-wrap">
       <div class="tslider">
         <div class="tslider-track">${slidesHtml}</div>
@@ -118,37 +191,63 @@ function buildCard(p) {
       <h3 class="trend-name">${p.name}</h3>
       <p class="trend-desc">${p.desc}</p>
       <div class="trend-colors">${colors}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;margin-bottom:5px;">
+        <div class="card-size-label" style="margin:0;">Size</div>
+        <button class="size-chart-btn" onclick="openSizeChart('${p.category}')">Size chart</button>
+      </div>
+      <div class="card-size-row" id="sizes-${cardId}">${sizeBtns}</div>
       <div class="trend-price-row">
         <span class="trend-price">₹${p.price.toLocaleString('en-IN')}</span>
         <span class="trend-original">₹${p.original.toLocaleString('en-IN')}</span>
         <span class="trend-discount">${discount}% off</span>
       </div>
       <div class="trend-actions">
-        <a href="confirm.html?item=${encodeURIComponent(p.name)}&price=${p.price}&cat=${p.category}" class="btn-buy">Buy now</a>
+        <button class="btn-buy" onclick="addToCartFromCard('${cardId}', ${p.id})">Add to cart</button>
         <a href="design.html?type=${p.category}" class="btn-customise">Customise</a>
       </div>
     </div>
   </div>`;
 }
 
-function getSlideCount(cardId) { return 2; }
+function selectCardSize(btn, cardId) {
+  const row = document.getElementById('sizes-' + cardId);
+  row.querySelectorAll('.card-size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const card = document.getElementById(cardId);
+  if (card) card.dataset.selectedSize = btn.textContent.trim();
+}
 
+function addToCartFromCard(cardId, productId) {
+  const card = document.getElementById(cardId);
+  const size = card?.dataset.selectedSize || 'M';
+  const product = TRENDING_PRODUCTS.find(p => p.id === productId);
+  if (product) addToCart(product, size);
+}
+
+// ══════════════════════════════════
+// SLIDER
+// ══════════════════════════════════
 function setSlide(cardId, idx) {
   const card = document.getElementById(cardId);
   if (!card) return;
-  const total = getSlideCount(cardId);
-  idx = ((idx % total) + total) % total;
-  card.querySelectorAll('.tslide').forEach((s, i) => s.classList.toggle('active', i === idx));
-  card.querySelectorAll('.tslide-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  idx = ((idx % 2) + 2) % 2;
+  card.querySelectorAll('.tslide').forEach((s,i) => s.classList.toggle('active', i===idx));
+  card.querySelectorAll('.tslide-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
   card.dataset.currentSlide = idx;
 }
-
 function slideNav(cardId, dir) {
   const card = document.getElementById(cardId);
   if (!card) return;
-  const current = parseInt(card.dataset.currentSlide || 0);
-  setSlide(cardId, current + dir);
+  setSlide(cardId, parseInt(card.dataset.currentSlide||0) + dir);
 }
+
+// ══════════════════════════════════
+// RENDER / FILTER / PAGINATION
+// ══════════════════════════════════
+const ITEMS_PER_PAGE = 15;
+let currentPage = 1;
+let currentFilter = 'all';
+let filteredProducts = [...TRENDING_PRODUCTS];
 
 function renderProducts() {
   const grid = document.getElementById('trendingGrid');
@@ -156,168 +255,105 @@ function renderProducts() {
   if (filteredProducts.length === 0) {
     const isFiltered = currentFilter !== 'all';
     grid.innerHTML = `
-      <div class="trending-empty" style="grid-column:1/-1;text-align:center;padding:64px 24px;color:#888;">
-        <div style="font-size:48px;margin-bottom:16px;">${isFiltered ? '🔍' : '🛍️'}</div>
-        <h3 style="font-size:20px;font-weight:600;color:#222;margin-bottom:8px;">
-          ${isFiltered ? 'No items in this category yet' : 'No trending items yet'}
-        </h3>
-        <p style="font-size:14px;line-height:1.6;max-width:360px;margin:0 auto;">
-          ${isFiltered ? 'Switch to <strong>All</strong> or check back soon.' : 'Products will appear here as you add them.'}
-        </p>
+      <div style="grid-column:1/-1;text-align:center;padding:64px 24px;color:#888;">
+        <div style="font-size:48px;margin-bottom:16px;">${isFiltered?'🔍':'🛍️'}</div>
+        <h3 style="font-size:20px;font-weight:600;color:#222;margin-bottom:8px;">${isFiltered?'No items in this category yet':'No trending items yet'}</h3>
+        <p style="font-size:14px;line-height:1.6;max-width:360px;margin:0 auto;">${isFiltered?'Switch to <strong>All</strong> or check back soon.':'Products will appear here as you add them.'}</p>
       </div>`;
-    renderPagination();
-    return;
+    renderPagination(); return;
   }
-  const start = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = filteredProducts.slice(start, start + ITEMS_PER_PAGE);
-  grid.innerHTML = pageItems.map(buildCard).join('');
+  const start = (currentPage-1)*ITEMS_PER_PAGE;
+  grid.innerHTML = filteredProducts.slice(start, start+ITEMS_PER_PAGE).map(buildCard).join('');
   renderPagination();
   setTimeout(setupScrollAnimations, 60);
-  if (currentPage > 1) document.getElementById('trending')?.scrollIntoView({ behavior: 'smooth' });
+  if (currentPage>1) document.getElementById('trending')?.scrollIntoView({behavior:'smooth'});
 }
 
 function renderPagination() {
-  const total = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-  const pageNums = document.getElementById('pageNumbers');
-  const prevBtn  = document.getElementById('prevBtn');
-  const nextBtn  = document.getElementById('nextBtn');
-  const pag      = document.getElementById('pagination');
-  if (!pageNums) return;
-  pageNums.innerHTML = '';
-  for (let i = 1; i <= total; i++) {
-    const b = document.createElement('button');
-    b.className = 'page-num-btn' + (i === currentPage ? ' active' : '');
-    b.textContent = i;
-    b.onclick = () => { currentPage = i; renderProducts(); };
+  const total=Math.ceil(filteredProducts.length/ITEMS_PER_PAGE);
+  const pageNums=document.getElementById('pageNumbers');
+  const prevBtn=document.getElementById('prevBtn');
+  const nextBtn=document.getElementById('nextBtn');
+  const pag=document.getElementById('pagination');
+  if(!pageNums) return;
+  pageNums.innerHTML='';
+  for(let i=1;i<=total;i++){
+    const b=document.createElement('button');
+    b.className='page-num-btn'+(i===currentPage?' active':'');
+    b.textContent=i;
+    b.onclick=()=>{currentPage=i;renderProducts();};
     pageNums.appendChild(b);
   }
-  if (prevBtn) prevBtn.disabled = currentPage === 1;
-  if (nextBtn) nextBtn.disabled = currentPage === total;
-  if (pag) pag.style.display = total <= 1 ? 'none' : 'flex';
+  if(prevBtn) prevBtn.disabled=currentPage===1;
+  if(nextBtn) nextBtn.disabled=currentPage===total;
+  if(pag) pag.style.display=total<=1?'none':'flex';
 }
 
 function changePage(delta) {
-  const total = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-  currentPage = Math.max(1, Math.min(total, currentPage + delta));
+  const total=Math.ceil(filteredProducts.length/ITEMS_PER_PAGE);
+  currentPage=Math.max(1,Math.min(total,currentPage+delta));
   renderProducts();
 }
 
 function filterProducts(category, clickedTab) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   clickedTab.classList.add('active');
-  currentFilter = category;
-  currentPage = 1;
-  filteredProducts = category === 'all'
-    ? [...TRENDING_PRODUCTS]
-    : TRENDING_PRODUCTS.filter(p => p.category === category);
+  currentFilter=category; currentPage=1;
+  filteredProducts=category==='all'?[...TRENDING_PRODUCTS]:TRENDING_PRODUCTS.filter(p=>p.category===category);
   renderProducts();
 }
 
 function toggleWishlist(heart) {
-  heart.textContent = heart.textContent === '♡' ? '♥' : '♡';
-  heart.style.color = heart.textContent === '♥' ? 'red' : '';
+  heart.textContent=heart.textContent==='♡'?'♥':'♡';
+  heart.style.color=heart.textContent==='♥'?'red':'';
 }
 
 function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  if (menu) menu.classList.toggle('open');
+  document.getElementById('mobileMenu')?.classList.toggle('open');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth', block:'start' }); }
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      const t=document.querySelector(this.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
     });
   });
   renderProducts();
   animateCounters();
+  updateCartBadge();
 });
 
 function setupScrollAnimations() {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 55);
-        obs.unobserve(entry.target);
-      }
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((entry,i)=>{
+      if(entry.isIntersecting){setTimeout(()=>entry.target.classList.add('visible'),i*55);obs.unobserve(entry.target);}
     });
-  }, { threshold: 0.04 });
-  document.querySelectorAll('.trend-card:not(.visible)').forEach(c => obs.observe(c));
-
-  const secObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.why-card, .step').forEach(el => {
-    if (!el.style.opacity) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(24px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      secObs.observe(el);
-    }
+  },{threshold:0.04});
+  document.querySelectorAll('.trend-card:not(.visible)').forEach(c=>obs.observe(c));
+  const secObs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+  },{threshold:0.08});
+  document.querySelectorAll('.why-card,.step').forEach(el=>{
+    if(!el.style.opacity){el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';secObs.observe(el);}
   });
 }
 
 function animateCounters() {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.target);
-        let current = 0;
-        const step = target / (1800 / 16);
-        const timer = setInterval(() => {
-          current += step;
-          if (current >= target) { el.textContent = target; clearInterval(timer); }
-          else el.textContent = Math.floor(current);
-        }, 16);
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el=entry.target;const target=parseInt(el.dataset.target);let current=0;
+        const step=target/(1800/16);
+        const timer=setInterval(()=>{current+=step;if(current>=target){el.textContent=target;clearInterval(timer);}else el.textContent=Math.floor(current);},16);
         obs.unobserve(el);
       }
     });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.stat-num').forEach(c => obs.observe(c));
+  },{threshold:0.5});
+  document.querySelectorAll('.stat-num').forEach(c=>obs.observe(c));
 }
 
-const HERO_GARMENTS = {
-  oversize: { name: 'Oversize Tee',  gsm: '240 GSM' },
-  hoodie:   { name: 'Hoodie',        gsm: '370 GSM' },
-  polo:     { name: 'Polo T-Shirt',  gsm: '220 GSM' },
-  tshirt:   { name: 'Regular Tee',   gsm: '200 GSM' },
-};
-
-function switchHeroGarment(type, btn) {
-  document.querySelectorAll('.hg-item').forEach(el => el.classList.remove('active'));
-  const target = document.querySelector(`.hg-item[data-garment="${type}"]`);
-  if (target) { target.classList.add('active'); setHeroColorOnElement(target, '#f0f0f0', '#d0d0d0'); }
-  document.querySelectorAll('.hptab').forEach(t => t.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  const g = HERO_GARMENTS[type];
-  if (g) {
-    document.getElementById('specName').textContent = g.name;
-    document.getElementById('specGSM').textContent  = g.gsm;
-  }
-  document.querySelectorAll('.hcolor-dot').forEach((d,i) => d.classList.toggle('active', i===0));
-}
-
-function setHeroColor(btn, fill, stroke) {
-  const activeItem = document.querySelector('.hg-item.active');
-  if (!activeItem) return;
-  setHeroColorOnElement(activeItem, fill, stroke);
-  document.querySelectorAll('.hcolor-dot').forEach(d => d.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function setHeroColorOnElement(el, fill, stroke) {
-  el.querySelectorAll('svg path, svg rect').forEach(shape => {
-    const f = shape.getAttribute('fill');
-    if (f && f !== 'none' && !['#bbb','#d8d8d8'].includes(f)) {
-      shape.setAttribute('fill', fill);
-      shape.setAttribute('stroke', stroke);
-    }
-  });
-}
+const HERO_GARMENTS={oversize:{name:'Oversize Tee',gsm:'240 GSM'},hoodie:{name:'Hoodie',gsm:'370 GSM'},polo:{name:'Polo T-Shirt',gsm:'220 GSM'},tshirt:{name:'Regular Tee',gsm:'200 GSM'}};
+function switchHeroGarment(type,btn){document.querySelectorAll('.hg-item').forEach(el=>el.classList.remove('active'));const target=document.querySelector(`.hg-item[data-garment="${type}"]`);if(target){target.classList.add('active');setHeroColorOnElement(target,'#f0f0f0','#d0d0d0');}document.querySelectorAll('.hptab').forEach(t=>t.classList.remove('active'));if(btn)btn.classList.add('active');const g=HERO_GARMENTS[type];if(g){document.getElementById('specName').textContent=g.name;document.getElementById('specGSM').textContent=g.gsm;}document.querySelectorAll('.hcolor-dot').forEach((d,i)=>d.classList.toggle('active',i===0));}
+function setHeroColor(btn,fill,stroke){const activeItem=document.querySelector('.hg-item.active');if(!activeItem)return;setHeroColorOnElement(activeItem,fill,stroke);document.querySelectorAll('.hcolor-dot').forEach(d=>d.classList.remove('active'));btn.classList.add('active');}
+function setHeroColorOnElement(el,fill,stroke){el.querySelectorAll('svg path,svg rect').forEach(shape=>{const f=shape.getAttribute('fill');if(f&&f!=='none'&&!['#bbb','#d8d8d8'].includes(f)){shape.setAttribute('fill',fill);shape.setAttribute('stroke',stroke);}});}

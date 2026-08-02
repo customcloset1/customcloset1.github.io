@@ -10,6 +10,7 @@
 </head>
 <body>
 
+  <!-- NAVBAR -->
   <nav class="navbar">
     <a href="index.html" class="logo wordmark-logo">
       <span class="wordmark-text">CustomCloset</span>
@@ -20,9 +21,16 @@
       <a href="#how-it-works">How it works</a>
       <a href="#contact">Contact</a>
     </div>
-    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="cart.html" class="cart-icon-btn">
+        🛒 Cart
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    </div>
   </nav>
 
+  <!-- TICKER -->
   <div class="ticker-wrap">
     <div class="ticker">
       <span>🔥 Custom drip, no cap</span><span>•</span>
@@ -40,20 +48,20 @@
     </div>
   </div>
 
+  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#trending" onclick="toggleMenu()">Trending</a>
     <a href="#customize" onclick="toggleMenu()">Customize</a>
     <a href="#how-it-works" onclick="toggleMenu()">How it works</a>
     <a href="#contact" onclick="toggleMenu()">Contact</a>
+    <a href="cart.html" onclick="toggleMenu()">🛒 Cart</a>
     <a href="design.html" class="mobile-cta">Start Designing</a>
   </div>
 
+  <!-- HERO -->
   <section class="hero-full">
-    <img
-      src="https://res.cloudinary.com/bsgynj2j/image/upload/front-page.png"
-      alt="Custom Closet — Oversize, T-Shirts, Hoodies, Polo"
-      class="hero-bg-img"
-    />
+    <img src="https://res.cloudinary.com/bsgynj2j/image/upload/front-page.png"
+         alt="Custom Closet — Oversize, T-Shirts, Hoodies, Polo" class="hero-bg-img"/>
     <div class="hero-overlay"></div>
     <div class="hero-text-block">
       <p class="hero-eyebrow">YOUR DESIGN. YOUR DRIP. ✦</p>
@@ -66,6 +74,7 @@
     </div>
   </section>
 
+  <!-- STATS -->
   <div class="stats-strip">
     <div class="stat-item"><span class="stat-num" data-target="4">0</span><span class="stat-plus"> garments</span><div class="stat-label">To customise</div></div>
     <div class="stat-divider"></div>
@@ -74,6 +83,7 @@
     <div class="stat-item"><span class="stat-num" data-target="7">0</span><span class="stat-plus"> days</span><div class="stat-label">Delivery time</div></div>
   </div>
 
+  <!-- TRENDING -->
   <section class="trending" id="trending">
     <div class="section-header">
       <p class="section-eyebrow">🔥 Hot right now</p>
@@ -95,6 +105,7 @@
     </div>
   </section>
 
+  <!-- CUSTOMIZE -->
   <section class="customize-section" id="customize">
     <div class="customize-inner">
       <div class="customize-text">
@@ -112,13 +123,13 @@
       <div class="customize-visual">
         <div class="studio-preview-img-wrap">
           <img src="https://res.cloudinary.com/bsgynj2j/image/upload/design-studio.png"
-               alt="Design Studio Preview"
-               class="studio-preview-img"/>
+               alt="Design Studio Preview" class="studio-preview-img"/>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- HOW IT WORKS -->
   <section class="how-it-works" id="how-it-works">
     <div class="section-header">
       <p class="section-eyebrow">Simple process</p>
@@ -127,7 +138,7 @@
     <div class="steps-grid">
       <div class="step"><div class="step-num">01</div><h3>Shop or design</h3><p>Browse trending items and buy directly, or open the design studio and create something unique.</p></div>
       <div class="step-arrow">→</div>
-      <div class="step"><div class="step-num">02</div><h3>Confirm your order</h3><p>Review your item, size, color, and design. Tick the confirmation box to lock it in.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Add to cart</h3><p>Select your size and add items to your cart. Order one or many — all in one go.</p></div>
       <div class="step-arrow">→</div>
       <div class="step"><div class="step-num">03</div><h3>Pay via UPI</h3><p>Scan our QR code or use your UPI ID. Pay instantly with GPay, PhonePe, or Paytm.</p></div>
       <div class="step-arrow">→</div>
@@ -135,6 +146,7 @@
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="contact-inner">
       <h2>Let's talk 👋</h2>
@@ -149,6 +161,7 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo"><span class="wordmark-text wordmark-sm">CustomCloset</span></div>
@@ -162,6 +175,30 @@
     </div>
   </footer>
 
+  <!-- SIZE CHART POPUP -->
+  <div class="sc-overlay" id="sizeChartOverlay" onclick="if(event.target===this)closeSizeChart()">
+    <div class="sc-modal">
+      <button class="sc-close" onclick="closeSizeChart()">✕</button>
+      <div class="sc-title">📏 Size Chart</div>
+      <p style="font-size:13px;color:#666;margin-bottom:4px;">All measurements in inches</p>
+      <div class="sc-tabs">
+        <button class="sc-tab active" data-cat="oversize" onclick="switchSizeTab('oversize',this)">Oversize</button>
+        <button class="sc-tab" data-cat="hoodie" onclick="switchSizeTab('hoodie',this)">Hoodie</button>
+        <button class="sc-tab" data-cat="tshirt" onclick="switchSizeTab('tshirt',this)">T-Shirt</button>
+        <button class="sc-tab" data-cat="polo" onclick="switchSizeTab('polo',this)">Polo</button>
+      </div>
+      <table class="sc-table">
+        <thead id="scThead"></thead>
+        <tbody id="scTbody"></tbody>
+      </table>
+      <p class="sc-note">⚠️ Sizes are approximate. When in doubt, size up.</p>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+    // Init size chart with oversize on load
+    document.addEventListener('DOMContentLoaded', () => renderSizeTable('oversize'));
+  </script>
 </body>
 </html>
