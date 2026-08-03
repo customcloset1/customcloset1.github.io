@@ -12,73 +12,89 @@
     .cnav{background:#fff;border-bottom:1px solid #e5e7eb;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
     .cnav-logo{font-weight:700;font-size:17px;text-decoration:none;color:#111;}
     .cnav-back{font-size:13px;color:#666;text-decoration:none;}
-    .order-steps{display:flex;align-items:center;justify-content:center;gap:0;padding:18px 16px;background:#fff;border-bottom:1px solid #f0f0f0;}
+    .order-steps{display:flex;align-items:center;justify-content:center;padding:18px 16px;background:#fff;border-bottom:1px solid #f0f0f0;}
     .ostep{display:flex;align-items:center;gap:8px;font-size:13px;color:#999;font-weight:500;}
     .ostep.active{color:#111;} .ostep.done{color:#16a34a;}
     .ostep-num{width:24px;height:24px;border-radius:50%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
     .ostep.active .ostep-num{background:#111;color:#fff;} .ostep.done .ostep-num{background:#16a34a;color:#fff;}
     .ostep-line{width:32px;height:2px;background:#e5e7eb;margin:0 4px;}
-    .order-wrap{max-width:900px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:1fr 320px;gap:24px;}
-    @media(max-width:700px){.order-wrap{grid-template-columns:1fr;}}
-    .ocard{background:#fff;border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
+
+    /* SINGLE COLUMN LAYOUT */
+    .order-main{max-width:600px;margin:0 auto;padding:24px 16px;}
+
+    .ocard{background:#fff;border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
     .ocard-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-    .ocard-title span{width:28px;height:28px;background:#111;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
-    .sum-img{width:70px;height:70px;border-radius:10px;object-fit:cover;background:#f5f5f5;flex-shrink:0;}
+    .ocard-num{width:28px;height:28px;background:#111;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+
+    /* ORDER ITEMS */
     .sum-product{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #f5f5f5;}
+    .sum-product:last-of-type{border-bottom:none;}
+    .sum-img{width:70px;height:70px;border-radius:10px;object-fit:cover;background:#f5f5f5;flex-shrink:0;}
     .sum-info h4{font-size:14px;font-weight:600;margin-bottom:3px;}
     .sum-info p{font-size:12px;color:#666;line-height:1.6;}
-    .sum-price{font-size:17px;font-weight:700;margin-top:5px;}
-    .csz-label{font-size:12px;color:#666;font-weight:500;margin-top:8px;margin-bottom:4px;}
+    .sum-price{font-size:16px;font-weight:700;margin-top:4px;}
+
+    /* SIZE */
+    .csz-label{font-size:12px;color:#666;font-weight:500;margin-top:10px;margin-bottom:5px;}
     .confirm-size-row{display:flex;flex-wrap:wrap;gap:7px;}
-    .csz-btn{padding:5px 13px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;transition:all 0.15s;font-family:'Inter',sans-serif;}
+    .csz-btn{padding:6px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;transition:all 0.15s;font-family:'Inter',sans-serif;}
     .csz-btn:hover{border-color:#111;} .csz-btn.active{border-color:#111;background:#111;color:#fff;}
-    .qr-wrap{text-align:center;padding:4px 0;}
-    .qr-placeholder{width:190px;height:190px;border-radius:12px;border:2px dashed #d1d5db;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 12px;background:#fafafa;color:#999;font-size:13px;gap:8px;}
-    .qr-img{width:190px;height:190px;border-radius:12px;border:2px solid #e5e7eb;object-fit:contain;display:block;margin:0 auto 12px;}
-    .qr-upi{font-size:13px;color:#666;} .qr-upi strong{color:#111;}
+
+    /* PRICE BOX */
+    .price-rows{display:flex;flex-direction:column;gap:10px;}
+    .pb-row{display:flex;justify-content:space-between;font-size:14px;color:#666;}
+    .pb-row.total{font-weight:700;font-size:17px;color:#111;padding-top:12px;border-top:1px solid #f0f0f0;margin-top:4px;}
+    .pb-row.total span:last-child{color:#16a34a;}
+    .delivery-info-box{background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:12px 14px;margin-top:12px;font-size:13px;color:#92400e;line-height:1.6;}
+
+    /* QR */
+    .qr-wrap{text-align:center;}
+    .qr-placeholder{width:200px;height:200px;border-radius:12px;border:2px dashed #d1d5db;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 14px;background:#fafafa;color:#999;font-size:13px;gap:8px;}
+    .qr-img{width:200px;height:200px;border-radius:12px;border:2px solid #e5e7eb;object-fit:contain;display:block;margin:0 auto 14px;}
+    .qr-upi{font-size:14px;color:#374151;margin-bottom:4px;} .qr-upi strong{color:#111;font-size:15px;}
     .qr-note{font-size:12px;color:#f97316;font-weight:500;margin-top:6px;}
-    .amt-box{background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:12px;text-align:center;margin-top:12px;}
-    .amt-box .amt{font-size:24px;font-weight:700;color:#16a34a;} .amt-box .amt-label{font-size:12px;color:#666;margin-top:2px;}
+    .amt-box{background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:16px;text-align:center;margin-top:14px;}
+    .amt-box .amt{font-size:28px;font-weight:700;color:#16a34a;}
+    .amt-box .amt-label{font-size:13px;color:#666;margin-top:3px;}
+
+    /* FORM */
     .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
     @media(max-width:500px){.form-grid{grid-template-columns:1fr;}}
     .form-group{display:flex;flex-direction:column;gap:5px;} .form-group.full{grid-column:1/-1;}
     .form-group label{font-size:12px;font-weight:600;color:#374151;}
-    .form-group input,.form-group textarea{padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;background:#fff;transition:border 0.15s;}
+    .form-group input,.form-group textarea{padding:11px 13px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;background:#fff;transition:border 0.15s;}
     .form-group input:focus,.form-group textarea:focus{border-color:#111;}
     .form-group textarea{resize:vertical;min-height:80px;}
     .req{color:#dc2626;}
-    .upload-box{border:2px dashed #d1d5db;border-radius:12px;padding:22px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fafafa;}
+
+    /* UPLOAD */
+    .upload-box{border:2px dashed #d1d5db;border-radius:12px;padding:22px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fafafa;margin-top:4px;}
     .upload-box:hover{border-color:#111;background:#f5f5f5;} .upload-box.has-file{border-color:#16a34a;background:#f0fdf4;}
-    .upload-box input{display:none;} .upload-icon{font-size:30px;margin-bottom:8px;} .upload-text{font-size:13px;color:#666;line-height:1.6;}
-    .file-name{font-size:13px;color:#16a34a;font-weight:600;margin-top:6px;}
-    .submit-btn{width:100%;padding:15px;background:#111;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;margin-top:8px;font-family:'Inter',sans-serif;transition:background 0.2s;}
+    .upload-box input{display:none;} .upload-icon{font-size:30px;margin-bottom:8px;}
+    .upload-text{font-size:13px;color:#666;line-height:1.6;} .file-name{font-size:13px;color:#16a34a;font-weight:600;margin-top:6px;}
+
+    /* SUBMIT */
+    .submit-btn{width:100%;padding:16px;background:#111;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;margin-top:4px;font-family:'Inter',sans-serif;transition:background 0.2s;}
     .submit-btn:hover{background:#333;} .submit-btn:disabled{background:#9ca3af;cursor:not-allowed;}
-    .pb-row{display:flex;justify-content:space-between;font-size:14px;color:#666;margin-bottom:9px;}
-    .pb-row.total{font-weight:700;font-size:16px;color:#111;padding-top:10px;border-top:1px solid #f0f0f0;}
-    .pb-row.total span:last-child{color:#16a34a;}
-    .trust-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#374151;margin-bottom:10px;}
-    .sc-table{width:100%;border-collapse:collapse;font-size:12px;}
-    .sc-table th{background:#f5f5f5;padding:8px 10px;text-align:left;font-weight:600;font-size:11px;color:#374151;}
-    .sc-table td{padding:8px 10px;border-bottom:1px solid #f0f0f0;color:#374151;}
-    .sc-table tr:last-child td{border-bottom:none;}
-    .sc-tabs-sm{display:flex;gap:6px;margin:10px 0;}
-    .sc-tab-sm{padding:4px 11px;border:1.5px solid #e5e7eb;border-radius:16px;font-size:11px;font-weight:600;cursor:pointer;background:#fff;}
-    .sc-tab-sm.active{background:#111;color:#fff;border-color:#111;}
-    .field-err{font-size:11px;color:#dc2626;margin-top:2px;display:none;} .field-err.show{display:block;}
+
+    /* ERRORS */
+    .field-err{font-size:11px;color:#dc2626;margin-top:3px;display:none;} .field-err.show{display:block;}
     input.err,textarea.err{border-color:#dc2626 !important;}
+
+    /* SUCCESS */
     .success-screen{display:none;text-align:center;padding:56px 24px;max-width:500px;margin:40px auto;}
     .success-screen.show{display:block;}
     .success-icon{font-size:64px;margin-bottom:16px;}
     .success-screen h2{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:12px;}
     .success-screen p{color:#666;line-height:1.6;margin-bottom:20px;}
-    .success-wa-btn{display:inline-block;padding:14px 28px;background:#25d366;color:#fff;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;}
+    .success-wa-btn{display:inline-block;padding:14px 32px;background:#25d366;color:#fff;border-radius:12px;text-decoration:none;font-weight:600;font-size:15px;}
   </style>
 </head>
 <body>
 
 <nav class="cnav">
   <a href="index.html" class="cnav-logo">CustomCloset</a>
-  <a href="index.html" class="cnav-back">← Back to shop</a>
+  <a href="javascript:history.back()" class="cnav-back">← Back</a>
 </nav>
 
 <div class="order-steps">
@@ -89,182 +105,135 @@
   <div class="ostep" id="os3"><div class="ostep-num">3</div><span>Confirmed</span></div>
 </div>
 
-<div class="order-wrap" id="orderWrap">
-  <div class="left-col">
+<div class="order-main" id="orderMain">
 
-    <!-- ORDER SUMMARY -->
-    <div class="ocard">
-      <div class="ocard-title"><span>1</span> Order summary</div>
-      <div id="orderSummaryItems"></div>
-      <!-- Size (only for single item) -->
-      <div id="singleSizeSection" style="display:none;margin-top:12px;">
-        <div class="csz-label">Select size <span class="req">*</span></div>
-        <div class="confirm-size-row" id="confirmSizeRow">
-          <button class="csz-btn" onclick="pickSize(this)">S</button>
-          <button class="csz-btn active" onclick="pickSize(this)">M</button>
-          <button class="csz-btn" onclick="pickSize(this)">L</button>
-          <button class="csz-btn" onclick="pickSize(this)">XL</button>
-          <button class="csz-btn" onclick="pickSize(this)">XXL</button>
-        </div>
-        <div class="field-err" id="sizeError">Please select a size</div>
+  <!-- 1. YOUR DETAILS -->
+  <div class="ocard">
+    <div class="ocard-title"><div class="ocard-num">1</div> Your details</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Full name <span class="req">*</span></label>
+        <input type="text" id="custName" placeholder="Rahul Sharma"/>
+        <div class="field-err" id="nameError">Please enter your name</div>
+      </div>
+      <div class="form-group">
+        <label>Phone <span class="req">*</span></label>
+        <input type="tel" id="custPhone" placeholder="9876543210" maxlength="10"/>
+        <div class="field-err" id="phoneError">Enter valid 10-digit number</div>
+      </div>
+      <div class="form-group">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" id="custEmail" placeholder="rahul@gmail.com"/>
+        <div class="field-err" id="emailError">Enter a valid email</div>
+      </div>
+      <div class="form-group">
+        <label>Pincode <span class="req">*</span></label>
+        <input type="text" id="custPin" placeholder="411001" maxlength="6"/>
+        <div class="field-err" id="pinError">Enter 6-digit pincode</div>
+      </div>
+      <div class="form-group full">
+        <label>Full address <span class="req">*</span></label>
+        <textarea id="custAddress" placeholder="Flat/House no., Street, Area, City, State"></textarea>
+        <div class="field-err" id="addressError">Please enter your address</div>
       </div>
     </div>
-
-    <!-- QR PAYMENT -->
-    <div class="ocard">
-      <div class="ocard-title"><span>2</span> Pay via UPI</div>
-      <div class="qr-wrap">
-        <!-- TO ADD YOUR QR: Upload QR image to Cloudinary, then replace the div below with:
-        <img class="qr-img" src="https://res.cloudinary.com/bsgynj2j/image/upload/your-qr-code.png" alt="UPI QR"/>
-        -->
-        <div class="qr-placeholder">
-          <div style="font-size:36px;">📱</div>
-          <div style="font-weight:600;color:#374151;">Your QR Code</div>
-          <div style="font-size:11px;text-align:center;line-height:1.4;">Upload QR to Cloudinary<br>and replace this placeholder</div>
-        </div>
-        <p class="qr-upi">UPI ID: <strong>customcloset111@upi</strong></p>
-        <p class="qr-note">⚠️ Pay the exact amount below</p>
-        <div class="amt-box">
-          <div class="amt" id="payAmt">₹0</div>
-          <div class="amt-label">Total amount to pay</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CUSTOMER DETAILS -->
-    <div class="ocard">
-      <div class="ocard-title"><span>3</span> Your details</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Full name <span class="req">*</span></label>
-          <input type="text" id="custName" placeholder="Rahul Sharma"/>
-          <div class="field-err" id="nameError">Please enter your name</div>
-        </div>
-        <div class="form-group">
-          <label>Phone <span class="req">*</span></label>
-          <input type="tel" id="custPhone" placeholder="9876543210" maxlength="10"/>
-          <div class="field-err" id="phoneError">Please enter a valid 10-digit number</div>
-        </div>
-        <div class="form-group">
-          <label>Email <span class="req">*</span></label>
-          <input type="email" id="custEmail" placeholder="rahul@gmail.com"/>
-          <div class="field-err" id="emailError">Please enter a valid email</div>
-        </div>
-        <div class="form-group">
-          <label>Pincode <span class="req">*</span></label>
-          <input type="text" id="custPin" placeholder="411001" maxlength="6"/>
-          <div class="field-err" id="pinError">Please enter 6-digit pincode</div>
-        </div>
-        <div class="form-group full">
-          <label>Full address <span class="req">*</span></label>
-          <textarea id="custAddress" placeholder="Flat/House no., Street, Area, City, State"></textarea>
-          <div class="field-err" id="addressError">Please enter your address</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCREENSHOT UPLOAD -->
-    <div class="ocard">
-      <div class="ocard-title"><span>4</span> Payment screenshot <span class="req">*</span></div>
-      <p style="font-size:13px;color:#666;margin-bottom:14px;">After paying, upload a screenshot of your payment confirmation.</p>
-      <div class="upload-box" id="ssUploadBox" onclick="document.getElementById('ssFile').click()">
-        <input type="file" id="ssFile" accept="image/*" onchange="handleScreenshot(event)"/>
-        <div class="upload-icon">📸</div>
-        <div class="upload-text">Click to upload payment screenshot<br><strong>JPG or PNG · Max 5MB</strong></div>
-        <div class="file-name" id="ssFileName"></div>
-      </div>
-      <div class="field-err" id="ssError">Please upload your payment screenshot</div>
-    </div>
-
-    <button class="submit-btn" id="submitBtn" onclick="submitOrder()">✅ Confirm my order</button>
   </div>
 
-  <!-- RIGHT COL -->
-  <div class="right-col">
-    <div class="ocard">
-      <div class="ocard-title"><span>₹</span> Price breakdown</div>
-      <div id="priceBreakdown"></div>
-    </div>
+  <!-- 2. ORDER SUMMARY -->
+  <div class="ocard">
+    <div class="ocard-title"><div class="ocard-num">2</div> Order summary</div>
+    <div id="orderSummaryItems"></div>
 
-    <!-- SIZE CHART -->
-    <div class="ocard">
-      <div class="ocard-title"><span>📏</span> Size chart <span style="font-size:11px;color:#f97316;font-weight:400;">(inches)</span></div>
-      <div class="sc-tabs-sm" id="scTabsSm">
-        <button class="sc-tab-sm active" onclick="switchScTab('oversize',this)">Oversize</button>
-        <button class="sc-tab-sm" onclick="switchScTab('hoodie',this)">Hoodie</button>
-        <button class="sc-tab-sm" onclick="switchScTab('tshirt',this)">T-Shirt</button>
-        <button class="sc-tab-sm" onclick="switchScTab('polo',this)">Polo</button>
+    <!-- Size (single item only) -->
+    <div id="singleSizeSection" style="display:none;margin-top:12px;">
+      <div class="csz-label">Select size <span class="req">*</span></div>
+      <div class="confirm-size-row" id="confirmSizeRow">
+        <button class="csz-btn" onclick="pickSize(this)">S</button>
+        <button class="csz-btn active" onclick="pickSize(this)">M</button>
+        <button class="csz-btn" onclick="pickSize(this)">L</button>
+        <button class="csz-btn" onclick="pickSize(this)">XL</button>
+        <button class="csz-btn" onclick="pickSize(this)">XXL</button>
       </div>
-      <table class="sc-table">
-        <thead id="scThead2"></thead>
-        <tbody id="scTbody2"></tbody>
-      </table>
-      <p style="font-size:11px;color:#f97316;margin-top:8px;">⚠️ When in doubt, size up.</p>
+      <div class="field-err" id="sizeError">Please select a size</div>
     </div>
 
-    <div class="ocard">
-      <div class="ocard-title"><span>🔒</span> Safe & secure</div>
-      <div class="trust-item">✅ Order confirmed after manual review</div>
-      <div class="trust-item">🚚 Ships in 5–7 days after confirmation</div>
-      <div class="trust-item">💬 Tracking sent on WhatsApp</div>
-      <div class="trust-item">🎨 Custom printed with care</div>
+    <!-- Price breakdown -->
+    <div style="margin-top:16px;" id="priceBreakdown"></div>
+
+    <!-- Delivery note -->
+    <div class="delivery-info-box">
+      🚚 <strong>Delivery charges</strong> are calculated based on your location and will be payable at the time of receiving your order (Cash on Delivery / COD).
     </div>
   </div>
+
+  <!-- 3. PAY VIA UPI -->
+  <div class="ocard">
+    <div class="ocard-title"><div class="ocard-num">3</div> Pay via UPI</div>
+    <div class="qr-wrap">
+      <!-- REPLACE THIS WITH YOUR QR IMAGE WHEN READY:
+      <img class="qr-img" src="https://res.cloudinary.com/bsgynj2j/image/upload/your-qr-code.png" alt="UPI QR"/>
+      -->
+      <div class="qr-placeholder">
+        <div style="font-size:40px;">📱</div>
+        <div style="font-weight:600;color:#374151;">Your QR Code</div>
+        <div style="font-size:11px;text-align:center;line-height:1.5;">Upload to Cloudinary<br>then replace this block</div>
+      </div>
+      <p class="qr-upi">UPI ID: <strong>customcloset111@upi</strong></p>
+      <p class="qr-note">⚠️ Pay the exact amount shown below</p>
+      <div class="amt-box">
+        <div class="amt" id="payAmt">₹0</div>
+        <div class="amt-label">Total amount to pay (excluding delivery)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. PAYMENT SCREENSHOT -->
+  <div class="ocard">
+    <div class="ocard-title"><div class="ocard-num">4</div> Upload payment screenshot <span class="req">*</span></div>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">After paying via UPI, upload a screenshot of your payment confirmation here.</p>
+    <div class="upload-box" id="ssUploadBox" onclick="document.getElementById('ssFile').click()">
+      <input type="file" id="ssFile" accept="image/*" onchange="handleScreenshot(event)"/>
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">Click to upload payment screenshot<br><strong>JPG or PNG · Max 5MB</strong></div>
+      <div class="file-name" id="ssFileName"></div>
+    </div>
+    <div class="field-err" id="ssError">Please upload your payment screenshot</div>
+  </div>
+
+  <button class="submit-btn" id="submitBtn" onclick="submitOrder()">✅ Confirm my order</button>
 </div>
 
 <!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
   <div class="success-icon">🎉</div>
   <h2>Order received!</h2>
-  <p>Thank you! We've received your order and payment screenshot. We'll review and send you a confirmation on WhatsApp within 2–4 hours.</p>
+  <p>Thank you! We've received your order and payment screenshot.<br>We'll review and send you a confirmation on WhatsApp within 2–4 hours.</p>
   <a id="successWaBtn" href="#" class="success-wa-btn" target="_blank">💬 Chat with us on WhatsApp</a>
-  <p style="margin-top:16px;font-size:13px;color:#999;">Order ID: <strong id="orderId"></strong></p>
+  <p style="margin-top:20px;font-size:13px;color:#999;">Order ID: <strong id="orderId"></strong></p>
+  <a href="index.html" style="display:block;margin-top:16px;font-size:13px;color:#666;text-decoration:none;">← Back to shop</a>
 </div>
 
 <script>
-const SIZE_CHARTS = {
-  oversize:{ cols:['Size','Chest (in)','Length (in)'], rows:[['S','40–42','24'],['M','42–44','25'],['L','44–46','26'],['XL','46–48','27'],['XXL','48–50','28']] },
-  hoodie:  { cols:['Size','Chest (in)','Length (in)'], rows:[['S','38','25'],['M','40','26'],['L','42','27'],['XL','44','28'],['XXL','46','29']] },
-  polo:    { cols:['Size','Chest (in)','Length (in)'], rows:[['S','36','25'],['M','38','26'],['L','40','27'],['XL','42','28'],['XXL','44','29']] },
-  tshirt:  { cols:['Size','Chest (in)','Length (in)'], rows:[['S','38','25'],['M','40','26'],['L','42','27'],['XL','44','28'],['XXL','46','29']] }
-};
-
-function renderScTable(cat, theadId, tbodyId) {
-  const chart = SIZE_CHARTS[cat] || SIZE_CHARTS.oversize;
-  document.getElementById(theadId).innerHTML = `<tr>${chart.cols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
-  document.getElementById(tbodyId).innerHTML = chart.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-function switchScTab(cat, btn) {
-  document.querySelectorAll('.sc-tab-sm').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  renderScTable(cat, 'scThead2', 'scTbody2');
-}
-
-const params = new URLSearchParams(window.location.search);
-const isCart   = params.get('cart') === '1';
 const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
+const params = new URLSearchParams(window.location.search);
+const isCart = params.get('cart') === '1';
 
 let selectedSize = 'M';
 let screenshotFile = null;
 let orderTotal = 0;
 let orderItemsText = '';
 
-function getCart() {
-  try { return JSON.parse(localStorage.getItem('cc_cart') || '[]'); } catch { return []; }
-}
+function getCart(){ try{return JSON.parse(localStorage.getItem('cc_cart')||'[]');}catch{return[];} }
 
 window.addEventListener('DOMContentLoaded', () => {
-  renderScTable('oversize', 'scThead2', 'scTbody2');
-
   if (isCart) {
-    // CART CHECKOUT
     const cart = getCart();
-    if (cart.length === 0) { window.location.href = 'cart.html'; return; }
-    orderTotal = cart.reduce((s,i) => s+i.price*i.qty, 0);
-    const totalOrig = cart.reduce((s,i) => s+i.original*i.qty, 0);
+    if (cart.length === 0) { window.location.href='cart.html'; return; }
+    orderTotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    const totalOrig = cart.reduce((s,i)=>s+i.original*i.qty,0);
     orderItemsText = cart.map(i=>`${i.name} (${i.size}) x${i.qty} = ₹${i.price*i.qty}`).join('\n');
 
-    document.getElementById('orderSummaryItems').innerHTML = cart.map(item => `
+    document.getElementById('orderSummaryItems').innerHTML = cart.map(item=>`
       <div class="sum-product">
         <img class="sum-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'"/>
         <div class="sum-info">
@@ -275,15 +244,15 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>`).join('');
 
     document.getElementById('priceBreakdown').innerHTML = `
-      <div class="pb-row"><span>Subtotal</span><span>₹${totalOrig.toLocaleString('en-IN')}</span></div>
-      <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(totalOrig-orderTotal).toLocaleString('en-IN')}</span></div>
-      <div class="pb-row"><span>Delivery</span><span>FREE</span></div>
-      <div class="pb-row total"><span>Total</span><span>₹${orderTotal.toLocaleString('en-IN')}</span></div>`;
+      <div class="price-rows">
+        <div class="pb-row"><span>Subtotal</span><span>₹${totalOrig.toLocaleString('en-IN')}</span></div>
+        <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(totalOrig-orderTotal).toLocaleString('en-IN')}</span></div>
+        <div class="pb-row total"><span>Total (excl. delivery)</span><span>₹${orderTotal.toLocaleString('en-IN')}</span></div>
+      </div>`;
 
     document.getElementById('singleSizeSection').style.display = 'none';
 
   } else {
-    // SINGLE ITEM CHECKOUT
     const itemName  = params.get('item')  || 'Custom Closet Item';
     const itemPrice = parseInt(params.get('price')) || 499;
     const itemCat   = params.get('cat')   || 'oversize';
@@ -292,6 +261,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const preSize   = params.get('size')  || 'M';
     const itemOrig  = itemPrice * 2;
     orderTotal = itemPrice;
+    selectedSize = preSize;
     orderItemsText = `${itemName} (${preSize}) = ₹${itemPrice}`;
 
     document.getElementById('orderSummaryItems').innerHTML = `
@@ -299,49 +269,42 @@ window.addEventListener('DOMContentLoaded', () => {
         <img class="sum-img" src="${itemImg}" alt="${itemName}" onerror="this.style.display='none'"/>
         <div class="sum-info">
           <h4>${itemName}</h4>
-          <p>Category: ${itemCat.charAt(0).toUpperCase()+itemCat.slice(1)}</p>
           <p>Color: ${itemColor}</p>
           <div class="sum-price">₹${itemPrice.toLocaleString('en-IN')} <span style="font-size:12px;color:#999;text-decoration:line-through;font-weight:400;">₹${itemOrig.toLocaleString('en-IN')}</span></div>
         </div>
       </div>`;
 
     document.getElementById('priceBreakdown').innerHTML = `
-      <div class="pb-row"><span>Item price</span><span>₹${itemOrig.toLocaleString('en-IN')}</span></div>
-      <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(itemOrig-itemPrice).toLocaleString('en-IN')}</span></div>
-      <div class="pb-row"><span>Delivery</span><span>FREE</span></div>
-      <div class="pb-row total"><span>Total</span><span>₹${itemPrice.toLocaleString('en-IN')}</span></div>`;
+      <div class="price-rows">
+        <div class="pb-row"><span>Item price</span><span>₹${itemOrig.toLocaleString('en-IN')}</span></div>
+        <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(itemOrig-itemPrice).toLocaleString('en-IN')}</span></div>
+        <div class="pb-row total"><span>Total (excl. delivery)</span><span>₹${itemPrice.toLocaleString('en-IN')}</span></div>
+      </div>`;
 
     document.getElementById('singleSizeSection').style.display = 'block';
-    selectedSize = preSize;
-    document.querySelectorAll('.csz-btn').forEach(b => b.classList.toggle('active', b.textContent.trim()===preSize));
-
-    // Auto select size chart tab
-    if (SIZE_CHARTS[itemCat]) renderScTable(itemCat, 'scThead2', 'scTbody2');
+    document.querySelectorAll('.csz-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim()===preSize));
   }
 
   document.getElementById('payAmt').textContent = '₹' + orderTotal.toLocaleString('en-IN');
 });
 
-function pickSize(btn) {
+function pickSize(btn){
   document.querySelectorAll('.csz-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  selectedSize = btn.textContent.trim();
+  btn.classList.add('active'); selectedSize=btn.textContent.trim();
   document.getElementById('sizeError').classList.remove('show');
-  orderItemsText = orderItemsText.replace(/\([^)]*\)/, `(${selectedSize})`);
 }
 
-function handleScreenshot(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  if (file.size > 5*1024*1024) { alert('File too large. Max 5MB.'); return; }
-  screenshotFile = file;
+function handleScreenshot(e){
+  const file=e.target.files[0]; if(!file) return;
+  if(file.size>5*1024*1024){alert('File too large. Max 5MB.');return;}
+  screenshotFile=file;
   document.getElementById('ssUploadBox').classList.add('has-file');
-  document.getElementById('ssFileName').textContent = '✅ ' + file.name;
+  document.getElementById('ssFileName').textContent='✅ '+file.name;
   document.getElementById('ssError').classList.remove('show');
 }
 
-function validateForm() {
-  let valid = true;
+function validateForm(){
+  let valid=true;
   const show=(id,inputId)=>{document.getElementById(id).classList.add('show');if(inputId)document.getElementById(inputId).classList.add('err');valid=false;};
   const clear=(id,inputId)=>{document.getElementById(id).classList.remove('show');if(inputId)document.getElementById(inputId).classList.remove('err');};
   const name=document.getElementById('custName').value.trim();
@@ -354,46 +317,43 @@ function validateForm() {
   if(!/\S+@\S+\.\S+/.test(email)) show('emailError','custEmail'); else clear('emailError','custEmail');
   if(!/^\d{6}$/.test(pin)) show('pinError','custPin'); else clear('pinError','custPin');
   if(!addr) show('addressError','custAddress'); else clear('addressError','custAddress');
-  if(!isCart && !selectedSize){document.getElementById('sizeError').classList.add('show');valid=false;}
+  if(!isCart&&!selectedSize){document.getElementById('sizeError').classList.add('show');valid=false;}
   if(!screenshotFile){document.getElementById('ssError').classList.add('show');valid=false;}
   return valid;
 }
 
-function submitOrder() {
-  if (!validateForm()) { document.querySelector('.field-err.show')?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true; btn.textContent = 'Submitting...';
-  const name    = document.getElementById('custName').value.trim();
-  const phone   = document.getElementById('custPhone').value.trim();
-  const email   = document.getElementById('custEmail').value.trim();
-  const pin     = document.getElementById('custPin').value.trim();
-  const address = document.getElementById('custAddress').value.trim();
-  const orderId = 'CC' + Date.now().toString().slice(-6);
-  document.getElementById('orderId').textContent = orderId;
-
-  const sizeInfo = isCart ? '(sizes per item above)' : selectedSize;
-  const msg = encodeURIComponent(
-    `🛍️ NEW ORDER — ${orderId}\n\n` +
-    `Items:\n${orderItemsText}\n` +
-    `Size: ${sizeInfo}\n` +
-    `Amount Paid: ₹${orderTotal}\n\n` +
-    `👤 Customer:\n` +
-    `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nPincode: ${pin}\n\n` +
-    `📸 Payment screenshot uploaded on website. Please verify and confirm.`
+function submitOrder(){
+  if(!validateForm()){document.querySelector('.field-err.show')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='Submitting...';
+  const name=document.getElementById('custName').value.trim();
+  const phone=document.getElementById('custPhone').value.trim();
+  const email=document.getElementById('custEmail').value.trim();
+  const pin=document.getElementById('custPin').value.trim();
+  const address=document.getElementById('custAddress').value.trim();
+  const orderId='CC'+Date.now().toString().slice(-6);
+  document.getElementById('orderId').textContent=orderId;
+  const sizeInfo=isCart?'(sizes per item above)':selectedSize;
+  const msg=encodeURIComponent(
+    `🛍️ NEW ORDER — ${orderId}\n\n`+
+    `Items:\n${orderItemsText}\n`+
+    `Size: ${sizeInfo}\n`+
+    `Amount Paid: ₹${orderTotal}\n\n`+
+    `👤 Customer:\n`+
+    `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\nPincode: ${pin}\n\n`+
+    `📸 Payment screenshot uploaded on website.\nPlease verify and confirm the order.`
   );
-
-  setTimeout(() => {
-    document.getElementById('orderWrap').style.display='none';
+  setTimeout(()=>{
+    document.getElementById('orderMain').style.display='none';
     document.querySelector('.order-steps').style.display='none';
     document.getElementById('successScreen').classList.add('show');
     document.getElementById('os2').classList.remove('active');
     document.getElementById('os2').classList.add('done');
     document.getElementById('os3').classList.add('active');
-    document.getElementById('successWaBtn').href = `https://wa.me/918766948989?text=${msg}`;
-    // Clear cart after successful order
-    if (isCart) localStorage.removeItem('cc_cart');
+    document.getElementById('successWaBtn').href=`https://wa.me/918766948989?text=${msg}`;
+    if(isCart) localStorage.removeItem('cc_cart');
     window.scrollTo(0,0);
-  }, 800);
+  },800);
 }
 </script>
 </body>
