@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product — Custom Closet</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:#f2efe9;font-family:'Inter',sans-serif;color:#111;min-height:100vh;}
+
+    /* NAV */
+    .cnav{background:#fff;border-bottom:1px solid #e5e7eb;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .cnav-logo{font-weight:700;font-size:17px;text-decoration:none;color:#111;letter-spacing:-0.5px;}
+    .cnav-right{display:flex;align-items:center;gap:16px;}
+    .cnav-back{font-size:13px;color:#666;text-decoration:none;}
+    .cnav-back:hover{color:#111;}
+    .cart-icon-btn{position:relative;text-decoration:none;color:#111;font-size:14px;font-weight:500;display:flex;align-items:center;gap:5px;}
+    .cart-badge{position:absolute;top:-5px;right:-8px;background:#dc2626;color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;}
+    .cart-badge.show{display:flex;}
+
+    /* BREADCRUMB */
+    .breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px;font-size:13px;color:#666;}
+    .breadcrumb a{color:#666;text-decoration:none;} .breadcrumb a:hover{color:#111;}
+    .breadcrumb span{margin:0 6px;color:#ccc;}
+
+    /* PRODUCT LAYOUT */
+    .product-wrap{max-width:1100px;margin:0 auto;padding:0 24px 60px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+    @media(max-width:768px){.product-wrap{grid-template-columns:1fr;gap:24px;padding:0 16px 40px;}}
+
+    /* IMAGE GALLERY */
+    .gallery{position:sticky;top:72px;}
+    .main-img-wrap{border-radius:20px;overflow:hidden;background:#fff;aspect-ratio:1;position:relative;box-shadow:0 4px 24px rgba(0,0,0,0.08);}
+    .main-img{width:100%;height:100%;object-fit:cover;transition:opacity 0.3s;}
+    .main-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px;background:#f5f5f5;}
+    .thumb-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+    .thumb{width:72px;height:72px;border-radius:12px;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:all 0.2s;background:#f5f5f5;}
+    .thumb:hover{border-color:#999;}
+    .thumb.active{border-color:#111;}
+    .img-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.9);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:all 0.2s;z-index:2;}
+    .img-nav:hover{background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+    .img-nav.prev{left:12px;} .img-nav.next{right:12px;}
+
+    /* PRODUCT INFO */
+    .product-info{padding-top:8px;}
+    .product-category{font-size:12px;font-weight:600;color:#6366f1;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+    .product-name{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;line-height:1.2;margin-bottom:12px;}
+    @media(max-width:500px){.product-name{font-size:22px;}}
+    .product-desc{font-size:14px;color:#666;line-height:1.7;margin-bottom:16px;}
+
+    /* RATING SUMMARY */
+    .rating-summary{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #f0f0f0;}
+    .stars-display{display:flex;gap:2px;}
+    .star-icon{font-size:16px;color:#fbbf24;}
+    .star-icon.empty{color:#e5e7eb;}
+    .rating-num{font-size:15px;font-weight:700;}
+    .rating-count{font-size:13px;color:#666;}
+
+    /* PRICE */
+    .price-row{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+    .price{font-size:28px;font-weight:700;color:#111;}
+    .price-original{font-size:16px;color:#999;text-decoration:line-through;}
+    .price-badge{background:#dcfce7;color:#16a34a;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;}
+
+    /* SIZE */
+    .option-label{font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+    .size-chart-link{font-size:12px;color:#6366f1;font-weight:600;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:'Inter',sans-serif;}
+    .size-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+    .size-btn{padding:8px 16px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;transition:all 0.15s;font-family:'Inter',sans-serif;}
+    .size-btn:hover{border-color:#111;} .size-btn.active{border-color:#111;background:#111;color:#fff;}
+    .size-btn.unavail{opacity:0.35;cursor:not-allowed;text-decoration:line-through;}
+
+    /* COLOR */
+    .color-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+    .color-swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.15s;position:relative;}
+    .color-swatch:hover{transform:scale(1.1);}
+    .color-swatch.active{border-color:#111;box-shadow:0 0 0 2px #fff,0 0 0 4px #111;}
+    .color-name{font-size:12px;color:#666;margin-top:4px;}
+
+    /* BUTTONS */
+    .btn-row{display:flex;gap:12px;margin-bottom:20px;}
+    .add-cart-btn{flex:1;padding:15px;background:#111;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;}
+    .add-cart-btn:hover{background:#333;}
+    .wishlist-btn{width:52px;height:52px;border:1.5px solid #e5e7eb;border-radius:12px;background:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;}
+    .wishlist-btn:hover{border-color:#dc2626;}
+    .wishlist-btn.active{border-color:#dc2626;color:#dc2626;}
+
+    /* TOAST */
+    #cartToast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:9999;transition:opacity 0.3s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.2);opacity:0;pointer-events:none;}
+    #cartToast.show{opacity:1;pointer-events:auto;}
+
+    /* DETAILS */
+    .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+    .detail-item{background:#f9f9f9;border-radius:10px;padding:12px 14px;}
+    .detail-label{font-size:11px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
+    .detail-val{font-size:13px;font-weight:600;color:#111;}
+
+    /* SIZE CHART POPUP */
+    .sc-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;}
+    .sc-overlay.open{display:flex;}
+    .sc-modal{background:#fff;border-radius:20px;padding:28px;max-width:460px;width:100%;max-height:90vh;overflow-y:auto;position:relative;}
+    .sc-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#666;}
+    .sc-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px;}
+    .sc-note{font-size:11px;color:#f97316;margin-top:10px;font-weight:500;}
+    .sc-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
+    .sc-table th{background:#f5f5f5;padding:10px 12px;text-align:left;font-weight:600;font-size:12px;}
+    .sc-table td{padding:10px 12px;border-bottom:1px solid #f0f0f0;}
+    .sc-table tr:last-child td{border-bottom:none;}
+
+    /* ═══════════════════════════
+       REVIEWS SECTION
+    ═══════════════════════════ */
+    .reviews-section{max-width:1100px;margin:0 auto;padding:0 24px 60px;}
+    @media(max-width:768px){.reviews-section{padding:0 16px 40px;}}
+    .reviews-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:24px;padding-top:8px;border-top:1px solid #e5e7eb;}
+
+    /* WRITE REVIEW */
+    .review-form-card{background:#fff;border-radius:16px;padding:24px;margin-bottom:28px;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
+    .review-form-title{font-size:15px;font-weight:700;margin-bottom:16px;}
+    .star-picker{display:flex;gap:6px;margin-bottom:14px;}
+    .star-pick{font-size:28px;cursor:pointer;color:#e5e7eb;transition:color 0.15s;line-height:1;}
+    .star-pick.active,.star-pick.hover{color:#fbbf24;}
+    .review-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+    @media(max-width:500px){.review-inputs{grid-template-columns:1fr;}}
+    .review-input{padding:10px 13px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;width:100%;background:#fff;}
+    .review-input:focus{border-color:#111;}
+    .review-textarea{width:100%;padding:10px 13px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;resize:vertical;min-height:80px;margin-bottom:12px;}
+    .review-textarea:focus{border-color:#111;}
+
+    /* PHOTO UPLOAD */
+    .photo-upload-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+    .photo-upload-btn{padding:8px 16px;border:1.5px dashed #d1d5db;border-radius:10px;background:#fafafa;font-size:13px;color:#666;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
+    .photo-upload-btn:hover{border-color:#111;color:#111;}
+    .photo-preview-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+    .photo-preview{width:64px;height:64px;border-radius:10px;object-fit:cover;border:1px solid #e5e7eb;}
+
+    .submit-review-btn{padding:11px 24px;background:#111;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;}
+    .submit-review-btn:hover{background:#333;}
+    .review-err{font-size:12px;color:#dc2626;margin-top:6px;display:none;}
+    .review-err.show{display:block;}
+
+    /* REVIEW CARDS */
+    .reviews-list{display:flex;flex-direction:column;gap:16px;}
+    .review-card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
+    .review-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+    .reviewer-name{font-size:14px;font-weight:600;}
+    .review-date{font-size:12px;color:#999;}
+    .review-stars{display:flex;gap:2px;}
+    .review-star{font-size:14px;color:#fbbf24;}
+    .review-star.empty{color:#e5e7eb;}
+    .review-text{font-size:14px;color:#374151;line-height:1.7;margin-bottom:10px;}
+    .review-photos{display:flex;gap:8px;flex-wrap:wrap;}
+    .review-photo{width:80px;height:80px;border-radius:10px;object-fit:cover;cursor:pointer;border:1px solid #e5e7eb;}
+    .no-reviews{text-align:center;padding:40px;color:#888;font-size:14px;}
+
+    /* PHOTO LIGHTBOX */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:none;align-items:center;justify-content:center;}
+    .lightbox.open{display:flex;}
+    .lightbox img{max-width:90vw;max-height:90vh;border-radius:12px;object-fit:contain;}
+    .lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;}
+
+    /* EMPTY STATE */
+    .product-not-found{text-align:center;padding:80px 24px;color:#888;}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="cnav">
+  <a href="index.html" class="cnav-logo">CustomCloset</a>
+  <div class="cnav-right">
+    <a href="cart.html" class="cart-icon-btn">🛒 Cart<span class="cart-badge" id="cartBadge">0</span></a>
+    <a href="index.html#trending" class="cnav-back">← Back to shop</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>›</span>
+  <a href="index.html#trending">Trending</a><span>›</span>
+  <span id="breadcrumbName">Product</span>
+</div>
+
+<!-- PRODUCT -->
+<div class="product-wrap" id="productWrap">
+  <!-- LEFT: GALLERY -->
+  <div class="gallery">
+    <div class="main-img-wrap">
+      <button class="img-nav prev" onclick="galleryNav(-1)">‹</button>
+      <img class="main-img" id="mainImg" src="" alt="Product"/>
+      <button class="img-nav next" onclick="galleryNav(1)">›</button>
+    </div>
+    <div class="thumb-row" id="thumbRow"></div>
+  </div>
+
+  <!-- RIGHT: INFO -->
+  <div class="product-info">
+    <div class="product-category" id="pCat"></div>
+    <h1 class="product-name" id="pName"></h1>
+    <p class="product-desc" id="pDesc"></p>
+
+    <!-- Rating summary -->
+    <div class="rating-summary" id="ratingSummary">
+      <div class="stars-display" id="summaryStars"></div>
+      <span class="rating-num" id="summaryNum">0.0</span>
+      <span class="rating-count" id="summaryCount">(0 reviews)</span>
+    </div>
+
+    <!-- Price -->
+    <div class="price-row">
+      <span class="price" id="pPrice"></span>
+      <span class="price-original" id="pOriginal"></span>
+      <span class="price-badge" id="pDiscount"></span>
+    </div>
+
+    <!-- Size -->
+    <div class="option-label">
+      Size — <span id="selectedSizeLabel" style="color:#111;font-weight:700;">M</span>
+      <button class="size-chart-link" onclick="openSizeChart()">📏 Size chart</button>
+    </div>
+    <div class="size-row" id="sizeRow">
+      <button class="size-btn active" onclick="pickSize(this,'S')">S</button>
+      <button class="size-btn" onclick="pickSize(this,'M')">M</button>
+      <button class="size-btn" onclick="pickSize(this,'L')">L</button>
+      <button class="size-btn" onclick="pickSize(this,'XL')">XL</button>
+      <button class="size-btn" onclick="pickSize(this,'XXL')">XXL</button>
+    </div>
+
+    <!-- Details -->
+    <div class="details-grid" id="detailsGrid"></div>
+
+    <!-- Add to cart -->
+    <div class="btn-row">
+      <button class="add-cart-btn" onclick="addProductToCart()">🛒 Add to cart</button>
+      <button class="wishlist-btn" id="wishlistBtn" onclick="toggleWish()">♡</button>
+    </div>
+
+    <p style="font-size:12px;color:#666;line-height:1.6;">
+      🚚 Ships in 5–7 days · Delivery charges based on location (COD)<br>
+      💬 Order confirmed via WhatsApp · 🎨 Custom printed with care
+    </p>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="reviews-section">
+  <div class="reviews-title">⭐ Customer Reviews</div>
+
+  <!-- Write a review -->
+  <div class="review-form-card">
+    <div class="review-form-title">Write a review</div>
+
+    <div style="font-size:12px;color:#666;margin-bottom:8px;font-weight:500;">Your rating <span style="color:#dc2626;">*</span></div>
+    <div class="star-picker" id="starPicker">
+      <span class="star-pick" data-val="1" onclick="setRating(1)" onmouseover="hoverRating(1)" onmouseout="unhoverRating()">★</span>
+      <span class="star-pick" data-val="2" onclick="setRating(2)" onmouseover="hoverRating(2)" onmouseout="unhoverRating()">★</span>
+      <span class="star-pick" data-val="3" onclick="setRating(3)" onmouseover="hoverRating(3)" onmouseout="unhoverRating()">★</span>
+      <span class="star-pick" data-val="4" onclick="setRating(4)" onmouseover="hoverRating(4)" onmouseout="unhoverRating()">★</span>
+      <span class="star-pick" data-val="5" onclick="setRating(5)" onmouseover="hoverRating(5)" onmouseout="unhoverRating()">★</span>
+    </div>
+    <div class="review-err" id="ratingErr">Please select a star rating</div>
+
+    <div class="review-inputs">
+      <input class="review-input" id="reviewName" placeholder="Your name *" maxlength="40"/>
+      <input class="review-input" id="reviewTitle" placeholder="Review title (optional)" maxlength="60"/>
+    </div>
+    <div class="review-err" id="nameErr">Please enter your name</div>
+
+    <textarea class="review-textarea" id="reviewText" placeholder="Share your experience with this product... *" maxlength="500"></textarea>
+    <div class="review-err" id="textErr">Please write your review</div>
+
+    <div class="photo-upload-row">
+      <label class="photo-upload-btn">
+        📷 Add photos (optional)
+        <input type="file" id="reviewPhotos" accept="image/*" multiple style="display:none" onchange="handleReviewPhotos(event)"/>
+      </label>
+      <span style="font-size:12px;color:#999;">Max 3 photos · JPG/PNG</span>
+    </div>
+    <div class="photo-preview-row" id="photoPreviewRow"></div>
+
+    <button class="submit-review-btn" onclick="submitReview()">Post review →</button>
+  </div>
+
+  <!-- Reviews list -->
+  <div class="reviews-list" id="reviewsList"></div>
+</div>
+
+<!-- SIZE CHART POPUP -->
+<div class="sc-overlay" id="scOverlay" onclick="if(event.target===this)closeSizeChart()">
+  <div class="sc-modal">
+    <button class="sc-close" onclick="closeSizeChart()">✕</button>
+    <div class="sc-title">📏 Size Chart</div>
+    <p style="font-size:13px;color:#666;">All measurements in inches</p>
+    <table class="sc-table">
+      <thead id="scThead"></thead>
+      <tbody id="scTbody"></tbody>
+    </table>
+    <p class="sc-note">⚠️ When in doubt, size up.</p>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt=""/>
+</div>
+
+<!-- TOAST -->
+<div id="cartToast"></div>
+
+<script>
+// ═══════════════════════════════════════
+// PRODUCT DATA — same as script.js
+// ═══════════════════════════════════════
+const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
+
+const SIZE_CHARTS = {
+  oversize:{ cols:['Size','Chest (in)','Length (in)'], rows:[['S','40–42','24'],['M','42–44','25'],['L','44–46','26'],['XL','46–48','27'],['XXL','48–50','28']] },
+  hoodie:  { cols:['Size','Chest (in)','Length (in)'], rows:[['S','38','25'],['M','40','26'],['L','42','27'],['XL','44','28'],['XXL','46','29']] },
+  polo:    { cols:['Size','Chest (in)','Length (in)'], rows:[['S','36','25'],['M','38','26'],['L','40','27'],['XL','42','28'],['XXL','44','29']] },
+  tshirt:  { cols:['Size','Chest (in)','Length (in)'], rows:[['S','38','25'],['M','40','26'],['L','42','27'],['XL','44','28'],['XXL','46','29']] }
+};
+
+const PRODUCTS = [
+  { id:1, category:'oversize', name:'Legend in Red', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee with a comfortable relaxed silhouette.', price:499, original:999, badge:'Trending', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    colors:[{key:'black',label:'Black',hex:'#1a1a1a'}],
+    images:[`${CL}/F1-1-front.jpg`,`${CL}/F1-1-back.jpg`] },
+  { id:2, category:'oversize', name:'The GOAT Edition', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Limited edition graphic tee for the GOAT in you.', price:499, original:999, badge:'Trending', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    colors:[{key:'black',label:'Black',hex:'#1a1a1a'}],
+    images:[`${CL}/F1-2-front.jpg`,`${CL}/F1-2-back.jpg`] },
+  { id:3, category:'oversize', name:'The Red Legacy', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Bold graphic tee celebrating a legendary legacy.', price:499, original:999, badge:'Trending', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    colors:[{key:'black',label:'Black',hex:'#1a1a1a'}],
+    images:[`${CL}/F1-2-front.jpg`,`${CL}/F1-3-back.jpg`] },
+  { id:4, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Enter the Spider-Verse with this iconic black edition.', price:499, original:999, badge:'Trending', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    colors:[{key:'black',label:'Black',hex:'#1a1a1a'}],
+    images:[`${CL}/spiderman1-front.jpg`,`${CL}/spiderman1-back.jpg`] },
+];
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let product = null;
+let currentImgIdx = 0;
+let selectedSize = 'S';
+let selectedColor = '';
+let rating = 0;
+let reviewPhotoFiles = [];
+const params = new URLSearchParams(window.location.search);
+const productId = parseInt(params.get('id'));
+
+// ═══════════════════════════════════════
+// CART
+// ═══════════════════════════════════════
+function getCart(){ try{return JSON.parse(localStorage.getItem('cc_cart')||'[]');}catch{return[];} }
+function saveCart(c){ localStorage.setItem('cc_cart',JSON.stringify(c)); updateBadge(); }
+function updateBadge(){
+  const t=getCart().reduce((s,i)=>s+i.qty,0);
+  document.querySelectorAll('.cart-badge').forEach(b=>{b.textContent=t;b.classList.toggle('show',t>0);});
+}
+function addProductToCart(){
+  const cart=getCart();
+  const key=`${product.id}-${selectedSize}-${selectedColor}`;
+  const ex=cart.find(i=>i.key===key);
+  if(ex) ex.qty++;
+  else cart.push({key,id:product.id,name:product.name,category:product.category,size:selectedSize,color:selectedColor||'Black',price:product.price,original:product.original,img:product.images[0],qty:1});
+  saveCart(cart);
+  showToast(`✅ Added — ${product.name} (${selectedSize}) &nbsp;<a href="cart.html" style="color:#fbbf24;font-weight:700;text-decoration:none;">View cart →</a>`);
+}
+function showToast(html){
+  const t=document.getElementById('cartToast');
+  t.innerHTML=html; t.classList.add('show');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ═══════════════════════════════════════
+// GALLERY
+// ═══════════════════════════════════════
+function setMainImg(idx){
+  if(!product||!product.images.length) return;
+  idx=((idx%product.images.length)+product.images.length)%product.images.length;
+  currentImgIdx=idx;
+  const img=document.getElementById('mainImg');
+  img.style.opacity='0';
+  setTimeout(()=>{ img.src=product.images[idx]; img.style.opacity='1'; },150);
+  document.querySelectorAll('.thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
+}
+function galleryNav(dir){ setMainImg(currentImgIdx+dir); }
+
+// ═══════════════════════════════════════
+// SIZE
+// ═══════════════════════════════════════
+function pickSize(btn,size){
+  if(btn.classList.contains('unavail')) return;
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedSize=size;
+  document.getElementById('selectedSizeLabel').textContent=size;
+}
+
+// ═══════════════════════════════════════
+// WISHLIST
+// ═══════════════════════════════════════
+function toggleWish(){
+  const btn=document.getElementById('wishlistBtn');
+  const active=btn.classList.toggle('active');
+  btn.textContent=active?'♥':'♡';
+}
+
+// ═══════════════════════════════════════
+// SIZE CHART
+// ═══════════════════════════════════════
+function openSizeChart(){
+  const chart=SIZE_CHARTS[product?.category]||SIZE_CHARTS.oversize;
+  document.getElementById('scThead').innerHTML=`<tr>${chart.cols.map(c=>`<th>${c}</th>`).join('')}</tr>`;
+  document.getElementById('scTbody').innerHTML=chart.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+  document.getElementById('scOverlay').classList.add('open');
+}
+function closeSizeChart(){ document.getElementById('scOverlay').classList.remove('open'); }
+
+// ═══════════════════════════════════════
+// REVIEWS — localStorage per product
+// ═══════════════════════════════════════
+function getReviews(){
+  try{ return JSON.parse(localStorage.getItem(`reviews_${productId}`)||'[]'); }catch{ return []; }
+}
+function saveReviews(r){ localStorage.setItem(`reviews_${productId}`,JSON.stringify(r)); }
+
+function renderReviews(){
+  const reviews=getReviews();
+  const list=document.getElementById('reviewsList');
+
+  // Update rating summary
+  if(reviews.length>0){
+    const avg=reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
+    document.getElementById('summaryNum').textContent=avg.toFixed(1);
+    document.getElementById('summaryCount').textContent=`(${reviews.length} review${reviews.length>1?'s':''})`;
+    document.getElementById('summaryStars').innerHTML=renderStarIcons(avg);
+  } else {
+    document.getElementById('summaryNum').textContent='No reviews yet';
+    document.getElementById('summaryCount').textContent='';
+    document.getElementById('summaryStars').innerHTML='';
+  }
+
+  if(reviews.length===0){
+    list.innerHTML=`<div class="no-reviews">No reviews yet — be the first to share your experience! 🌟</div>`;
+    return;
+  }
+
+  list.innerHTML=reviews.slice().reverse().map(r=>`
+    <div class="review-card">
+      <div class="review-header">
+        <div>
+          <div class="reviewer-name">${escHtml(r.name)}${r.title?` — <span style="font-weight:400;color:#666;">${escHtml(r.title)}</span>`:''}</div>
+          <div class="review-date">${r.date}</div>
+        </div>
+        <div class="review-stars">${renderStarIcons(r.rating)}</div>
+      </div>
+      <p class="review-text">${escHtml(r.text)}</p>
+      ${r.photos&&r.photos.length?`<div class="review-photos">${r.photos.map(p=>`<img class="review-photo" src="${p}" onclick="openLightbox('${p}')" alt="Review photo"/>`).join('')}</div>`:''}
+    </div>`).join('');
+}
+
+function renderStarIcons(rating){
+  return [1,2,3,4,5].map(i=>{
+    if(i<=Math.floor(rating)) return `<span class="review-star">★</span>`;
+    if(i-rating<1&&i-rating>0) return `<span class="review-star" style="opacity:0.5;">★</span>`;
+    return `<span class="review-star empty">★</span>`;
+  }).join('');
+}
+
+function escHtml(str){ return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// Star picker
+function setRating(val){ rating=val; updateStarPicker(); }
+function hoverRating(val){ document.querySelectorAll('.star-pick').forEach((s,i)=>s.classList.toggle('hover',i<val)); }
+function unhoverRating(){ document.querySelectorAll('.star-pick').forEach(s=>s.classList.remove('hover')); }
+function updateStarPicker(){ document.querySelectorAll('.star-pick').forEach((s,i)=>s.classList.toggle('active',i<rating)); }
+
+// Photo upload
+function handleReviewPhotos(e){
+  const files=Array.from(e.target.files).slice(0,3);
+  reviewPhotoFiles=files;
+  const row=document.getElementById('photoPreviewRow');
+  row.innerHTML='';
+  files.forEach(f=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const img=document.createElement('img');
+      img.src=ev.target.result; img.className='photo-preview';
+      row.appendChild(img);
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+function submitReview(){
+  let valid=true;
+  if(!rating){ document.getElementById('ratingErr').classList.add('show'); valid=false; }
+  else document.getElementById('ratingErr').classList.remove('show');
+  const name=document.getElementById('reviewName').value.trim();
+  if(!name){ document.getElementById('nameErr').classList.add('show'); valid=false; }
+  else document.getElementById('nameErr').classList.remove('show');
+  const text=document.getElementById('reviewText').value.trim();
+  if(!text){ document.getElementById('textErr').classList.add('show'); valid=false; }
+  else document.getElementById('textErr').classList.remove('show');
+  if(!valid) return;
+
+  const title=document.getElementById('reviewTitle').value.trim();
+  const photos=Array.from(document.querySelectorAll('#photoPreviewRow img')).map(i=>i.src);
+  const now=new Date();
+  const date=now.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  const review={ rating, name, title, text, photos, date, id:Date.now() };
+  const reviews=getReviews();
+  reviews.push(review);
+  saveReviews(reviews);
+  renderReviews();
+
+  // Reset form
+  rating=0; updateStarPicker();
+  document.getElementById('reviewName').value='';
+  document.getElementById('reviewTitle').value='';
+  document.getElementById('reviewText').value='';
+  document.getElementById('photoPreviewRow').innerHTML='';
+  reviewPhotoFiles=[];
+  document.getElementById('reviewPhotos').value='';
+
+  showToast('✅ Review posted! Thank you 🙏');
+}
+
+// Lightbox
+function openLightbox(src){ document.getElementById('lightboxImg').src=src; document.getElementById('lightbox').classList.add('open'); }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
+  updateBadge();
+  product=PRODUCTS.find(p=>p.id===productId);
+
+  if(!product){
+    document.getElementById('productWrap').innerHTML=`<div class="product-not-found" style="grid-column:1/-1"><div style="font-size:56px;margin-bottom:16px;">😕</div><h2 style="margin-bottom:8px;">Product not found</h2><p style="margin-bottom:24px;color:#888;">This product doesn't exist or may have been removed.</p><a href="index.html" style="padding:12px 24px;background:#111;color:#fff;border-radius:10px;text-decoration:none;font-weight:600;">← Back to shop</a></div>`;
+    return;
+  }
+
+  // Set breadcrumb
+  document.getElementById('breadcrumbName').textContent=product.name;
+  document.title=`${product.name} — Custom Closet`;
+
+  // Set info
+  document.getElementById('pCat').textContent=product.category.charAt(0).toUpperCase()+product.category.slice(1)+' T-Shirt';
+  document.getElementById('pName').textContent=product.name;
+  document.getElementById('pDesc').textContent=product.desc;
+  document.getElementById('pPrice').textContent='₹'+product.price.toLocaleString('en-IN');
+  document.getElementById('pOriginal').textContent='₹'+product.original.toLocaleString('en-IN');
+  const disc=Math.round((1-product.price/product.original)*100);
+  document.getElementById('pDiscount').textContent=disc+'% off';
+
+  // Details grid
+  document.getElementById('detailsGrid').innerHTML=`
+    <div class="detail-item"><div class="detail-label">Fabric</div><div class="detail-val">${product.fabric}</div></div>
+    <div class="detail-item"><div class="detail-label">GSM</div><div class="detail-val">${product.gsm}</div></div>
+    <div class="detail-item"><div class="detail-label">Fit</div><div class="detail-val">${product.fit}</div></div>
+    <div class="detail-item"><div class="detail-label">Print</div><div class="detail-val">${product.print}</div></div>
+    <div class="detail-item"><div class="detail-label">Delivery</div><div class="detail-val">5–7 days</div></div>
+    <div class="detail-item"><div class="detail-label">Ships from</div><div class="detail-val">Pune, MH</div></div>`;
+
+  // Gallery
+  if(product.images.length){
+    document.getElementById('mainImg').src=product.images[0];
+    const thumbRow=document.getElementById('thumbRow');
+    product.images.forEach((img,i)=>{
+      const t=document.createElement('img');
+      t.src=img; t.className='thumb'+(i===0?' active':'');
+      t.onclick=()=>setMainImg(i);
+      t.onerror=()=>t.style.display='none';
+      thumbRow.appendChild(t);
+    });
+  }
+
+  // Default size
+  selectedSize='S';
+  selectedColor=product.colors[0]?.label||'Black';
+
+  // Reviews
+  renderReviews();
+});
+</script>
+</body>
+</html>

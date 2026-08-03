@@ -59,55 +59,32 @@ function renderSizeTable(cat) {
 
 // ══ BUILD CARD — NO CUSTOMISE BUTTON ══
 function buildCard(p) {
-  const discount = Math.round((1-p.price/p.original)*100);
   const badge = p.badge ? `<div class="trend-badge ${p.badge==='New'?'new':p.badge==='Hot'?'hot':''}">${p.badge}</div>` : '';
-  const colors = p.colors.map(c=>`<span class="color-dot" style="background:${c};${['#fff','#fef9f0'].includes(c)?'border:1.5px solid #ddd;':''}" title="${c}"></span>`).join('');
-  const emoji = p.category==='hoodie'?'🧥':p.category==='polo'?'👔':p.category==='oversize'?'🩱':'👕';
-  const cardId=`card-${p.id}`; const imgs=p.images||{};
-
-  const slidesHtml=[{key:'front',icon:emoji},{key:'back',icon:'🔄'}].map((s,i)=>{
-    const src=imgs[s.key];
-    const inner=src?`<img src="${src}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"/>`:`<div class="trend-placeholder-icon">${s.icon}</div>`;
-    return `<div class="tslide ${i===0?'active':''}" data-slide="${i}"><div class="trend-img ${src?'':'placeholder-img'}">${inner}</div></div>`;
-  }).join('');
-
-  const dotsHtml=[0,1].map(i=>`<button class="tslide-dot ${i===0?'active':''}" onclick="setSlide('${cardId}',${i})"></button>`).join('');
-  const sizes=['S','M','L','XL','XXL'];
-  const sizeBtns=sizes.map((s,i)=>`<button class="card-size-btn ${i===1?'active':''}" onclick="selectCardSize(this,'${cardId}')">${s}</button>`).join('');
+  const imgs = p.images || {};
+  const src = imgs.front || '';
+  const discount = Math.round((1-p.price/p.original)*100);
 
   return `
-  <div class="trend-card" data-category="${p.category}" id="${cardId}" data-selected-size="M">
-    <div class="trend-img-wrap">
-      <div class="tslider">
-        <div class="tslider-track">${slidesHtml}</div>
-        <button class="tslider-prev" onclick="slideNav('${cardId}',-1)">&#8249;</button>
-        <button class="tslider-next" onclick="slideNav('${cardId}',1)">&#8250;</button>
-      </div>
+  <div class="trend-card minimal-card" data-category="${p.category}" onclick="window.location.href='product.html?id=${p.id}'" style="cursor:pointer;">
+    <div class="trend-img-wrap" style="position:relative;">
+      ${src
+        ? `<img src="${src}" alt="${p.name}" loading="lazy" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px 16px 0 0;display:block;"/>`
+        : `<div style="width:100%;aspect-ratio:1;background:#f5f5f5;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:center;font-size:56px;">🩱</div>`
+      }
       ${badge}
-      <div class="trend-wishlist" onclick="toggleWishlist(this)">♡</div>
-      <div class="tslide-dots">${dotsHtml}</div>
     </div>
-    <div class="trend-info">
+    <div class="trend-info" style="padding:14px 16px 16px;">
       <div class="trend-category">${p.category.charAt(0).toUpperCase()+p.category.slice(1)}</div>
-      <h3 class="trend-name">${p.name}</h3>
-      <p class="trend-desc">${p.desc}</p>
-      <div class="trend-colors">${colors}</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;margin-bottom:5px;">
-        <div class="card-size-label" style="margin:0;">Size</div>
-        <button class="size-chart-btn" onclick="openSizeChart('${p.category}')">Size chart</button>
-      </div>
-      <div class="card-size-row" id="sizes-${cardId}">${sizeBtns}</div>
-      <div class="trend-price-row">
+      <h3 class="trend-name" style="margin-bottom:6px;">${p.name}</h3>
+      <div class="trend-price-row" style="margin-bottom:0;">
         <span class="trend-price">₹${p.price.toLocaleString('en-IN')}</span>
         <span class="trend-original">₹${p.original.toLocaleString('en-IN')}</span>
         <span class="trend-discount">${discount}% off</span>
       </div>
-      <div class="trend-actions">
-        <button class="btn-buy" style="width:100%;justify-content:center;" onclick="addToCartFromCard('${cardId}',${p.id})">Add to cart</button>
-      </div>
     </div>
   </div>`;
 }
+
 
 function selectCardSize(btn,cardId) {
   document.getElementById('sizes-'+cardId).querySelectorAll('.card-size-btn').forEach(b=>b.classList.remove('active'));
