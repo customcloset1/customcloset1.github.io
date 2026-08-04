@@ -214,6 +214,7 @@
   <a href="index.html" style="display:block;margin-top:16px;font-size:13px;color:#666;text-decoration:none;">← Back to shop</a>
 </div>
 
+<script src="supabase.js"></script>
 <script>
 const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
 const WA = '918766948989';
@@ -365,6 +366,19 @@ Please confirm my order. Thank you!`
   );
 
   waLink = `https://wa.me/${WA}?text=${msg}`;
+
+  // Save order to Supabase
+  sbInsertOrder({
+    order_id: orderId,
+    items: orderItemsText,
+    total: orderTotal,
+    customer_name: name,
+    customer_phone: phone,
+    customer_email: email,
+    customer_address: address,
+    customer_pincode: pin,
+    status: 'pending'
+  });
 
   // Show success screen
   document.getElementById('orderMain').style.display = 'none';
