@@ -9,50 +9,34 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
     body{background:#f2efe9;font-family:'Inter',sans-serif;color:#111;min-height:100vh;}
-
-    /* NAV */
     .cnav{background:#fff;border-bottom:1px solid #e5e7eb;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
     .cnav-logo{font-weight:700;font-size:17px;text-decoration:none;color:#111;}
     .cnav-back{font-size:13px;color:#666;text-decoration:none;}
-
-    /* STEPS */
     .order-steps{display:flex;align-items:center;justify-content:center;padding:16px;background:#fff;border-bottom:1px solid #f0f0f0;gap:4px;}
     .ostep{display:flex;align-items:center;gap:6px;font-size:13px;color:#999;font-weight:500;}
     .ostep.active{color:#111;} .ostep.done{color:#16a34a;}
     .ostep-num{width:24px;height:24px;border-radius:50%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
     .ostep.active .ostep-num{background:#111;color:#fff;} .ostep.done .ostep-num{background:#16a34a;color:#fff;}
     .ostep-line{width:28px;height:2px;background:#e5e7eb;margin:0 2px;}
-
-    /* MAIN */
     .order-main{max-width:580px;margin:0 auto;padding:24px 16px;}
-
-    /* CARDS */
     .ocard{background:#fff;border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
     .ocard-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
     .ocard-num{width:28px;height:28px;min-width:28px;background:#111;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
-
-    /* ORDER ITEMS */
     .sum-product{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;}
     .sum-product:last-of-type{border-bottom:none;}
     .sum-img{width:64px;height:64px;border-radius:10px;object-fit:cover;background:#f5f5f5;flex-shrink:0;}
     .sum-info h4{font-size:14px;font-weight:600;margin-bottom:2px;}
     .sum-info p{font-size:12px;color:#666;line-height:1.6;}
     .sum-price{font-size:15px;font-weight:700;margin-top:4px;}
-
-    /* SIZE */
     .csz-label{font-size:12px;color:#666;font-weight:500;margin-top:10px;margin-bottom:5px;}
     .confirm-size-row{display:flex;flex-wrap:wrap;gap:6px;}
     .csz-btn{padding:5px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;transition:all 0.15s;font-family:'Inter',sans-serif;}
     .csz-btn:hover{border-color:#111;} .csz-btn.active{border-color:#111;background:#111;color:#fff;}
-
-    /* PRICE */
     .price-rows{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
     .pb-row{display:flex;justify-content:space-between;font-size:14px;color:#666;}
     .pb-row.total{font-weight:700;font-size:17px;color:#111;padding-top:12px;border-top:1px solid #f0f0f0;margin-top:4px;}
     .pb-row.total span:last-child{color:#16a34a;}
     .delivery-note{background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:11px 13px;margin-top:12px;font-size:12px;color:#92400e;line-height:1.6;}
-
-    /* FORM */
     .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
     @media(max-width:500px){.form-grid{grid-template-columns:1fr;}}
     .form-group{display:flex;flex-direction:column;gap:5px;} .form-group.full{grid-column:1/-1;}
@@ -63,24 +47,16 @@
     .req{color:#dc2626;}
     .field-err{font-size:11px;color:#dc2626;margin-top:3px;display:none;} .field-err.show{display:block;}
     input.err,textarea.err{border-color:#dc2626 !important;}
-
-    /* QR */
     .qr-wrap{text-align:center;}
-    .qr-placeholder{width:190px;height:190px;border-radius:12px;border:2px dashed #d1d5db;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 12px;background:#fafafa;color:#999;font-size:13px;gap:8px;}
-    .qr-img{width:190px;height:190px;border-radius:12px;border:2px solid #e5e7eb;object-fit:contain;display:block;margin:0 auto 12px;}
+    .qr-img{width:200px;height:200px;border-radius:12px;border:2px solid #e5e7eb;object-fit:contain;display:block;margin:0 auto 12px;}
     .qr-upi{font-size:14px;color:#374151;margin-bottom:4px;} .qr-upi strong{color:#111;}
     .qr-note{font-size:12px;color:#f97316;font-weight:500;margin-top:6px;}
     .amt-box{background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:14px;text-align:center;margin-top:14px;}
     .amt-box .amt{font-size:28px;font-weight:700;color:#16a34a;}
     .amt-box .amt-label{font-size:12px;color:#666;margin-top:2px;}
-
-    /* WHATSAPP SUBMIT BTN */
     .wa-submit-btn{width:100%;padding:17px;background:#25d366;color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;}
     .wa-submit-btn:hover{background:#1da855;}
-    .wa-submit-btn-icon{font-size:22px;}
     .wa-hint{text-align:center;font-size:12px;color:#666;margin-top:10px;line-height:1.6;}
-
-    /* SUCCESS */
     .success-screen{display:none;text-align:center;padding:56px 24px;max-width:500px;margin:40px auto;}
     .success-screen.show{display:block;}
     .success-icon{font-size:64px;margin-bottom:16px;}
@@ -112,8 +88,6 @@
   <div class="ocard">
     <div class="ocard-title"><div class="ocard-num">1</div> Your order</div>
     <div id="orderSummaryItems"></div>
-
-    <!-- Size selector — single item only -->
     <div id="singleSizeSection" style="display:none;margin-top:12px;">
       <div class="csz-label">Select size <span class="req">*</span></div>
       <div class="confirm-size-row" id="confirmSizeRow">
@@ -125,10 +99,10 @@
       </div>
       <div class="field-err" id="sizeError">Please select a size</div>
     </div>
-
-    <!-- Price breakdown -->
     <div style="margin-top:16px;" id="priceBreakdown"></div>
-    <div class="delivery-note">🚚 <strong>Delivery charges</strong> are based on your location and payable on delivery (COD).</div>
+    <div class="delivery-note">
+      🚚 <strong>Delivery charges</strong> will be based on your location. You will have to pay delivery charges after order confirmation.
+    </div>
   </div>
 
   <!-- 2. YOUR DETAILS -->
@@ -167,19 +141,12 @@
   <div class="ocard">
     <div class="ocard-title"><div class="ocard-num">3</div> Pay via UPI</div>
     <div class="qr-wrap">
-      <!-- TO ADD YOUR QR: upload to Cloudinary then replace the div below with:
-      <img class="qr-img" src="https://res.cloudinary.com/bsgynj2j/image/upload/your-qr-code.png" alt="UPI QR"/>
-      -->
-      <div class="qr-placeholder">
-        <div style="font-size:40px;">📱</div>
-        <div style="font-weight:600;color:#374151;">Your QR Code</div>
-        <div style="font-size:11px;text-align:center;line-height:1.5;">Upload to Cloudinary<br>then replace this block</div>
-      </div>
+      <img class="qr-img" src="https://res.cloudinary.com/bsgynj2j/image/upload/aditya-QR.png" alt="UPI QR Code"/>
       <p class="qr-upi">UPI ID: <strong>customcloset111@upi</strong></p>
       <p class="qr-note">⚠️ Pay the exact amount shown below</p>
       <div class="amt-box">
         <div class="amt" id="payAmt">₹0</div>
-        <div class="amt-label">Total to pay (delivery extra on COD)</div>
+        <div class="amt-label">Total to pay (delivery charges after confirmation)</div>
       </div>
     </div>
   </div>
@@ -188,28 +155,24 @@
   <div class="ocard">
     <div class="ocard-title"><div class="ocard-num">4</div> Send your order on WhatsApp</div>
     <p style="font-size:13px;color:#666;margin-bottom:16px;line-height:1.7;">
-      After paying, click the button below. WhatsApp will open with your complete order details pre-filled. Just hit <strong>Send</strong>, then attach your <strong>payment screenshot</strong> in the same chat.
+      After paying, click the button below. WhatsApp will open with your complete order details pre-filled. Hit <strong>Send</strong>, then attach your <strong>payment screenshot</strong> in the same chat.
     </p>
     <button class="wa-submit-btn" onclick="sendToWhatsApp()">
-      <span class="wa-submit-btn-icon">💬</span>
+      <span style="font-size:22px;">💬</span>
       Send order on WhatsApp →
     </button>
-    <p class="wa-hint">WhatsApp will open with your order pre-filled · Attach payment screenshot · We'll confirm within 2–4 hours</p>
+    <p class="wa-hint">WhatsApp opens with your order pre-filled · Attach payment screenshot · We confirm within 2–4 hours</p>
   </div>
 
 </div>
 
-<!-- SUCCESS SCREEN -->
+<!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
   <div class="success-icon">🎉</div>
   <h2>Order sent!</h2>
   <p>Your order details have been sent to us on WhatsApp.<br>Please <strong>attach your payment screenshot</strong> in the same WhatsApp chat so we can confirm your order.</p>
-  <a id="successWaBtn" href="#" class="success-wa-btn" target="_blank">
-    💬 Open WhatsApp again
-  </a>
-  <div class="order-id-box">
-    Order ID: <strong id="orderId"></strong>
-  </div>
+  <a id="successWaBtn" href="#" class="success-wa-btn" target="_blank">💬 Open WhatsApp again</a>
+  <div class="order-id-box">Order ID: <strong id="orderId"></strong></div>
   <p style="margin-top:20px;font-size:12px;color:#999;">We'll reply within 2–4 hours with your order confirmation.</p>
   <a href="index.html" style="display:block;margin-top:16px;font-size:13px;color:#666;text-decoration:none;">← Back to shop</a>
 </div>
@@ -232,16 +195,9 @@ window.addEventListener('DOMContentLoaded', () => {
   if (isCart) {
     const cart = getCart();
     if (cart.length === 0) { window.location.href='cart.html'; return; }
-
     orderTotal = cart.reduce((s,i) => s+i.price*i.qty, 0);
     const totalOrig = cart.reduce((s,i) => s+i.original*i.qty, 0);
-
-    // Build items text for WhatsApp
-    orderItemsText = cart.map(i =>
-      `• ${i.name} | Size: ${i.size} | Color: ${i.color} | Qty: ${i.qty} | ₹${i.price*i.qty}`
-    ).join('\n');
-
-    // Build summary HTML
+    orderItemsText = cart.map(i => `• ${i.name} | Size: ${i.size} | Color: ${i.color} | Qty: ${i.qty} | ₹${i.price*i.qty}`).join('\n');
     document.getElementById('orderSummaryItems').innerHTML = cart.map(item => `
       <div class="sum-product">
         <img class="sum-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'"/>
@@ -251,18 +207,14 @@ window.addEventListener('DOMContentLoaded', () => {
           <div class="sum-price">₹${(item.price*item.qty).toLocaleString('en-IN')}</div>
         </div>
       </div>`).join('');
-
     document.getElementById('priceBreakdown').innerHTML = `
       <div class="price-rows">
         <div class="pb-row"><span>Subtotal</span><span>₹${totalOrig.toLocaleString('en-IN')}</span></div>
         <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(totalOrig-orderTotal).toLocaleString('en-IN')}</span></div>
         <div class="pb-row total"><span>Total (excl. delivery)</span><span>₹${orderTotal.toLocaleString('en-IN')}</span></div>
       </div>`;
-
     document.getElementById('singleSizeSection').style.display = 'none';
-
   } else {
-    // Single item
     const itemName  = params.get('item')  || 'Custom Closet Item';
     const itemPrice = parseInt(params.get('price')) || 499;
     const itemCat   = params.get('cat')   || 'oversize';
@@ -270,89 +222,79 @@ window.addEventListener('DOMContentLoaded', () => {
     const itemColor = params.get('color') || 'Black';
     const preSize   = params.get('size')  || 'M';
     const itemOrig  = itemPrice * 2;
-
     orderTotal = itemPrice;
     selectedSize = preSize;
     orderItemsText = `• ${itemName} | Size: ${preSize} | Color: ${itemColor} | ₹${itemPrice}`;
-
     document.getElementById('orderSummaryItems').innerHTML = `
       <div class="sum-product">
-        <img class="sum-img" src="${itemImg || CL+'/'+itemCat+'-black-front.png'}" alt="${itemName}" onerror="this.style.display='none'"/>
+        <img class="sum-img" src="${itemImg||CL+'/'+itemCat+'-black-front.png'}" alt="${itemName}" onerror="this.style.display='none'"/>
         <div class="sum-info">
           <h4>${itemName}</h4>
           <p>Color: ${itemColor}</p>
           <div class="sum-price">₹${itemPrice.toLocaleString('en-IN')} <span style="font-size:12px;color:#999;text-decoration:line-through;font-weight:400;">₹${itemOrig.toLocaleString('en-IN')}</span></div>
         </div>
       </div>`;
-
     document.getElementById('priceBreakdown').innerHTML = `
       <div class="price-rows">
         <div class="pb-row"><span>Item price</span><span>₹${itemOrig.toLocaleString('en-IN')}</span></div>
         <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(itemOrig-itemPrice).toLocaleString('en-IN')}</span></div>
         <div class="pb-row total"><span>Total (excl. delivery)</span><span>₹${itemPrice.toLocaleString('en-IN')}</span></div>
       </div>`;
-
     document.getElementById('singleSizeSection').style.display = 'block';
-    document.querySelectorAll('.csz-btn').forEach(b =>
-      b.classList.toggle('active', b.textContent.trim() === preSize)
-    );
+    document.querySelectorAll('.csz-btn').forEach(b => b.classList.toggle('active', b.textContent.trim()===preSize));
   }
-
   document.getElementById('payAmt').textContent = '₹' + orderTotal.toLocaleString('en-IN');
 });
 
 function pickSize(btn) {
-  document.querySelectorAll('.csz-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  selectedSize = btn.textContent.trim();
+  document.querySelectorAll('.csz-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); selectedSize=btn.textContent.trim();
   document.getElementById('sizeError').classList.remove('show');
-  // Update orderItemsText with new size
-  orderItemsText = orderItemsText.replace(/Size: \w+/, `Size: ${selectedSize}`);
+  orderItemsText=orderItemsText.replace(/Size: \w+/,`Size: ${selectedSize}`);
 }
 
 function validateForm() {
-  let valid = true;
-  const show = (id, inputId) => { document.getElementById(id).classList.add('show'); if(inputId) document.getElementById(inputId).classList.add('err'); valid=false; };
-  const clear = (id, inputId) => { document.getElementById(id).classList.remove('show'); if(inputId) document.getElementById(inputId).classList.remove('err'); };
-
-  const name  = document.getElementById('custName').value.trim();
-  const phone = document.getElementById('custPhone').value.trim();
-  const email = document.getElementById('custEmail').value.trim();
-  const pin   = document.getElementById('custPin').value.trim();
-  const addr  = document.getElementById('custAddress').value.trim();
-
-  if (!name)                        show('nameError','custName');    else clear('nameError','custName');
-  if (!/^\d{10}$/.test(phone))      show('phoneError','custPhone');  else clear('phoneError','custPhone');
-  if (!/\S+@\S+\.\S+/.test(email)) show('emailError','custEmail');  else clear('emailError','custEmail');
-  if (!/^\d{6}$/.test(pin))         show('pinError','custPin');      else clear('pinError','custPin');
-  if (!addr)                        show('addressError','custAddress'); else clear('addressError','custAddress');
-  if (!isCart && !selectedSize)     { document.getElementById('sizeError').classList.add('show'); valid=false; }
-
+  let valid=true;
+  const show=(id,inputId)=>{document.getElementById(id).classList.add('show');if(inputId)document.getElementById(inputId).classList.add('err');valid=false;};
+  const clear=(id,inputId)=>{document.getElementById(id).classList.remove('show');if(inputId)document.getElementById(inputId).classList.remove('err');};
+  const name=document.getElementById('custName').value.trim();
+  const phone=document.getElementById('custPhone').value.trim();
+  const email=document.getElementById('custEmail').value.trim();
+  const pin=document.getElementById('custPin').value.trim();
+  const addr=document.getElementById('custAddress').value.trim();
+  if(!name) show('nameError','custName'); else clear('nameError','custName');
+  if(!/^\d{10}$/.test(phone)) show('phoneError','custPhone'); else clear('phoneError','custPhone');
+  if(!/\S+@\S+\.\S+/.test(email)) show('emailError','custEmail'); else clear('emailError','custEmail');
+  if(!/^\d{6}$/.test(pin)) show('pinError','custPin'); else clear('pinError','custPin');
+  if(!addr) show('addressError','custAddress'); else clear('addressError','custAddress');
+  if(!isCart&&!selectedSize){document.getElementById('sizeError').classList.add('show');valid=false;}
   return valid;
 }
 
 function sendToWhatsApp() {
-  if (!validateForm()) {
-    document.querySelector('.field-err.show')?.scrollIntoView({ behavior:'smooth', block:'center' });
-    return;
-  }
+  if(!validateForm()){document.querySelector('.field-err.show')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const name=document.getElementById('custName').value.trim();
+  const phone=document.getElementById('custPhone').value.trim();
+  const email=document.getElementById('custEmail').value.trim();
+  const pin=document.getElementById('custPin').value.trim();
+  const address=document.getElementById('custAddress').value.trim();
+  const orderId='CC'+Date.now().toString().slice(-6);
+  document.getElementById('orderId').textContent=orderId;
 
-  const name    = document.getElementById('custName').value.trim();
-  const phone   = document.getElementById('custPhone').value.trim();
-  const email   = document.getElementById('custEmail').value.trim();
-  const pin     = document.getElementById('custPin').value.trim();
-  const address = document.getElementById('custAddress').value.trim();
-  const orderId = 'CC' + Date.now().toString().slice(-6);
+  // Save to Supabase
+  sbInsertOrder({
+    order_id:orderId, items:orderItemsText, total:orderTotal,
+    customer_name:name, customer_phone:phone, customer_email:email,
+    customer_address:address, customer_pincode:pin, status:'pending'
+  });
 
-  document.getElementById('orderId').textContent = orderId;
-
-  const msg = encodeURIComponent(
+  const msg=encodeURIComponent(
 `🛍️ NEW ORDER — ${orderId}
 
 📦 Items:
 ${orderItemsText}
 
-💰 Total Paid: ₹${orderTotal} (delivery extra on COD)
+💰 Total Paid: ₹${orderTotal} (delivery charges after confirmation)
 
 👤 Customer Details:
 Name: ${name}
@@ -364,36 +306,16 @@ Pincode: ${pin}
 📸 Payment screenshot attached below ↓
 Please confirm my order. Thank you!`
   );
-
-  waLink = `https://wa.me/${WA}?text=${msg}`;
-
-  // Save order to Supabase
-  sbInsertOrder({
-    order_id: orderId,
-    items: orderItemsText,
-    total: orderTotal,
-    customer_name: name,
-    customer_phone: phone,
-    customer_email: email,
-    customer_address: address,
-    customer_pincode: pin,
-    status: 'pending'
-  });
-
-  // Show success screen
-  document.getElementById('orderMain').style.display = 'none';
+  waLink=`https://wa.me/${WA}?text=${msg}`;
+  document.getElementById('orderMain').style.display='none';
   document.getElementById('successScreen').classList.add('show');
   document.getElementById('os2').classList.remove('active');
   document.getElementById('os2').classList.add('done');
   document.getElementById('os3').classList.add('active');
-  document.getElementById('successWaBtn').href = waLink;
-
-  // Clear cart
-  if (isCart) localStorage.removeItem('cc_cart');
-
-  // Open WhatsApp automatically
-  window.open(waLink, '_blank');
-  window.scrollTo(0, 0);
+  document.getElementById('successWaBtn').href=waLink;
+  if(isCart) localStorage.removeItem('cc_cart');
+  window.open(waLink,'_blank');
+  window.scrollTo(0,0);
 }
 </script>
 </body>

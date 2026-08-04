@@ -74,7 +74,7 @@ function renderCart(){
           <div class="cs-row"><span>Subtotal (${totalItems} item${totalItems>1?'s':''})</span><span>₹${totalOriginal.toLocaleString('en-IN')}</span></div>
           <div class="cs-row"><span>Discount</span><span style="color:#16a34a;">−₹${totalSaved.toLocaleString('en-IN')}</span></div>
           <div class="cs-row"><span>Delivery</span><span>As per location</span></div>
-          <p class="delivery-note">🚚 Delivery charges will be calculated based on your location and are payable at the time of receiving your order (Cash on Delivery).</p>
+          <p class="delivery-note">🚚 Delivery charges will be based on your location. You will have to pay delivery charges after order confirmation.</p>
           <div class="cs-row total"><span>Total (excl. delivery)</span><span>₹${totalPrice.toLocaleString('en-IN')}</span></div>
           <button class="checkout-btn" onclick="checkout()">Proceed to pay →</button>
           <a href="index.html#trending" class="continue-btn">← Continue shopping</a>

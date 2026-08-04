@@ -12,8 +12,7 @@
     .cnav{background:#fff;border-bottom:1px solid #e5e7eb;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
     .cnav-logo{font-weight:700;font-size:17px;text-decoration:none;color:#111;letter-spacing:-0.5px;}
     .cnav-right{display:flex;align-items:center;gap:16px;}
-    .cnav-back{font-size:13px;color:#666;text-decoration:none;}
-    .cnav-back:hover{color:#111;}
+    .cnav-back{font-size:13px;color:#666;text-decoration:none;} .cnav-back:hover{color:#111;}
     .cart-icon-btn{position:relative;text-decoration:none;color:#111;font-size:14px;font-weight:500;display:flex;align-items:center;gap:5px;}
     .cart-badge{position:absolute;top:-5px;right:-8px;background:#dc2626;color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;}
     .cart-badge.show{display:flex;}
@@ -87,8 +86,7 @@
     .photo-preview-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
     .photo-preview{width:64px;height:64px;border-radius:10px;object-fit:cover;border:1px solid #e5e7eb;}
     .submit-review-btn{padding:11px 24px;background:#111;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;}
-    .submit-review-btn:hover{background:#333;}
-    .submit-review-btn:disabled{background:#9ca3af;cursor:not-allowed;}
+    .submit-review-btn:hover{background:#333;} .submit-review-btn:disabled{background:#9ca3af;cursor:not-allowed;}
     .rev-err{font-size:11px;color:#dc2626;margin-top:4px;display:none;} .rev-err.show{display:block;}
     .reviews-list{display:flex;flex-direction:column;gap:16px;}
     .review-card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.04);}
@@ -137,40 +135,34 @@
     <div class="product-category" id="pCat"></div>
     <h1 class="product-name" id="pName"></h1>
     <p class="product-desc" id="pDesc"></p>
-
-    <div class="rating-summary" id="ratingSummary">
+    <div class="rating-summary">
       <div class="stars-display" id="summaryStars"></div>
       <span class="rating-num" id="summaryNum"></span>
       <span class="rating-count" id="summaryCount">Loading reviews...</span>
     </div>
-
     <div class="price-row">
       <span class="price" id="pPrice"></span>
       <span class="price-original" id="pOriginal"></span>
       <span class="price-badge" id="pDiscount"></span>
     </div>
-
     <div class="option-label">
       Size — <span id="selectedSizeLabel" style="color:#111;font-weight:700;">S</span>
       <button class="size-chart-link" onclick="openSizeChart()">📏 Size chart</button>
     </div>
-    <div class="size-row" id="sizeRow">
+    <div class="size-row">
       <button class="size-btn active" onclick="pickSize(this,'S')">S</button>
       <button class="size-btn" onclick="pickSize(this,'M')">M</button>
       <button class="size-btn" onclick="pickSize(this,'L')">L</button>
       <button class="size-btn" onclick="pickSize(this,'XL')">XL</button>
       <button class="size-btn" onclick="pickSize(this,'XXL')">XXL</button>
     </div>
-
     <div class="details-grid" id="detailsGrid"></div>
-
     <div class="btn-row">
       <button class="add-cart-btn" onclick="addProductToCart()">🛒 Add to cart</button>
       <button class="wishlist-btn" id="wishlistBtn" onclick="toggleWish()">♡</button>
     </div>
-
     <p style="font-size:12px;color:#666;line-height:1.7;">
-      🚚 Ships in 5–7 days · Delivery charges based on location (COD)<br>
+      🚚 Ships in 5–7 days · Delivery charges based on location · Payable after order confirmation<br>
       💬 Order confirmed via WhatsApp · 🎨 Custom printed with care
     </p>
   </div>
@@ -179,7 +171,6 @@
 <!-- REVIEWS -->
 <div class="reviews-section">
   <div class="reviews-title">⭐ Customer Reviews</div>
-
   <div class="review-form-card">
     <div class="review-form-title">Write a review</div>
     <div style="font-size:12px;color:#666;margin-bottom:6px;font-weight:500;">Your rating <span style="color:#dc2626;">*</span></div>
@@ -205,7 +196,6 @@
     <div class="photo-preview-row" id="photoPreviewRow"></div>
     <button class="submit-review-btn" id="submitRevBtn" onclick="submitReview()">Post review →</button>
   </div>
-
   <div class="reviews-list" id="reviewsList">
     <div class="reviews-loading">Loading reviews...</div>
   </div>
@@ -241,14 +231,30 @@ const SIZE_CHARTS = {
   tshirt:  { cols:['Size','Chest (in)','Length (in)'], rows:[['S','38','25'],['M','40','26'],['L','42','27'],['XL','44','28'],['XXL','46','29']] }
 };
 
+// All images as arrays — order matters (shown as thumbnails)
 const PRODUCTS = [
-  { id:1, category:'oversize', name:'Legend in Red', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee with a comfortable relaxed silhouette.', price:499, original:999, fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print', images:[`${CL}/F1-1-front.jpg`,`${CL}/F1-1-back.jpg`] },
-  { id:2, category:'oversize', name:'The GOAT Edition', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Limited edition graphic tee for the GOAT in you.', price:499, original:999, fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print', images:[`${CL}/F1-2-front.jpg`,`${CL}/F1-2-back.jpg`] },
-  { id:3, category:'oversize', name:'The Red Legacy', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Bold graphic tee celebrating a legendary legacy.', price:499, original:999, fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print', images:[`${CL}/F1-2-front.jpg`,`${CL}/F1-3-back.jpg`] },
-  { id:4, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition', desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Enter the Spider-Verse with this iconic black edition.', price:499, original:999, fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print', images:[`${CL}/spiderman1-front.jpg`,`${CL}/spiderman1-back.jpg`] },
+  { id:1, category:'oversize', name:'Legend in Red',
+    desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee with a comfortable relaxed silhouette.',
+    price:499, original:999, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    images:[`${CL}/F1-1-front.jpg`,`${CL}/F1-1-back.jpg`,`${CL}/F1-both.jpeg`] },
+  { id:2, category:'oversize', name:'Colosseum Drop',
+    desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Inspired by the ancient Colosseum — bold, timeless, and built to last.',
+    price:499, original:999, color:'White', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    images:[`${CL}/rome-front.jpeg`,`${CL}/rome-back.png`,`${CL}/rome-both.jpeg`] },
+  { id:3, category:'oversize', name:'The GOAT Edition',
+    desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Limited edition graphic tee for the GOAT in you.',
+    price:499, original:999, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    images:[`${CL}/F1-2-front.jpg`,`${CL}/F1-2-back.jpg`] },
+  { id:4, category:'oversize', name:'The Red Legacy',
+    desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Bold graphic tee celebrating a legendary legacy.',
+    price:499, original:999, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    images:[`${CL}/F1-2-front.jpg`,`${CL}/F1-3-back.jpg`] },
+  { id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
+    desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Enter the Spider-Verse with this iconic black edition.',
+    price:499, original:999, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder', print:'DTG / Screen print',
+    images:[`${CL}/spiderman-new-front.jpeg`,`${CL}/spiderman-new-back.jpeg`] },
 ];
 
-// STATE
 let product = null;
 let currentImgIdx = 0;
 let selectedSize = 'S';
@@ -268,7 +274,7 @@ function addProductToCart(){
   const key=`${product.id}-${selectedSize}`;
   const ex=cart.find(i=>i.key===key);
   if(ex) ex.qty++;
-  else cart.push({key,id:product.id,name:product.name,category:product.category,size:selectedSize,color:'Black',price:product.price,original:product.original,img:product.images[0],qty:1});
+  else cart.push({key,id:product.id,name:product.name,category:product.category,size:selectedSize,color:product.color,price:product.price,original:product.original,img:product.images[0],qty:1});
   saveCart(cart);
   showToast(`✅ Added — ${product.name} (${selectedSize}) &nbsp;<a href="cart.html" style="color:#fbbf24;font-weight:700;text-decoration:none;">View cart →</a>`);
 }
@@ -328,7 +334,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 function updateStars(){ document.querySelectorAll('.star-pick').forEach((s,i)=>s.classList.toggle('lit',i<rating)); }
 
-// PHOTO UPLOAD — convert to base64
+// PHOTO UPLOAD
 function handleReviewPhotos(e){
   const files=Array.from(e.target.files).slice(0,3);
   photoDataURLs=[];
@@ -348,31 +354,24 @@ function handleReviewPhotos(e){
 
 // REVIEWS
 function starsHtml(r){
-  return [1,2,3,4,5].map(i=>`<span class="rev-star${i<=r?'':' empty'}">★</span>`).join('');
+  return [1,2,3,4,5].map(i=>`<span class="rev-star${i<=Math.round(r)?'':' empty'}">★</span>`).join('');
 }
-function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 async function loadReviews(){
   const list=document.getElementById('reviewsList');
   const reviews=await sbGetReviews(productId);
-
-  // Update rating summary
   if(reviews.length>0){
     const avg=reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
     document.getElementById('summaryNum').textContent=avg.toFixed(1);
     document.getElementById('summaryCount').textContent=`(${reviews.length} review${reviews.length>1?'s':''})`;
-    document.getElementById('summaryStars').innerHTML=starsHtml(Math.round(avg));
+    document.getElementById('summaryStars').innerHTML=starsHtml(avg);
   } else {
     document.getElementById('summaryNum').textContent='';
     document.getElementById('summaryCount').textContent='No reviews yet';
     document.getElementById('summaryStars').innerHTML='';
   }
-
-  if(reviews.length===0){
-    list.innerHTML=`<div class="no-reviews">No reviews yet — be the first! 🌟</div>`;
-    return;
-  }
-
+  if(reviews.length===0){ list.innerHTML=`<div class="no-reviews">No reviews yet — be the first! 🌟</div>`; return; }
   list.innerHTML=reviews.map(r=>`
     <div class="review-card">
       <div class="review-header">
@@ -399,20 +398,14 @@ async function submitReview(){
   if(!text){ document.getElementById('textErr').classList.add('show'); valid=false; }
   else document.getElementById('textErr').classList.remove('show');
   if(!valid) return;
-
   const btn=document.getElementById('submitRevBtn');
   btn.disabled=true; btn.textContent='Posting...';
-
   const title=document.getElementById('reviewTitle').value.trim();
   const ok=await sbInsertReview({
-    product_id: productId,
-    reviewer_name: name,
-    title: title||null,
-    review_text: text,
-    rating,
-    photos: photoDataURLs.length ? photoDataURLs : null
+    product_id:productId, reviewer_name:name,
+    title:title||null, review_text:text, rating,
+    photos:photoDataURLs.length?photoDataURLs:null
   });
-
   if(ok){
     showToast('✅ Review posted! Thank you 🙏');
     rating=0; updateStars();
@@ -447,11 +440,14 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('detailsGrid').innerHTML=`
     <div class="detail-item"><div class="detail-label">Fabric</div><div class="detail-val">${product.fabric}</div></div>
     <div class="detail-item"><div class="detail-label">GSM</div><div class="detail-val">${product.gsm}</div></div>
+    <div class="detail-item"><div class="detail-label">Color</div><div class="detail-val">${product.color}</div></div>
     <div class="detail-item"><div class="detail-label">Fit</div><div class="detail-val">${product.fit}</div></div>
     <div class="detail-item"><div class="detail-label">Print</div><div class="detail-val">${product.print}</div></div>
-    <div class="detail-item"><div class="detail-label">Delivery</div><div class="detail-val">5–7 days</div></div>
     <div class="detail-item"><div class="detail-label">Ships from</div><div class="detail-val">Pune, MH</div></div>`;
-  document.getElementById('mainImg').src=product.images[0];
+  // Build gallery from images array
+  const mainImg=document.getElementById('mainImg');
+  mainImg.src=product.images[0];
+  mainImg.onerror=()=>{ mainImg.style.background='#f5f5f5'; };
   const thumbRow=document.getElementById('thumbRow');
   product.images.forEach((img,i)=>{
     const t=document.createElement('img');
