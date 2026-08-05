@@ -16,18 +16,18 @@ const TRENDING_PRODUCTS = [
   {
     id:1, category:'oversize', name:'Legend in Red',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/F1-1-front.jpg`,
       back:`${CL}/F1-1-back.jpg`,
-      both:`${CL}/F1-both.jpeg`
+      both:`${CL}/f1-1-both.jpeg`
     }
   },
   // 2 — NEW: Colosseum Drop (white, 3 images)
   {
     id:2, category:'oversize', name:'Colosseum Drop',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'New', colors:['#ffffff'],
+    price:599, original:999, badge:'New', colors:['#ffffff'],
     images:{
       front:`${CL}/rome-front.jpeg`,
       back:`${CL}/rome-back.png`,
@@ -38,7 +38,7 @@ const TRENDING_PRODUCTS = [
   {
     id:3, category:'oversize', name:'The GOAT Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/F1-2-front.jpg`,
       back:`${CL}/F1-2-back.jpg`
@@ -48,7 +48,7 @@ const TRENDING_PRODUCTS = [
   {
     id:4, category:'oversize', name:'The Red Legacy',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/F1-2-front.jpg`,
       back:`${CL}/F1-3-back.jpg`
@@ -58,10 +58,10 @@ const TRENDING_PRODUCTS = [
   {
     id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'Trending', colors:['#1a1a1a'],
+    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
-      front:`${CL}/spiderman-new-front.jpeg`,
-      back:`${CL}/spiderman-new-back.jpeg`
+      front:`${CL}/spiderman-new-back.jpeg`,
+      back:`${CL}/spiderman-new-front.jpeg`
     }
   },
 ];
