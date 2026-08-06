@@ -40,7 +40,7 @@ const TRENDING_PRODUCTS = [
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
-      front:`${CL}/front new.jpeg`,
+      front:`${CL}/front-new.jpeg`,
       back:`${CL}/F1-2-back.jpg`,
       both:`${CL}/new-both.png`
     }
