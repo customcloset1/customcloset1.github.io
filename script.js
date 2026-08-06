@@ -40,8 +40,9 @@ const TRENDING_PRODUCTS = [
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
-      front:`${CL}/F1-2-front.jpg`,
-      back:`${CL}/F1-2-back.jpg`
+      front:`${CL}/front new.jpeg`,
+      back:`${CL}/F1-2-back.jpg`,
+      both:`${CL}/new-both.png`
     }
   },
   // 4 — The Red Legacy (was 3)
@@ -51,7 +52,8 @@ const TRENDING_PRODUCTS = [
     price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/F1-2-front.jpg`,
-      back:`${CL}/F1-3-back.jpg`
+      back:`${CL}/F1-3-back.jpg`,
+      both:`${CL}/lewis-both.png`
     }
   },
   // 5 — Spider-Verse (was 4, new images)
