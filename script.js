@@ -40,7 +40,7 @@ const TRENDING_PRODUCTS = [
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
-      front:`${CL}/front-new.jpeg`,
+      front:`${CL}/new-front.jpg`,
       back:`${CL}/F1-2-back.jpg`,
       both:`${CL}/new-both.png`
     }
@@ -49,7 +49,7 @@ const TRENDING_PRODUCTS = [
   {
     id:4, category:'oversize', name:'The Red Legacy',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
+    price:699, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/F1-2-front.jpg`,
       back:`${CL}/F1-3-back.jpg`,
@@ -60,7 +60,7 @@ const TRENDING_PRODUCTS = [
   {
     id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
+    price:799, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/spiderman-new-back.jpeg`,
       back:`${CL}/spiderman-new-front.jpeg`
