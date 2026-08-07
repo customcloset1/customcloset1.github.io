@@ -20,7 +20,7 @@ const TRENDING_PRODUCTS = [
     images:{
       front:`${CL}/F1-1-front.jpg`,
       back:`${CL}/F1-1-back.jpg`,
-      both:`${CL}/f1-1-both.jpeg`
+      both:`${CL}/F1-1-both.jpg`
     }
   },
   // 2 — NEW: Colosseum Drop (white, 3 images)
@@ -40,7 +40,7 @@ const TRENDING_PRODUCTS = [
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
-      front:`${CL}/new-front.jpg`,
+      front:`${CL}/F1-2-front.jpg`,
       back:`${CL}/F1-2-back.jpg`,
       both:`${CL}/new-both.png`
     }
