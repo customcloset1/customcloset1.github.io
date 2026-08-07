@@ -254,7 +254,7 @@ const PRODUCTS = [
     desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Enter the Spider-Verse with this iconic black edition.',
     price:799, original:999, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
     images:[`${CL}/spiderman-new-back.jpeg`,`${CL}/spiderman-new-front.jpeg`] },
-  { id:6, category:'tshirt', name:'Ananta Community Sleeveless Performance Tee',
+  { id:6, category:'tshirt', catLabel:'Sleeveless Tee', name:'Ananta Community Sleeveless Performance Tee',
     desc:'Lightweight sleeveless performance tee built for running and training. Breathable, quick-dry polyester fabric keeps you cool through every rep.',
     price:499, original:999, color:'Black', fabric:'Polyester', gsm:'160 GSM', fit:'Sleeveless Tee',
     images:[`${CL}/club-first.png`,`${CL}/club-second.png`,`${CL}/club-third.jpeg`] },
@@ -436,7 +436,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   }
   document.getElementById('breadcrumbName').textContent=product.name;
   document.title=`${product.name} — Custom Closet`;
-  document.getElementById('pCat').textContent=product.category.charAt(0).toUpperCase()+product.category.slice(1)+' T-Shirt';
+  document.getElementById('pCat').textContent=product.catLabel||(product.category.charAt(0).toUpperCase()+product.category.slice(1)+' T-Shirt');
   document.getElementById('pName').textContent=product.name;
   document.getElementById('pDesc').textContent=product.desc;
   document.getElementById('pPrice').textContent='₹'+product.price.toLocaleString('en-IN');

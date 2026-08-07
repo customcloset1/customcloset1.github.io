@@ -68,7 +68,7 @@ const TRENDING_PRODUCTS = [
   },
   // 6 — Ananta Community Sleeveless Performance Tee
   {
-    id:6, category:'tshirt', name:'Ananta Community Sleeveless Performance Tee',
+    id:6, category:'tshirt', catLabel:'Sleeveless Tee', name:'Ananta Community Sleeveless Performance Tee',
     desc:'Sleeveless performance tee, Polyester, quick-dry',
     price:499, original:999, badge:'New', colors:['#1a1a1a'],
     images:{
@@ -134,7 +134,7 @@ function buildCard(p) {
       ${badge}
     </div>
     <div class="trend-info" style="padding:14px 16px 16px;">
-      <div class="trend-category">${p.category.charAt(0).toUpperCase()+p.category.slice(1)}</div>
+      <div class="trend-category">${p.catLabel||(p.category.charAt(0).toUpperCase()+p.category.slice(1))}</div>
       <h3 class="trend-name" style="margin-bottom:6px;">${p.name}</h3>
       <div class="trend-price-row" style="margin-bottom:0;">
         <span class="trend-price">₹${p.price.toLocaleString('en-IN')}</span>
