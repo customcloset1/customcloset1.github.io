@@ -100,9 +100,6 @@
       <div class="field-err" id="sizeError">Please select a size</div>
     </div>
     <div style="margin-top:16px;" id="priceBreakdown"></div>
-    <div class="delivery-note">
-      🚚 <strong>Delivery charges</strong> will be based on your location. You will have to pay delivery charges after order confirmation.
-    </div>
   </div>
 
   <!-- 2. YOUR DETAILS -->
@@ -145,7 +142,7 @@
       <p class="qr-note">⚠️ Pay the exact amount shown below</p>
       <div class="amt-box">
         <div class="amt" id="payAmt">₹0</div>
-        <div class="amt-label">Total to pay (delivery charges after confirmation)</div>
+        <div class="amt-label">Total to pay (incl. ₹99 shipping)</div>
       </div>
     </div>
   </div>
@@ -187,6 +184,7 @@ let selectedSize = 'M';
 let orderTotal = 0;
 let orderItemsText = '';
 let waLink = '';
+const SHIPPING = 99;
 
 function getCart(){ try{return JSON.parse(localStorage.getItem('cc_cart')||'[]');}catch{return[];} }
 
@@ -194,8 +192,9 @@ window.addEventListener('DOMContentLoaded', () => {
   if (isCart) {
     const cart = getCart();
     if (cart.length === 0) { window.location.href='cart.html'; return; }
-    orderTotal = cart.reduce((s,i) => s+i.price*i.qty, 0);
+    const itemsTotal = cart.reduce((s,i) => s+i.price*i.qty, 0);
     const totalOrig = cart.reduce((s,i) => s+i.original*i.qty, 0);
+    orderTotal = itemsTotal + SHIPPING;
     orderItemsText = cart.map(i => `• ${i.name} | Size: ${i.size} | Color: ${i.color} | Qty: ${i.qty} | ₹${i.price*i.qty}`).join('\n');
     document.getElementById('orderSummaryItems').innerHTML = cart.map(item => `
       <div class="sum-product">
@@ -209,8 +208,9 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('priceBreakdown').innerHTML = `
       <div class="price-rows">
         <div class="pb-row"><span>Subtotal</span><span>₹${totalOrig.toLocaleString('en-IN')}</span></div>
-        <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(totalOrig-orderTotal).toLocaleString('en-IN')}</span></div>
-        <div class="pb-row total"><span>Total (excl. delivery)</span><span>₹${orderTotal.toLocaleString('en-IN')}</span></div>
+        <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(totalOrig-itemsTotal).toLocaleString('en-IN')}</span></div>
+        <div class="pb-row"><span>Shipping</span><span>₹${SHIPPING}</span></div>
+        <div class="pb-row total"><span>Total</span><span>₹${orderTotal.toLocaleString('en-IN')}</span></div>
       </div>`;
     document.getElementById('singleSizeSection').style.display = 'none';
   } else {
@@ -221,7 +221,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const itemColor = params.get('color') || 'Black';
     const preSize   = params.get('size')  || 'M';
     const itemOrig  = itemPrice * 2;
-    orderTotal = itemPrice;
+    orderTotal = itemPrice + SHIPPING;
     selectedSize = preSize;
     orderItemsText = `• ${itemName} | Size: ${preSize} | Color: ${itemColor} | ₹${itemPrice}`;
     document.getElementById('orderSummaryItems').innerHTML = `
@@ -237,7 +237,8 @@ window.addEventListener('DOMContentLoaded', () => {
       <div class="price-rows">
         <div class="pb-row"><span>Item price</span><span>₹${itemOrig.toLocaleString('en-IN')}</span></div>
         <div class="pb-row"><span>Discount</span><span style="color:#16a34a;">−₹${(itemOrig-itemPrice).toLocaleString('en-IN')}</span></div>
-        <div class="pb-row total"><span>Total (excl. delivery)</span><span>₹${itemPrice.toLocaleString('en-IN')}</span></div>
+        <div class="pb-row"><span>Shipping</span><span>₹${SHIPPING}</span></div>
+        <div class="pb-row total"><span>Total</span><span>₹${orderTotal.toLocaleString('en-IN')}</span></div>
       </div>`;
     document.getElementById('singleSizeSection').style.display = 'block';
     document.querySelectorAll('.csz-btn').forEach(b => b.classList.toggle('active', b.textContent.trim()===preSize));
@@ -293,7 +294,7 @@ function sendToWhatsApp() {
 📦 Items:
 ${orderItemsText}
 
-💰 Total Paid: ₹${orderTotal} (delivery charges after confirmation)
+💰 Total Paid: ₹${orderTotal} (incl. ₹99 shipping)
 
 👤 Customer Details:
 Name: ${name}

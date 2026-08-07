@@ -12,18 +12,28 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — Legend in Red (3 images now)
+  // 1 — Spider-Verse
   {
-    id:1, category:'oversize', name:'Legend in Red',
+    id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
+    price:799, original:999, badge:'Trending', colors:['#1a1a1a'],
     images:{
-      front:`${CL}/F1-1-front.jpg`,
-      back:`${CL}/F1-1-back.jpg`,
-      both:`${CL}/F1-1-both.jpg`
+      front:`${CL}/spiderman-new-back.jpeg`,
+      back:`${CL}/spiderman-new-front.jpeg`
     }
   },
-  // 2 — NEW: Colosseum Drop (white, 3 images)
+  // 2 — The Red Legacy
+  {
+    id:4, category:'oversize', name:'The Red Legacy',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:999, badge:'Trending', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/lewis-front.png`,
+      back:`${CL}/F1-3-back.jpg`,
+      both:`${CL}/lewis-both.png`
+    }
+  },
+  // 3 — Colosseum Drop
   {
     id:2, category:'oversize', name:'Colosseum Drop',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -34,7 +44,18 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/rome-both.jpeg`
     }
   },
-  // 3 — The GOAT Edition (was 2)
+  // 4 — Legend in Red
+  {
+    id:1, category:'oversize', name:'Legend in Red',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:599, original:999, badge:'Trending', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/F1-1-front.jpg`,
+      back:`${CL}/F1-1-back.jpg`,
+      both:`${CL}/F1-1-both.jpg`
+    }
+  },
+  // 5 — The GOAT Edition
   {
     id:3, category:'oversize', name:'The GOAT Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -43,27 +64,6 @@ const TRENDING_PRODUCTS = [
       front:`${CL}/F1-2-front.jpg`,
       back:`${CL}/F1-2-back.jpg`,
       both:`${CL}/new-both.png`
-    }
-  },
-  // 4 — The Red Legacy (was 3)
-  {
-    id:4, category:'oversize', name:'The Red Legacy',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:699, original:999, badge:'Trending', colors:['#1a1a1a'],
-    images:{
-      front:`${CL}/F1-2-front.jpg`,
-      back:`${CL}/F1-3-back.jpg`,
-      both:`${CL}/lewis-both.png`
-    }
-  },
-  // 5 — Spider-Verse (was 4, new images)
-  {
-    id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:799, original:999, badge:'Trending', colors:['#1a1a1a'],
-    images:{
-      front:`${CL}/spiderman-new-back.jpeg`,
-      back:`${CL}/spiderman-new-front.jpeg`
     }
   },
 ];
