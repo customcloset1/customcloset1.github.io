@@ -66,6 +66,17 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/new-both.png`
     }
   },
+  // 6 — Ananta Community Sleeveless Performance Tee
+  {
+    id:6, category:'tshirt', name:'Ananta Community Sleeveless Performance Tee',
+    desc:'Sleeveless performance tee, Polyester, quick-dry',
+    price:499, original:999, badge:'New', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/club-first.png`,
+      back:`${CL}/club-second.png`,
+      both:`${CL}/club-third.jpeg`
+    }
+  },
 ];
 
 // ══ CART ══
