@@ -324,6 +324,13 @@ function viewOrder(id){
     </div>
 
     <div class="od-section">
+      <div class="od-section-label">📸 Payment Screenshot</div>
+      ${o.screenshot_url
+        ? `<img src="${o.screenshot_url}" alt="Payment screenshot" style="width:100%;max-width:240px;border-radius:10px;border:1.5px solid #e5e7eb;cursor:zoom-in;" onclick="window.open('${o.screenshot_url}','_blank')"/>`
+        : `<p style="font-size:13px;color:#999;">No screenshot on file — check WhatsApp chat</p>`}
+    </div>
+
+    <div class="od-section">
       <div class="od-row"><span>Total paid</span><span style="font-size:18px;font-weight:700;color:#16a34a;">₹${o.total?.toLocaleString('en-IN')}</span></div>
       <div style="font-size:12px;color:#f97316;margin-top:4px;">+ delivery charges (COD)</div>
     </div>
