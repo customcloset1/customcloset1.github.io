@@ -63,6 +63,29 @@
       table{min-width:640px;}
       .scroll-hint{display:block;}
     }
+
+    /* CUSTOM SHOWCASE TAB */
+    .showcase-form-box{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.05);max-width:480px;}
+    .panel-label{font-size:13px;font-weight:600;color:#111;}
+    .upload-dropzone{border:2px dashed #d1d5db;border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fafafa;}
+    .upload-dropzone:hover{border-color:#111;background:#f5f5f5;}
+    .upload-dropzone.has-file{padding:12px;}
+    .upload-icon-big{font-size:28px;margin-bottom:6px;}
+    .upload-hint-text{font-size:13px;color:#666;}
+    .showcase-preview-wrap{display:flex;align-items:center;gap:12px;text-align:left;}
+    .showcase-preview-img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1.5px solid #e5e7eb;}
+    .showcase-status{font-size:13px;font-weight:600;}
+    .showcase-status.uploading{color:#f97316;}
+    .showcase-status.done{color:#16a34a;}
+    .showcase-status.failed{color:#dc2626;}
+    #showcaseSubmitBtn:disabled{background:#a7a7a7;cursor:not-allowed;}
+    .showcase-admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-top:16px;}
+    .showcase-admin-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+    .showcase-admin-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+    .showcase-admin-card-body{padding:12px;}
+    .showcase-admin-card-name{font-size:13px;font-weight:600;margin-bottom:4px;}
+    .showcase-admin-card-text{font-size:12px;color:#666;line-height:1.5;margin-bottom:8px;max-height:60px;overflow:hidden;}
+    .showcase-admin-delete{font-size:12px;color:#dc2626;background:none;border:none;cursor:pointer;padding:0;font-family:'Inter',sans-serif;}
     th{background:#f9f9f9;padding:12px 16px;text-align:left;font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;}
     td{padding:14px 16px;border-bottom:1px solid #f5f5f5;font-size:13px;vertical-align:top;}
     tr:last-child td{border-bottom:none;}
@@ -124,6 +147,7 @@
   <div class="admin-tabs">
     <div class="admin-tab active" onclick="switchTab('orders',this)">📦 Orders</div>
     <div class="admin-tab" onclick="switchTab('reviews',this)">⭐ Reviews</div>
+    <div class="admin-tab" onclick="switchTab('showcase',this)">🎨 Custom Showcase</div>
   </div>
 
   <!-- ORDERS TAB -->
@@ -163,6 +187,37 @@
     <div class="orders-table-wrap">
       <div id="reviewsBody"><div class="loading-state">Loading reviews...</div></div>
     </div>
+  </div>
+
+  <!-- CUSTOM SHOWCASE TAB -->
+  <div id="tab-showcase" class="admin-content" style="display:none;">
+    <div class="showcase-form-box">
+      <div class="panel-label" style="margin-bottom:12px;">Add a custom order to the homepage showcase</div>
+      <p style="font-size:12px;color:#888;margin-bottom:16px;">Paste in the review a customer sent you over WhatsApp, upload the photo they shared, and it'll appear on your homepage.</p>
+
+      <input type="file" id="showcasePhotoInput" accept="image/*" style="display:none" onchange="handleShowcasePhotoUpload(event)"/>
+      <div class="upload-dropzone" id="showcaseDropzone" onclick="document.getElementById('showcasePhotoInput').click()" style="margin-bottom:16px;">
+        <div class="upload-icon-big">📸</div>
+        <p class="upload-hint-text"><strong>Click to upload</strong> the customer's photo</p>
+      </div>
+
+      <input type="text" id="showcaseName" class="filter-search" placeholder="Customer name" style="margin-bottom:10px;width:100%;"/>
+      <textarea id="showcaseText" class="filter-search" placeholder="Their review / what they said" rows="3" style="margin-bottom:10px;width:100%;resize:vertical;"></textarea>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:12px;color:#666;margin-right:8px;">Rating:</label>
+        <select id="showcaseRating" style="padding:6px 10px;border-radius:8px;border:1px solid #e5e7eb;">
+          <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+          <option value="4">⭐⭐⭐⭐ (4)</option>
+          <option value="3">⭐⭐⭐ (3)</option>
+        </select>
+      </div>
+      <button class="refresh-btn" id="showcaseSubmitBtn" onclick="submitShowcaseReview()" disabled style="width:100%;padding:12px;">Add to homepage</button>
+    </div>
+
+    <div class="filter-row" style="margin-top:24px;">
+      <button class="refresh-btn" onclick="loadShowcase()">↻ Refresh</button>
+    </div>
+    <div id="showcaseGrid" class="showcase-admin-grid"></div>
   </div>
 </div>
 
@@ -221,7 +276,9 @@ function switchTab(tab, btn){
   btn.classList.add('active');
   document.getElementById('tab-orders').style.display = tab==='orders'?'block':'none';
   document.getElementById('tab-reviews').style.display = tab==='reviews'?'block':'none';
+  document.getElementById('tab-showcase').style.display = tab==='showcase'?'block':'none';
   if(tab==='reviews') loadAllReviews();
+  if(tab==='showcase') loadShowcase();
 }
 
 // ── ORDERS ──
@@ -387,6 +444,110 @@ function renderReviews(reviews){
         </tr>`).join('')}
       </tbody>
     </table>`;
+}
+
+// ── CUSTOM SHOWCASE ──
+const CLOUD_NAME = 'bsgynj2j';
+const UPLOAD_PRESET = 'cc_screenshots';
+let showcasePhotoUrl = '';
+let showcaseUploading = false;
+
+function handleShowcasePhotoUpload(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  showcasePhotoUrl='';
+  showcaseUploading=true;
+  updateShowcaseSubmitState();
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    document.getElementById('showcaseDropzone').classList.add('has-file');
+    document.getElementById('showcaseDropzone').innerHTML = `
+      <div class="showcase-preview-wrap">
+        <img class="showcase-preview-img" src="${e.target.result}" alt="Preview"/>
+        <div>
+          <div class="showcase-status uploading" id="showcaseUploadStatus">⏳ Uploading...</div>
+        </div>
+      </div>`;
+  };
+  reader.readAsDataURL(file);
+
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', UPLOAD_PRESET);
+  fd.append('folder', 'custom-showcase');
+
+  fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method:'POST', body:fd })
+    .then(res => { if(!res.ok) throw new Error('Upload failed'); return res.json(); })
+    .then(data => {
+      showcasePhotoUrl = data.secure_url;
+      showcaseUploading = false;
+      document.getElementById('showcaseUploadStatus').textContent = '✅ Uploaded';
+      document.getElementById('showcaseUploadStatus').className = 'showcase-status done';
+      updateShowcaseSubmitState();
+    })
+    .catch(() => {
+      showcaseUploading = false;
+      document.getElementById('showcaseUploadStatus').textContent = '⚠️ Upload failed, try again';
+      document.getElementById('showcaseUploadStatus').className = 'showcase-status failed';
+      updateShowcaseSubmitState();
+    });
+}
+
+function updateShowcaseSubmitState(){
+  document.getElementById('showcaseSubmitBtn').disabled = !showcasePhotoUrl || showcaseUploading;
+}
+
+async function submitShowcaseReview(){
+  const name = document.getElementById('showcaseName').value.trim();
+  const text = document.getElementById('showcaseText').value.trim();
+  const rating = parseInt(document.getElementById('showcaseRating').value);
+  if(!name || !text || !showcasePhotoUrl){ alert('Please fill in the name, review, and upload a photo.'); return; }
+
+  const btn = document.getElementById('showcaseSubmitBtn');
+  btn.disabled = true; btn.textContent = 'Adding...';
+
+  const ok = await sbInsertCustomReview({
+    customer_name: name, review_text: text, rating: rating, photo_url: showcasePhotoUrl
+  });
+
+  if(ok){
+    document.getElementById('showcaseName').value='';
+    document.getElementById('showcaseText').value='';
+    showcasePhotoUrl='';
+    document.getElementById('showcaseDropzone').classList.remove('has-file');
+    document.getElementById('showcaseDropzone').innerHTML = `<div class="upload-icon-big">📸</div><p class="upload-hint-text"><strong>Click to upload</strong> the customer's photo</p>`;
+    btn.textContent = 'Add to homepage';
+    loadShowcase();
+  } else {
+    alert('Something went wrong saving this. Please try again.');
+    btn.disabled = false; btn.textContent = 'Add to homepage';
+  }
+}
+
+async function loadShowcase(){
+  const grid = document.getElementById('showcaseGrid');
+  grid.innerHTML = '<div class="loading-state">Loading showcase...</div>';
+  const items = await sbGetCustomReviews();
+  if(items.length===0){
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🎨</div><p>No custom showcase items yet</p></div>`;
+    return;
+  }
+  grid.innerHTML = items.map(item => `
+    <div class="showcase-admin-card">
+      <img src="${item.photo_url}" alt="${item.customer_name}"/>
+      <div class="showcase-admin-card-body">
+        <div class="showcase-admin-card-name">${item.customer_name} · ${starsText(item.rating)}</div>
+        <div class="showcase-admin-card-text">${item.review_text}</div>
+        <button class="showcase-admin-delete" onclick="deleteShowcaseItem(${item.id})">🗑 Remove</button>
+      </div>
+    </div>`).join('');
+}
+
+async function deleteShowcaseItem(id){
+  if(!confirm('Remove this from the homepage showcase?')) return;
+  await sbDeleteCustomReview(id);
+  loadShowcase();
 }
 </script>
 </body>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Order — Custom Closet</title>
-  <link rel="stylesheet" href="style.css?v=2"/>
+  <link rel="stylesheet" href="style.css?v=3"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -160,7 +160,7 @@
   <div class="ocard">
     <div class="ocard-title"><div class="ocard-num">3</div> Pay via UPI</div>
     <div class="qr-wrap">
-      <img src="https://res.cloudinary.com/bsgynj2j/image/upload/aditya-QR.png" alt="UPI QR Code" style="width:260px;height:260px;border-radius:16px;border:2px solid #e5e7eb;object-fit:contain;display:block;margin:0 auto 16px;background:#fff;cursor:zoom-in;" onclick="openLightbox(this.src)"/>
+      <img src="https://res.cloudinary.com/bsgynj2j/image/upload/f_auto,q_auto/aditya-QR.png" alt="UPI QR Code" style="width:260px;height:260px;border-radius:16px;border:2px solid #e5e7eb;object-fit:contain;display:block;margin:0 auto 16px;background:#fff;cursor:zoom-in;" onclick="openLightbox(this.src)"/>
       <p class="qr-note">⚠️ Pay the exact amount shown below</p>
       <div class="amt-box">
         <div class="amt" id="payAmt">₹0</div>
@@ -214,7 +214,7 @@
 
 <script src="supabase.js"></script>
 <script>
-const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
+const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload/f_auto,q_auto';
 const WA = '918766948989';
 const params = new URLSearchParams(window.location.search);
 const isCart = params.get('cart') === '1';
