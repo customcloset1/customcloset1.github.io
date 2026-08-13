@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CC — Custom Closet | Your Design. Your Drip.</title>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 </head>
@@ -38,13 +38,7 @@
       <span>🎨 Upload your design</span><span>•</span>
       <span>👕 Oversize · Hoodies · Tees · Lowers</span><span>•</span>
       <span>💳 Pay via UPI</span><span>•</span>
-      <span>🚚 Ships in 5–7 days</span><span>•</span>
-      <span>🔥 Custom drip, no cap</span><span>•</span>
-      <span>⚡ New drops weekly</span><span>•</span>
-      <span>🎨 Upload your design</span><span>•</span>
-      <span>👕 Oversize · Hoodies · Tees · Lowers</span><span>•</span>
-      <span>💳 Pay via UPI</span><span>•</span>
-      <span>🚚 Ships in 5–7 days</span><span>•</span>
+      <span>🚚 Ships in 5–7 days</span>
     </div>
   </div>
 
@@ -211,10 +205,12 @@
     document.addEventListener('DOMContentLoaded', () => { renderSizeTable('oversize'); loadHomeShowcase(); });
 
     async function loadHomeShowcase(){
-      const section = document.getElementById('showcase');
       const grid = document.getElementById('showcaseHomeGrid');
       const items = await sbGetCustomReviews();
-      if(!items || items.length===0){ section.style.display='none'; return; }
+      if(!items || items.length===0){
+        grid.innerHTML = `<div class="showcase-empty">Custom order photos and reviews will appear here soon — check back!</div>`;
+        return;
+      }
       grid.innerHTML = items.slice(0,6).map(item => `
         <div class="showcase-card">
           <img src="${item.photo_url}" alt="${item.customer_name}'s custom order" loading="lazy"/>
