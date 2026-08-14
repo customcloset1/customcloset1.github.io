@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reviews — Custom Closet | What people made</title>
+  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    .reviews-page-hero{padding:56px 6% 24px;text-align:center;}
+    .reviews-page-hero p.section-eyebrow{margin-bottom:8px;}
+    .reviews-page-wrap{max-width:1100px;margin:0 auto;padding:0 6% 90px;}
+    .reviews-layout{display:grid;grid-template-columns:360px 1fr;gap:40px;align-items:start;}
+    @media(max-width:860px){.reviews-layout{grid-template-columns:1fr;}}
+    .rev-form-box{position:sticky;top:80px;}
+    @media(max-width:860px){.rev-form-box{position:static;}}
+    .rev-full-list{max-height:none;}
+    .rev-list-item img{width:72px;height:72px;}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo wordmark-logo">
+      <span class="wordmark-text">CustomCloset</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#trending">Trending</a>
+      <a href="index.html#customize">Customize</a>
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="cart.html" class="cart-icon-btn">
+        🛒 Cart
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#trending" onclick="toggleMenu()">Trending</a>
+    <a href="index.html#customize" onclick="toggleMenu()">Customize</a>
+    <a href="index.html#how-it-works" onclick="toggleMenu()">How it works</a>
+    <a href="reviews.html" onclick="toggleMenu()">Reviews</a>
+    <a href="index.html#contact" onclick="toggleMenu()">Contact</a>
+    <a href="cart.html" onclick="toggleMenu()">🛒 Cart</a>
+    <a href="design.html" class="mobile-cta">Start Designing</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <section class="reviews-page-hero">
+    <p class="section-eyebrow">🎨 Real customers, real designs</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:36px;margin-bottom:10px;">What people made</h2>
+    <p class="section-sub">Custom pieces we've printed and shipped — write your own review or browse what others said.</p>
+  </section>
+
+  <div class="reviews-page-wrap">
+    <div class="reviews-layout">
+
+      <!-- WRITE A REVIEW -->
+      <div class="rev-form-box">
+        <div style="margin-bottom:10px;font-weight:600;font-size:13px;color:var(--text-main);">Write a review</div>
+        <input type="text" id="revName" class="rev-input" placeholder="Your name"/>
+        <div class="rev-stars-input" id="revStarsInput">
+          <span data-v="1">☆</span><span data-v="2">☆</span><span data-v="3">☆</span><span data-v="4">☆</span><span data-v="5">☆</span>
+        </div>
+        <textarea id="revText" class="rev-input" rows="4" placeholder="How was your custom order?"></textarea>
+        <input type="file" id="revPhotoInput" accept="image/*" style="display:none" onchange="handleRevPhotoUpload(event)"/>
+        <div class="rev-upload-zone" id="revUploadZone" onclick="document.getElementById('revPhotoInput').click()">
+          <span id="revUploadText">📸 Add a photo (optional)</span>
+        </div>
+        <button class="btn-primary" id="revSubmitBtn" onclick="submitPublicReview()" style="width:100%;margin-top:12px;">Submit review</button>
+      </div>
+
+      <!-- ALL REVIEWS -->
+      <div>
+        <div class="rev-list-divider">All reviews</div>
+        <div id="revFullList" class="rev-full-list"><p style="color:#999;font-size:13px;">Loading...</p></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo"><span class="wordmark-text wordmark-sm">CustomCloset</span></div>
+      <p>Made with care in Pune</p>
+      <div class="footer-links">
+        <a href="index.html#trending">Trending</a>
+        <a href="index.html#customize">Customize</a>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="supabase.js"></script>
+  <script>
+    function toggleMenu(){ document.getElementById('mobileMenu')?.classList.toggle('open'); }
+    function getCart(){ try{return JSON.parse(localStorage.getItem('cc_cart')||'[]');}catch{return[];} }
+    document.addEventListener('DOMContentLoaded', () => {
+      const total = getCart().reduce((s,i)=>s+i.qty,0);
+      document.querySelectorAll('.cart-badge').forEach(b=>{b.textContent=total;b.classList.toggle('show',total>0);});
+      loadFullReviewList();
+    });
+
+    const REV_CLOUD_NAME = 'bsgynj2j';
+    const REV_UPLOAD_PRESET = 'cc_screenshots';
+    let revRating = 0;
+    let revPhotoUrl = '';
+
+    document.getElementById('revStarsInput').addEventListener('click', (e) => {
+      if(e.target.tagName !== 'SPAN') return;
+      revRating = parseInt(e.target.dataset.v);
+      document.querySelectorAll('#revStarsInput span').forEach(s => {
+        s.textContent = parseInt(s.dataset.v) <= revRating ? '★' : '☆';
+      });
+    });
+
+    function handleRevPhotoUpload(event){
+      const file = event.target.files[0];
+      if(!file) return;
+      document.getElementById('revUploadText').textContent = '⏳ Uploading...';
+
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('upload_preset', REV_UPLOAD_PRESET);
+      fd.append('folder', 'custom-showcase');
+
+      fetch(`https://api.cloudinary.com/v1_1/${REV_CLOUD_NAME}/image/upload`, { method:'POST', body:fd })
+        .then(res => { if(!res.ok) throw new Error(); return res.json(); })
+        .then(data => {
+          revPhotoUrl = data.secure_url;
+          document.getElementById('revUploadText').textContent = '✅ Photo added';
+        })
+        .catch(() => {
+          document.getElementById('revUploadText').textContent = '⚠️ Upload failed, tap to retry';
+        });
+    }
+
+    async function submitPublicReview(){
+      const name = document.getElementById('revName').value.trim();
+      const text = document.getElementById('revText').value.trim();
+      if(!name || !text || revRating===0){
+        alert('Please add your name, a rating, and a short review.');
+        return;
+      }
+      const btn = document.getElementById('revSubmitBtn');
+      btn.disabled = true; btn.textContent = 'Submitting...';
+
+      const ok = await sbInsertCustomReview({
+        customer_name: name, review_text: text, rating: revRating,
+        photo_url: revPhotoUrl || null
+      });
+
+      if(ok){
+        document.getElementById('revName').value='';
+        document.getElementById('revText').value='';
+        revRating = 0; revPhotoUrl = '';
+        document.querySelectorAll('#revStarsInput span').forEach(s => s.textContent='☆');
+        document.getElementById('revUploadText').textContent = '📸 Add a photo (optional)';
+        btn.textContent = 'Submit review';
+        btn.disabled = false;
+        loadFullReviewList();
+      } else {
+        alert('Something went wrong. Please try again.');
+        btn.disabled = false; btn.textContent = 'Submit review';
+      }
+    }
+
+    async function loadFullReviewList(){
+      const list = document.getElementById('revFullList');
+      list.innerHTML = '<p style="color:#999;font-size:13px;">Loading...</p>';
+      const items = await sbGetCustomReviews();
+      if(!items || items.length===0){
+        list.innerHTML = '<p style="color:#999;font-size:13px;">No reviews yet — be the first!</p>';
+        return;
+      }
+      list.innerHTML = items.map(item => `
+        <div class="rev-list-item">
+          ${item.photo_url ? `<img src="${item.photo_url}" alt="${item.customer_name}"/>` : ''}
+          <div class="rev-list-item-body">
+            <div class="rev-list-stars">${'★'.repeat(item.rating)}${'☆'.repeat(5-item.rating)}</div>
+            <p class="rev-list-text">${item.review_text}</p>
+            <div class="rev-list-name">— ${item.customer_name}</div>
+          </div>
+        </div>`).join('');
+    }
+  </script>
+</body>
+</html>

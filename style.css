@@ -186,18 +186,17 @@ img { max-width: 100%; display: block; }
 .hero-full {
   position: relative;
   width: 100%;
-  min-height: 560px;
-  background: var(--black);
+  /* height is driven by the image — no min-height, no overflow:hidden */
   display: block;
   border-bottom: 1.5px solid #222;
 }
 
-/* The full-bleed background image — capped height, FULLY visible, never cropped */
+/* The full-bleed background image — natural size, full width, NOT cropped */
 .hero-bg-img {
   display: block;
   width: 100%;
-  height: clamp(320px, 46vh, 480px);
-  object-fit: contain;
+  height: auto;          /* keeps full image, no crop */
+  object-fit: unset;
   position: static;      /* in normal flow so it sets the section height */
   z-index: 0;
 }
@@ -310,8 +309,8 @@ img { max-width: 100%; display: block; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-full { min-height: 480px; }
-  .hero-bg-img { height: clamp(240px, 40vh, 380px); }
+  .hero-full { min-height: 78vh; }
+  .hero-bg-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .hero-text-block { padding: 40px 6%; max-width: 100%; }
   .hero-title { font-size: 38px; }
   .hero-overlay {
@@ -319,6 +318,7 @@ img { max-width: 100%; display: block; }
   }
 }
 @media (max-width: 480px) {
+  .hero-full { min-height: 72vh; }
   .hero-title { font-size: 30px; }
   .hero-sub { font-size: 14px; }
   .hero-text-block { padding: 32px 5%; }
@@ -2093,9 +2093,7 @@ img { max-width: 100%; display: block; }
 .sc-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#666;}
 .sc-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px;}
 
-/* PUBLIC REVIEW MODAL */
-.review-modal { max-width: 520px; }
-.showcase-cta-btn { margin-top: 20px; }
+/* PUBLIC REVIEW FORM (used on reviews.html) */
 .rev-form-box { background: var(--cream); border-radius: 14px; padding: 18px; margin: 16px 0 20px; }
 .rev-input {
   width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border);

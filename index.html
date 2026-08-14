@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CC — Custom Closet | Your Design. Your Drip.</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 </head>
@@ -19,6 +19,7 @@
       <a href="#trending">Trending</a>
       <a href="#customize">Customize</a>
       <a href="#how-it-works">How it works</a>
+      <a href="reviews.html">Reviews</a>
       <a href="#contact">Contact</a>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
@@ -35,6 +36,7 @@
     <a href="#trending" onclick="toggleMenu()">Trending</a>
     <a href="#customize" onclick="toggleMenu()">Customize</a>
     <a href="#how-it-works" onclick="toggleMenu()">How it works</a>
+    <a href="reviews.html" onclick="toggleMenu()">Reviews</a>
     <a href="#contact" onclick="toggleMenu()">Contact</a>
     <a href="cart.html" onclick="toggleMenu()">🛒 Cart</a>
     <a href="design.html" class="mobile-cta">Start Designing</a>
@@ -111,17 +113,6 @@
     </div>
   </section>
 
-  <!-- CUSTOM SHOWCASE -->
-  <section class="showcase-section" id="showcase">
-    <div class="section-header">
-      <p class="section-eyebrow">🎨 Real customers, real designs</p>
-      <h2>What people made</h2>
-      <p class="section-sub">A few custom pieces we've printed and shipped, straight from customer feedback.</p>
-      <button class="btn-primary showcase-cta-btn" onclick="openReviewModal()">✍️ Write a review / See all reviews</button>
-    </div>
-    <div class="showcase-grid" id="showcaseHomeGrid"></div>
-  </section>
-
   <!-- HOW IT WORKS -->
   <section class="how-it-works" id="how-it-works">
     <div class="section-header">
@@ -188,146 +179,9 @@
     </div>
   </div>
 
-  <!-- CUSTOM REVIEW MODAL -->
-  <div class="sc-overlay" id="reviewModalOverlay" onclick="if(event.target===this)closeReviewModal()">
-    <div class="sc-modal review-modal">
-      <button class="sc-close" onclick="closeReviewModal()">✕</button>
-      <div class="sc-title">🎨 Custom Order Reviews</div>
-
-      <div class="rev-form-box">
-        <div class="panel-label" style="margin-bottom:10px;">Write a review</div>
-        <input type="text" id="revName" class="rev-input" placeholder="Your name"/>
-        <div class="rev-stars-input" id="revStarsInput">
-          <span data-v="1">☆</span><span data-v="2">☆</span><span data-v="3">☆</span><span data-v="4">☆</span><span data-v="5">☆</span>
-        </div>
-        <textarea id="revText" class="rev-input" rows="3" placeholder="How was your custom order?"></textarea>
-        <input type="file" id="revPhotoInput" accept="image/*" style="display:none" onchange="handleRevPhotoUpload(event)"/>
-        <div class="rev-upload-zone" id="revUploadZone" onclick="document.getElementById('revPhotoInput').click()">
-          <span id="revUploadText">📸 Add a photo (optional)</span>
-        </div>
-        <button class="btn-primary" id="revSubmitBtn" onclick="submitPublicReview()" style="width:100%;margin-top:12px;">Submit review</button>
-      </div>
-
-      <div class="rev-list-divider">All reviews</div>
-      <div id="revFullList" class="rev-full-list"><p style="color:#999;font-size:13px;">Loading...</p></div>
-    </div>
-  </div>
-
-  <script src="supabase.js"></script>
   <script src="script.js?v=3"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => { renderSizeTable('oversize'); loadHomeShowcase(); });
-
-    async function loadHomeShowcase(){
-      const grid = document.getElementById('showcaseHomeGrid');
-      const items = await sbGetCustomReviews();
-      if(!items || items.length===0){
-        grid.innerHTML = `<div class="showcase-empty">Custom order photos and reviews will appear here soon — check back!</div>`;
-        return;
-      }
-      grid.innerHTML = items.slice(0,6).map(item => `
-        <div class="showcase-card">
-          <img src="${item.photo_url}" alt="${item.customer_name}'s custom order" loading="lazy"/>
-          <div class="showcase-card-body">
-            <div class="showcase-stars">${'★'.repeat(item.rating)}${'☆'.repeat(5-item.rating)}</div>
-            <p class="showcase-text">“${item.review_text}”</p>
-            <div class="showcase-name">— ${item.customer_name}</div>
-          </div>
-        </div>`).join('');
-    }
-
-    // ── PUBLIC REVIEW MODAL ──
-    const REV_CLOUD_NAME = 'bsgynj2j';
-    const REV_UPLOAD_PRESET = 'cc_screenshots';
-    let revRating = 0;
-    let revPhotoUrl = '';
-
-    function openReviewModal(){
-      document.getElementById('reviewModalOverlay').classList.add('open');
-      loadFullReviewList();
-    }
-    function closeReviewModal(){
-      document.getElementById('reviewModalOverlay').classList.remove('open');
-    }
-
-    document.getElementById('revStarsInput').addEventListener('click', (e) => {
-      if(e.target.tagName !== 'SPAN') return;
-      revRating = parseInt(e.target.dataset.v);
-      document.querySelectorAll('#revStarsInput span').forEach(s => {
-        s.textContent = parseInt(s.dataset.v) <= revRating ? '★' : '☆';
-      });
-    });
-
-    function handleRevPhotoUpload(event){
-      const file = event.target.files[0];
-      if(!file) return;
-      document.getElementById('revUploadText').textContent = '⏳ Uploading...';
-
-      const fd = new FormData();
-      fd.append('file', file);
-      fd.append('upload_preset', REV_UPLOAD_PRESET);
-      fd.append('folder', 'custom-showcase');
-
-      fetch(`https://api.cloudinary.com/v1_1/${REV_CLOUD_NAME}/image/upload`, { method:'POST', body:fd })
-        .then(res => { if(!res.ok) throw new Error(); return res.json(); })
-        .then(data => {
-          revPhotoUrl = data.secure_url;
-          document.getElementById('revUploadText').textContent = '✅ Photo added';
-        })
-        .catch(() => {
-          document.getElementById('revUploadText').textContent = '⚠️ Upload failed, tap to retry';
-        });
-    }
-
-    async function submitPublicReview(){
-      const name = document.getElementById('revName').value.trim();
-      const text = document.getElementById('revText').value.trim();
-      if(!name || !text || revRating===0){
-        alert('Please add your name, a rating, and a short review.');
-        return;
-      }
-      const btn = document.getElementById('revSubmitBtn');
-      btn.disabled = true; btn.textContent = 'Submitting...';
-
-      const ok = await sbInsertCustomReview({
-        customer_name: name, review_text: text, rating: revRating,
-        photo_url: revPhotoUrl || null
-      });
-
-      if(ok){
-        document.getElementById('revName').value='';
-        document.getElementById('revText').value='';
-        revRating = 0; revPhotoUrl = '';
-        document.querySelectorAll('#revStarsInput span').forEach(s => s.textContent='☆');
-        document.getElementById('revUploadText').textContent = '📸 Add a photo (optional)';
-        btn.textContent = 'Submit review';
-        btn.disabled = false;
-        loadFullReviewList();
-        loadHomeShowcase();
-      } else {
-        alert('Something went wrong. Please try again.');
-        btn.disabled = false; btn.textContent = 'Submit review';
-      }
-    }
-
-    async function loadFullReviewList(){
-      const list = document.getElementById('revFullList');
-      list.innerHTML = '<p style="color:#999;font-size:13px;">Loading...</p>';
-      const items = await sbGetCustomReviews();
-      if(!items || items.length===0){
-        list.innerHTML = '<p style="color:#999;font-size:13px;">No reviews yet — be the first!</p>';
-        return;
-      }
-      list.innerHTML = items.map(item => `
-        <div class="rev-list-item">
-          ${item.photo_url ? `<img src="${item.photo_url}" alt="${item.customer_name}"/>` : ''}
-          <div class="rev-list-item-body">
-            <div class="rev-list-stars">${'★'.repeat(item.rating)}${'☆'.repeat(5-item.rating)}</div>
-            <p class="rev-list-text">${item.review_text}</p>
-            <div class="rev-list-name">— ${item.customer_name}</div>
-          </div>
-        </div>`).join('');
-    }
+    document.addEventListener('DOMContentLoaded', () => renderSizeTable('oversize'));
   </script>
 </body>
 </html>
