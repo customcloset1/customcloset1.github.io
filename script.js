@@ -33,15 +33,13 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/lewis-both.png`
     }
   },
-  // 3 — Colosseum Drop
+  // 3 — Modern Renaissance
   {
-    id:2, category:'oversize', name:'Colosseum Drop',
+    id:7, category:'oversize', name:'Modern Renaissance',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:599, original:1199, badge:'New', colors:['#ffffff'],
+    price:499, original:999, badge:'New', colors:['#000000','#ffffff'],
     images:{
-      front:`${CL}/rome-front.jpeg`,
-      back:`${CL}/rome-back.png`,
-      both:`${CL}/rome-both.jpeg`
+      front:`${CL}/Ren-first.png`
     }
   },
   // 4 — Legend in Red
@@ -55,13 +53,15 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/F1-1-both.jpg`
     }
   },
-  // 5 — Modern Renaissance
+  // 5 — Colosseum Drop
   {
-    id:7, category:'oversize', name:'Modern Renaissance',
+    id:2, category:'oversize', name:'Colosseum Drop',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'New', colors:['#000000','#ffffff'],
+    price:599, original:1199, badge:'New', colors:['#ffffff'],
     images:{
-      front:`${CL}/Ren-first.png`
+      front:`${CL}/rome-front.jpeg`,
+      back:`${CL}/rome-back.png`,
+      both:`${CL}/rome-both.jpeg`
     }
   },
   // 6 — The GOAT Edition
