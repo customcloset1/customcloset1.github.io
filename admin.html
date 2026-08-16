@@ -348,10 +348,23 @@ function renderOrders(orders){
           </td>
           <td>
             <button onclick="viewOrder('${o.id}')" style="padding:5px 12px;background:#111;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;">View</button>
+            <button onclick="deleteOrder('${o.id}')" style="padding:5px 12px;background:#fff;color:#dc2626;border:1px solid #dc2626;border-radius:6px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;margin-left:6px;">Delete</button>
           </td>
         </tr>`).join('')}
       </tbody>
     </table>`;
+}
+
+async function deleteOrder(id){
+  if(!confirm('Delete this order permanently? This cannot be undone.')) return;
+  const ok = await sbDeleteOrder(id);
+  if(ok){
+    allOrders = allOrders.filter(o=>o.id!==id);
+    updateStats(allOrders);
+    renderOrders(allOrders);
+  } else {
+    alert('Something went wrong deleting this order. Please try again.');
+  }
 }
 
 async function updateStatus(id, status){

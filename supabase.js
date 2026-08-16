@@ -65,6 +65,14 @@ async function sbUpdateOrderStatus(id, status) {
   return res.ok;
 }
 
+async function sbDeleteOrder(id) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/orders?id=eq.${id}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+  });
+  return res.ok;
+}
+
 // ── CUSTOM ORDER REVIEWS (for homepage showcase) ──
 async function sbGetCustomReviews() {
   const res = await fetch(
