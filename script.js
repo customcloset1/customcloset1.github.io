@@ -55,7 +55,16 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/F1-1-both.jpg`
     }
   },
-  // 5 — The GOAT Edition
+  // 5 — Modern Renaissance
+  {
+    id:7, category:'oversize', name:'Modern Renaissance',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'New', colors:['#000000','#ffffff'],
+    images:{
+      front:`${CL}/Ren-first.png`
+    }
+  },
+  // 6 — The GOAT Edition
   {
     id:3, category:'oversize', name:'The GOAT Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -66,7 +75,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/new-both.png`
     }
   },
-  // 6 — Ananta Community Sleeveless Performance Tee
+  // 7 — Ananta Community Sleeveless Performance Tee
   {
     id:6, category:'tshirt', catLabel:'Sleeveless Tee', name:'Ananta Community Sleeveless Performance Tee',
     desc:'Sleeveless performance tee, Polyester, quick-dry',
@@ -75,15 +84,6 @@ const TRENDING_PRODUCTS = [
       front:`${CL}/club-first.png`,
       back:`${CL}/club-second.png`,
       both:`${CL}/club-third.jpeg`
-    }
-  },
-  // 7 — Modern Renaissance
-  {
-    id:7, category:'oversize', name:'Modern Renaissance',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'New', colors:['#000000','#ffffff'],
-    images:{
-      front:`${CL}/Ren-first.png`
     }
   },
 ];
