@@ -48,6 +48,10 @@
     .size-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
     .size-btn{padding:8px 16px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;transition:all 0.15s;font-family:'Inter',sans-serif;}
     .size-btn:hover{border-color:#111;} .size-btn.active{border-color:#111;background:#111;color:#fff;}
+    .color-swatch-row{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+    .color-swatch-btn{width:36px;height:36px;border-radius:50%;border:2px solid #e5e7eb;cursor:pointer;padding:0;transition:all 0.15s;position:relative;}
+    .color-swatch-btn:hover{border-color:#999;}
+    .color-swatch-btn.active{border-color:#111;box-shadow:0 0 0 2px #fff, 0 0 0 4px #111;}
     .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
     .detail-item{background:#f9f9f9;border-radius:10px;padding:12px 14px;}
     .detail-label{font-size:11px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
@@ -146,6 +150,10 @@
       <span class="price-original" id="pOriginal"></span>
       <span class="price-badge" id="pDiscount"></span>
     </div>
+    <div class="option-label" id="colorOptionLabel" style="display:none;">
+      Color — <span id="selectedColorLabel" style="color:#111;font-weight:700;"></span>
+    </div>
+    <div class="color-swatch-row" id="colorSwatchRow" style="display:none;"></div>
     <div class="option-label">
       Size — <span id="selectedSizeLabel" style="color:#111;font-weight:700;">S</span>
       <button class="size-chart-link" onclick="openSizeChart()">📏 Size chart</button>
@@ -258,11 +266,21 @@ const PRODUCTS = [
     desc:'Lightweight sleeveless performance tee built for running and training. Breathable, quick-dry polyester fabric keeps you cool through every rep.',
     price:499, original:999, color:'Black', fabric:'Polyester', gsm:'160 GSM', fit:'Sleeveless Tee',
     images:[`${CL}/club-first.png`,`${CL}/club-second.png`,`${CL}/club-third.jpeg`] },
+  { id:7, category:'oversize', name:'Modern Renaissance',
+    desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee with a comfortable relaxed silhouette.',
+    price:499, original:999, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
+    colorVariants:{
+      Black:{ swatch:'#000000', images:[`${CL}/Ren-second-front-black.png`,`${CL}/Ren-third-back-black.png`,`${CL}/Ren-forth-black-man.png`,`${CL}/Ren-forth-black-women.png`] },
+      White:{ swatch:'#ffffff', images:[`${CL}/Ren-second-front-white.png`,`${CL}/Ren-third-back-white.png`,`${CL}/Ren-forth-white-men.png`,`${CL}/Ren-forth-white-women.png`] }
+    },
+    images:[`${CL}/Ren-second-front-black.png`,`${CL}/Ren-third-back-black.png`,`${CL}/Ren-forth-black-man.png`,`${CL}/Ren-forth-black-women.png`] },
 ];
 
 let product = null;
 let currentImgIdx = 0;
 let selectedSize = 'S';
+let activeColorName = '';
+let activeImages = [];
 let rating = 0;
 let photoDataURLs = [];
 const productId = parseInt(new URLSearchParams(window.location.search).get('id'));
@@ -276,10 +294,10 @@ function updateBadge(){
 }
 function addProductToCart(){
   const cart=getCart();
-  const key=`${product.id}-${selectedSize}`;
+  const key=`${product.id}-${selectedSize}-${activeColorName}`;
   const ex=cart.find(i=>i.key===key);
   if(ex) ex.qty++;
-  else cart.push({key,id:product.id,name:product.name,category:product.category,size:selectedSize,color:product.color,price:product.price,original:product.original,img:product.images[0],qty:1});
+  else cart.push({key,id:product.id,name:product.name,category:product.category,size:selectedSize,color:activeColorName,price:product.price,original:product.original,img:activeImages[0],qty:1});
   saveCart(cart);
   showToast(`✅ Added — ${product.name} (${selectedSize}) &nbsp;<a href="cart.html" style="color:#fbbf24;font-weight:700;text-decoration:none;">View cart →</a>`);
 }
@@ -291,15 +309,43 @@ function showToast(html){
 
 // GALLERY
 function setMainImg(idx){
-  if(!product) return;
-  idx=((idx%product.images.length)+product.images.length)%product.images.length;
+  if(!activeImages.length) return;
+  idx=((idx%activeImages.length)+activeImages.length)%activeImages.length;
   currentImgIdx=idx;
   const img=document.getElementById('mainImg');
   img.style.opacity='0';
-  setTimeout(()=>{img.src=product.images[idx];img.style.opacity='1';},150);
+  setTimeout(()=>{img.src=activeImages[idx];img.style.opacity='1';},150);
   document.querySelectorAll('.thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
 }
 function galleryNav(dir){ setMainImg(currentImgIdx+dir); }
+
+function renderGallery(){
+  currentImgIdx=0;
+  const mainImg=document.getElementById('mainImg');
+  mainImg.src=activeImages[0];
+  mainImg.onerror=()=>{ mainImg.style.background='#f5f5f5'; };
+  const thumbRow=document.getElementById('thumbRow');
+  thumbRow.innerHTML='';
+  activeImages.forEach((img,i)=>{
+    const t=document.createElement('img');
+    t.src=img; t.className='thumb'+(i===0?' active':'');
+    t.onclick=()=>setMainImg(i);
+    t.onerror=()=>t.style.display='none';
+    thumbRow.appendChild(t);
+  });
+}
+
+// COLOR (only used when a product has colorVariants)
+function pickColor(colorName, btn){
+  activeColorName = colorName;
+  activeImages = product.colorVariants[colorName].images;
+  document.querySelectorAll('.color-swatch-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('selectedColorLabel').textContent = colorName;
+  const colorVal = document.getElementById('colorDetailVal');
+  if(colorVal) colorVal.textContent = colorName;
+  renderGallery();
+}
 
 // SIZE
 function pickSize(btn,size){
@@ -445,21 +491,26 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('detailsGrid').innerHTML=`
     <div class="detail-item"><div class="detail-label">Fabric</div><div class="detail-val">${product.fabric}</div></div>
     <div class="detail-item"><div class="detail-label">GSM</div><div class="detail-val">${product.gsm}</div></div>
-    <div class="detail-item"><div class="detail-label">Color</div><div class="detail-val">${product.color}</div></div>
+    <div class="detail-item"><div class="detail-label">Color</div><div class="detail-val" id="colorDetailVal">${product.color}</div></div>
     <div class="detail-item"><div class="detail-label">Fit</div><div class="detail-val">${product.fit}</div></div>
     <div class="detail-item"><div class="detail-label">Ships from</div><div class="detail-val">Pune, MH</div></div>`;
-  // Build gallery from images array
-  const mainImg=document.getElementById('mainImg');
-  mainImg.src=product.images[0];
-  mainImg.onerror=()=>{ mainImg.style.background='#f5f5f5'; };
-  const thumbRow=document.getElementById('thumbRow');
-  product.images.forEach((img,i)=>{
-    const t=document.createElement('img');
-    t.src=img; t.className='thumb'+(i===0?' active':'');
-    t.onclick=()=>setMainImg(i);
-    t.onerror=()=>t.style.display='none';
-    thumbRow.appendChild(t);
-  });
+
+  // Set up active image set — color-variant products vs. regular single-image-list products
+  if(product.colorVariants){
+    const colorNames = Object.keys(product.colorVariants);
+    activeColorName = colorNames[0];
+    activeImages = product.colorVariants[activeColorName].images;
+    document.getElementById('colorOptionLabel').style.display='flex';
+    document.getElementById('colorSwatchRow').style.display='flex';
+    document.getElementById('selectedColorLabel').textContent = activeColorName;
+    document.getElementById('colorDetailVal').textContent = activeColorName;
+    document.getElementById('colorSwatchRow').innerHTML = colorNames.map((cn,i) => `
+      <button class="color-swatch-btn${i===0?' active':''}" style="background:${product.colorVariants[cn].swatch}" onclick="pickColor('${cn}',this)" title="${cn}"></button>`).join('');
+  } else {
+    activeColorName = product.color;
+    activeImages = product.images;
+  }
+  renderGallery();
   loadReviews();
 });
 </script>

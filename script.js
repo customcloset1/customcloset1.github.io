@@ -2,7 +2,7 @@
 // CUSTOM CLOSET — Main JavaScript
 // ============================================
 
-const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload';
+const CL = 'https://res.cloudinary.com/bsgynj2j/image/upload/f_auto,q_auto';
 
 const SIZE_CHARTS = {
   oversize:{ cols:['Size','Chest (in)','Length (in)'], rows:[['S','40–42','24'],['M','42–44','25'],['L','44–46','26'],['XL','46–48','27'],['XXL','48–50','28']] },
@@ -75,6 +75,15 @@ const TRENDING_PRODUCTS = [
       front:`${CL}/club-first.png`,
       back:`${CL}/club-second.png`,
       both:`${CL}/club-third.jpeg`
+    }
+  },
+  // 7 — Modern Renaissance
+  {
+    id:7, category:'oversize', name:'Modern Renaissance',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'New', colors:['#000000','#ffffff'],
+    images:{
+      front:`${CL}/Ren-first.png`
     }
   },
 ];
