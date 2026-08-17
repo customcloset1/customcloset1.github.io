@@ -16,7 +16,7 @@ const TRENDING_PRODUCTS = [
   {
     id:8, category:'oversize', name:'The 1975 Original',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:499, original:999, badge:'New', colors:['#1a1a1a'],
+    price:499, original:999, badge:'New', colors:['#1e2a4a'],
     images:{
       front:`${CL}/new-first.png`,
       back:`${CL}/new-second.png`,
