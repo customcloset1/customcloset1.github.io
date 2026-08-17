@@ -128,7 +128,7 @@
 
 <div class="product-wrap" id="productWrap">
   <div class="gallery">
-    <div class="main-img-wrap">
+    <div class="main-img-wrap" id="mainImgWrap">
       <button class="img-nav prev" onclick="galleryNav(-1)">‹</button>
       <img class="main-img" id="mainImg" src="" alt="Product" onclick="openLightbox(this.src)"/>
       <button class="img-nav next" onclick="galleryNav(1)">›</button>
@@ -270,6 +270,10 @@ const PRODUCTS = [
       White:{ swatch:'#ffffff', images:[`${CL}/Ren-second-front-white.png`,`${CL}/Ren-third-back-white.png`,`${CL}/Ren-forth-white-men.png`,`${CL}/Ren-forth-white-women.png`] }
     },
     images:[`${CL}/Ren-second-front-black.png`,`${CL}/Ren-third-back-black.png`,`${CL}/Ren-forth-black-man.png`,`${CL}/Ren-forth-black-women.png`] },
+  { id:8, category:'oversize', name:'The 1975 Original',
+    desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee with a comfortable relaxed silhouette.',
+    price:499, original:999, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
+    images:[`${CL}/new-first.png`,`${CL}/new-second.png`,`${CL}/new-third.png`,`${CL}/new-forth.png`] },
 ];
 
 let product = null;
@@ -314,6 +318,26 @@ function setMainImg(idx){
   document.querySelectorAll('.thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
 }
 function galleryNav(dir){ setMainImg(currentImgIdx+dir); }
+
+// SWIPE — lets mobile users swipe left/right on the main image to change photos
+(function(){
+  const wrap = document.getElementById('mainImgWrap');
+  if(!wrap) return;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  wrap.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive:true});
+  wrap.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    // only treat as a swipe if it's clearly more horizontal than vertical, and past a minimum distance
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)*1.5){
+      galleryNav(dx < 0 ? 1 : -1);
+    }
+  }, {passive:true});
+})();
 
 function renderGallery(){
   currentImgIdx=0;

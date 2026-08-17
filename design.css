@@ -109,6 +109,11 @@ body { background:#f2efe9; }
 .font-select { flex:1;padding:7px 8px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:'Inter',sans-serif;background:var(--white);outline:none; }
 .color-picker { width:32px;height:32px;border-radius:7px;border:1.5px solid var(--border);padding:2px;cursor:pointer; }
 .font-size-row { display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-muted); }
+.text-style-row { display:flex;gap:6px;align-items:center;margin-top:6px; }
+.font-weight-select { flex:1;padding:7px 8px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-family:'Inter',sans-serif;background:var(--white);outline:none; }
+.style-toggle-btn { width:36px;height:32px;border:1.5px solid var(--border);border-radius:8px;background:var(--white);cursor:pointer;font-size:14px;color:var(--text-main);transition:all 0.15s; }
+.style-toggle-btn:hover { border-color:#999; }
+.style-toggle-btn.active { background:#111;border-color:#111;color:#fff; }
 .size-slider { flex:1;accent-color:var(--accent); }
 #fontSizeVal { font-weight:700;color:var(--black);min-width:18px; }
 .add-text-btn { width:100%;padding:9px;background:var(--white);border:1.5px solid var(--black);border-radius:8px;font-size:12px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;color:var(--black);transition:all 0.15s; }

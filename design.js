@@ -436,6 +436,8 @@ function clearCurrentView() {
 }
 
 // ── TEXT ──
+let italicActive = false;
+
 function addText() {
   const fc=getActiveCanvas(); if(!fc)return;
   const text=document.getElementById('textInput').value.trim();
@@ -444,6 +446,8 @@ function addText() {
     left:fc.width/2,top:fc.height*0.52,originX:'center',originY:'center',
     fontSize:parseInt(document.getElementById('fontSize').value)||36,
     fontFamily:document.getElementById('fontSelect').value,
+    fontWeight:document.getElementById('fontWeightSelect').value,
+    fontStyle:italicActive?'italic':'normal',
     fill:document.getElementById('textColor').value,
     cornerColor:'#b45309',cornerSize:10,transparentCorners:false,borderColor:'#b45309',cornerStyle:'circle'
   });
@@ -451,6 +455,38 @@ function addText() {
   document.getElementById('textInput').value='';
   views[visibleView].hasDesign=true; syncViewDots(); updateStatusList();
 }
+
+function toggleTextStyle(style){
+  if(style==='italic'){
+    italicActive = !italicActive;
+    document.getElementById('italicToggleBtn').classList.toggle('active', italicActive);
+  }
+  // If a text object is currently selected on canvas, apply the change to it live too
+  const fc=getActiveCanvas(); if(!fc) return;
+  const active = fc.getActiveObject();
+  if(active && active.type==='text'){
+    active.set('fontStyle', italicActive?'italic':'normal');
+    fc.renderAll();
+  }
+}
+
+document.getElementById('fontWeightSelect').addEventListener('change', (e) => {
+  const fc=getActiveCanvas(); if(!fc) return;
+  const active = fc.getActiveObject();
+  if(active && active.type==='text'){
+    active.set('fontWeight', e.target.value);
+    fc.renderAll();
+  }
+});
+
+document.getElementById('fontSelect').addEventListener('change', (e) => {
+  const fc=getActiveCanvas(); if(!fc) return;
+  const active = fc.getActiveObject();
+  if(active && active.type==='text'){
+    active.set('fontFamily', e.target.value);
+    fc.renderAll();
+  }
+});
 
 document.addEventListener('keydown',e=>{
   if((e.key==='Delete'||e.key==='Backspace')&&!e.target.matches('input,textarea,select')) deleteDesign();

@@ -12,7 +12,18 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — Spider-Verse
+  // 1 — The 1975 Original
+  {
+    id:8, category:'oversize', name:'The 1975 Original',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'New', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/new-first.png`,
+      back:`${CL}/new-second.png`,
+      both:`${CL}/new-third.png`
+    }
+  },
+  // 2 — Spider-Verse
   {
     id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -22,7 +33,7 @@ const TRENDING_PRODUCTS = [
       back:`${CL}/spiderman-new-front.jpeg`
     }
   },
-  // 2 — The Red Legacy
+  // 3 — The Red Legacy
   {
     id:4, category:'oversize', name:'The Red Legacy',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -33,7 +44,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/lewis-both.png`
     }
   },
-  // 3 — Modern Renaissance
+  // 4 — Modern Renaissance
   {
     id:7, category:'oversize', name:'Modern Renaissance',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -42,7 +53,7 @@ const TRENDING_PRODUCTS = [
       front:`${CL}/Ren-first.png`
     }
   },
-  // 4 — Legend in Red
+  // 5 — Legend in Red
   {
     id:1, category:'oversize', name:'Legend in Red',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -53,7 +64,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/F1-1-both.jpg`
     }
   },
-  // 5 — Colosseum Drop
+  // 6 — Colosseum Drop
   {
     id:2, category:'oversize', name:'Colosseum Drop',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -64,7 +75,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/rome-both.jpeg`
     }
   },
-  // 6 — The GOAT Edition
+  // 7 — The GOAT Edition
   {
     id:3, category:'oversize', name:'The GOAT Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
