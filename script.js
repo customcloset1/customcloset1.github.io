@@ -12,7 +12,18 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — The 1975 Original
+  // 1 — Grand Line Legacy
+  {
+    id:9, category:'oversize', name:'Grand Line Legacy',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:599, original:1199, badge:'New', colors:['#ffffff'],
+    images:{
+      front:`${CL}/onepiece-first.png`,
+      back:`${CL}/onepiece-second.png`,
+      both:`${CL}/onepiece-third.png`
+    }
+  },
+  // 2 — The 1975 Original
   {
     id:8, category:'oversize', name:'The 1975 Original',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -23,7 +34,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/new-third.png`
     }
   },
-  // 2 — Spider-Verse
+  // 3 — Spider-Verse
   {
     id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -33,7 +44,7 @@ const TRENDING_PRODUCTS = [
       back:`${CL}/spiderman-new-front.jpeg`
     }
   },
-  // 3 — The Red Legacy
+  // 4 — The Red Legacy
   {
     id:4, category:'oversize', name:'The Red Legacy',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -44,7 +55,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/lewis-both.png`
     }
   },
-  // 4 — Modern Renaissance
+  // 5 — Modern Renaissance
   {
     id:7, category:'oversize', name:'Modern Renaissance',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -53,7 +64,7 @@ const TRENDING_PRODUCTS = [
       front:`${CL}/Ren-first.png`
     }
   },
-  // 5 — Legend in Red
+  // 6 — Legend in Red
   {
     id:1, category:'oversize', name:'Legend in Red',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -64,7 +75,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/F1-1-both.jpg`
     }
   },
-  // 6 — Colosseum Drop
+  // 7 — Colosseum Drop
   {
     id:2, category:'oversize', name:'Colosseum Drop',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -75,7 +86,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/rome-both.jpeg`
     }
   },
-  // 7 — The GOAT Edition
+  // 8 — The GOAT Edition
   {
     id:3, category:'oversize', name:'The GOAT Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
