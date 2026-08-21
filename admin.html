@@ -170,6 +170,7 @@
         <option value="cancelled">Cancelled</option>
       </select>
       <button class="refresh-btn" onclick="loadOrders()">↻ Refresh</button>
+      <button class="refresh-btn" style="background:#16a34a;" onclick="openManualOrderModal()">+ Add Order Manually</button>
     </div>
 
     <p class="scroll-hint">← scroll table for more →</p>
@@ -226,6 +227,42 @@
   <div class="order-detail-modal">
     <button class="od-close" onclick="closeOrderDetail()">✕</button>
     <div id="orderDetailContent"></div>
+  </div>
+</div>
+
+<!-- MANUAL ORDER ENTRY POPUP -->
+<div class="order-detail-overlay" id="manualOrderOverlay" onclick="if(event.target===this)closeManualOrderModal()">
+  <div class="order-detail-modal">
+    <button class="od-close" onclick="closeManualOrderModal()">✕</button>
+    <div class="od-title">Add Order Manually</div>
+
+    <div class="od-section">
+      <div class="od-section-label">👤 Customer</div>
+      <input class="filter-search" id="moName" placeholder="Full name" style="width:100%;margin-bottom:8px;"/>
+      <input class="filter-search" id="moPhone" placeholder="Phone" style="width:100%;margin-bottom:8px;"/>
+      <input class="filter-search" id="moEmail" placeholder="Email" style="width:100%;margin-bottom:8px;"/>
+      <input class="filter-search" id="moPincode" placeholder="Pincode" style="width:100%;margin-bottom:8px;"/>
+      <textarea class="filter-search" id="moAddress" placeholder="Full address" rows="2" style="width:100%;resize:vertical;"></textarea>
+    </div>
+
+    <div class="od-section">
+      <div class="od-section-label">📦 Items</div>
+      <textarea class="filter-search" id="moItems" placeholder="e.g. Legend in Red | Size: M | Color: Black | Qty: 1 | ₹599" rows="3" style="width:100%;resize:vertical;"></textarea>
+    </div>
+
+    <div class="od-section">
+      <div class="od-row"><span>Total amount</span><input class="filter-search" id="moTotal" type="number" placeholder="₹" style="width:120px;text-align:right;"/></div>
+      <div class="od-row"><span>Status</span>
+        <select class="filter-select" id="moStatus">
+          <option value="pending">Pending</option>
+          <option value="confirmed" selected>Confirmed</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="refresh-btn" id="moSubmitBtn" onclick="submitManualOrder()" style="width:100%;padding:12px;margin-top:8px;">Save order</button>
   </div>
 </div>
 
@@ -421,6 +458,57 @@ function viewOrder(id){
 
 function closeOrderDetail(){
   document.getElementById('orderDetailOverlay').classList.remove('open');
+}
+
+// ── MANUAL ORDER ENTRY ──
+function openManualOrderModal(){
+  document.getElementById('manualOrderOverlay').classList.add('open');
+}
+function closeManualOrderModal(){
+  document.getElementById('manualOrderOverlay').classList.remove('open');
+  document.getElementById('moName').value='';
+  document.getElementById('moPhone').value='';
+  document.getElementById('moEmail').value='';
+  document.getElementById('moPincode').value='';
+  document.getElementById('moAddress').value='';
+  document.getElementById('moItems').value='';
+  document.getElementById('moTotal').value='';
+  document.getElementById('moStatus').value='confirmed';
+}
+
+async function submitManualOrder(){
+  const name = document.getElementById('moName').value.trim();
+  const phone = document.getElementById('moPhone').value.trim();
+  const email = document.getElementById('moEmail').value.trim();
+  const pincode = document.getElementById('moPincode').value.trim();
+  const address = document.getElementById('moAddress').value.trim();
+  const items = document.getElementById('moItems').value.trim();
+  const total = parseInt(document.getElementById('moTotal').value);
+  const status = document.getElementById('moStatus').value;
+
+  if(!name || !phone || !items || !total){
+    alert('Please fill in at least name, phone, items, and total.');
+    return;
+  }
+
+  const btn = document.getElementById('moSubmitBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+
+  const orderId = 'CC'+Date.now().toString().slice(-6);
+  const ok = await sbInsertOrder({
+    order_id: orderId, items, total,
+    customer_name: name, customer_phone: phone, customer_email: email,
+    customer_address: address, customer_pincode: pincode, status
+  });
+
+  btn.disabled = false; btn.textContent = 'Save order';
+
+  if(ok){
+    closeManualOrderModal();
+    loadOrders();
+  } else {
+    alert('Something went wrong saving this order. Please try again.');
+  }
 }
 
 // ── REVIEWS ──
