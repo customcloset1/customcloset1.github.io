@@ -570,7 +570,7 @@ function proceedToWhatsApp() {
 }
 
 // ── INIT ──
-window.addEventListener('load',()=>{
+window.addEventListener('DOMContentLoaded',()=>{
   updateSummary(); goToStep(1);
   const type=new URLSearchParams(window.location.search).get('type');
   if(type&&GARMENTS[type]) selectGarment(type);
