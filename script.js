@@ -108,6 +108,15 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/new-both.png`
     }
   },
+  // 10 — The Brand: Rise
+  {
+    id:11, category:'oversize', name:'The Brand: Rise',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:499, original:999, badge:'New', colors:['#b3121c','#1e2a4a','#000000','#ffffff'],
+    images:{
+      front:`${CL}/cc-first.png`
+    }
+  },
 ];
 
 // ══ CART ══
