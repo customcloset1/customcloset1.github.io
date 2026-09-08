@@ -117,6 +117,28 @@ const TRENDING_PRODUCTS = [
       front:`${CL}/cc-first.png`
     }
   },
+  // 11 — GT3 RS Apex
+  {
+    id:12, category:'oversize', name:'GT3 RS Apex',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:1399, badge:'New', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/porche1.png`,
+      back:`${CL}/porche2.png`,
+      both:`${CL}/porche3.png`
+    }
+  },
+  // 12 — MAUT MODE
+  {
+    id:13, category:'oversize', name:'MAUT MODE',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:599, original:1199, badge:'New', colors:['#ffffff'],
+    images:{
+      front:`${CL}/maut1.png`,
+      back:`${CL}/maut2.png`,
+      both:`${CL}/maut3.png`
+    }
+  },
 ];
 
 // ══ CART ══
