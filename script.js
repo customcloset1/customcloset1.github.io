@@ -12,7 +12,18 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — GT3 RS Apex
+  // 1 — Inner Rebel
+  {
+    id:14, category:'hoodie', name:'Inner Rebel',
+    desc:'430 GSM, 100% Premium Cotton Hoodie',
+    price:999, original:1999, badge:'Trending', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/hoodie1.png`,
+      back:`${CL}/hoodie2.png`,
+      both:`${CL}/hoodie3.png`
+    }
+  },
+  // 2 — GT3 RS Apex
   {
     id:12, category:'oversize', name:'GT3 RS Apex',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
