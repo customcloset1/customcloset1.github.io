@@ -12,18 +12,37 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — Customized Tees
+  // 1 — Customized Tees Black
   {
-    id:15, category:'oversize', name:'Customized Tees',
+    id:15, category:'oversize', name:'Customized Tees – Black',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:699, original:1399, badge:'New', colors:['#1a1a1a','#ffffff'],
+    price:699, original:1399, badge:'New', colors:['#1a1a1a'],
     images:{
       front:`${CL}/cust5.png`,
-      back:`${CL}/cust6.png`,
-      both:`${CL}/cust3.png`
+      back:`${CL}/cust6.png`
     }
   },
-  // 2 — Inner Rebel
+  // 2 — Customized Tees White I
+  {
+    id:16, category:'oversize', name:'Customized Tees – White I',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:1399, badge:'New', colors:['#ffffff'],
+    images:{
+      front:`${CL}/cust3.png`,
+      back:`${CL}/cust4.png`
+    }
+  },
+  // 3 — Customized Tees White II
+  {
+    id:17, category:'oversize', name:'Customized Tees – White II',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:1399, badge:'New', colors:['#ffffff'],
+    images:{
+      front:`${CL}/cust1.png`,
+      back:`${CL}/cust2.png`
+    }
+  },
+  // 4 — Inner Rebel
   {
     id:14, category:'hoodie', name:'Inner Rebel',
     desc:'430 GSM, 100% Premium Cotton Hoodie',
