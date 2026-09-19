@@ -12,7 +12,18 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — Inner Rebel
+  // 1 — Customized Tees
+  {
+    id:15, category:'oversize', name:'Customized Tees',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:1399, badge:'New', colors:['#1a1a1a','#ffffff'],
+    images:{
+      front:`${CL}/cust5.png`,
+      back:`${CL}/cust6.png`,
+      both:`${CL}/cust3.png`
+    }
+  },
+  // 2 — Inner Rebel
   {
     id:14, category:'hoodie', name:'Inner Rebel',
     desc:'430 GSM, 100% Premium Cotton Hoodie',
