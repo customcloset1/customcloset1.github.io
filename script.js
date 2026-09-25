@@ -12,7 +12,18 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — Customized Tees Black
+  // 1 — Midnight Bloom
+  {
+    id:18, category:'oversize', name:'Midnight Bloom',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:599, original:1199, badge:'New', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/cfirst.png`,
+      back:`${CL}/csecond.png`,
+      both:`${CL}/cthird.png`
+    }
+  },
+  // 2 — Customized Tees Black
   {
     id:15, category:'oversize', name:'Customized Tees – Black',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
