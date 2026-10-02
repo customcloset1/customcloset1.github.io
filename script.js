@@ -12,7 +12,18 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — Midnight Bloom
+  // 1 — R7 Unleashed
+  {
+    id:19, category:'oversize', name:'R7 Unleashed',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
+    price:799, original:1599, badge:'Trending', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/ronaldo1.png`,
+      back:`${CL}/ronaldo2.png`,
+      both:`${CL}/ronaldo3.png`
+    }
+  },
+  // 2 — Midnight Bloom
   {
     id:18, category:'oversize', name:'Midnight Bloom',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
