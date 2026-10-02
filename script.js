@@ -16,7 +16,7 @@ const TRENDING_PRODUCTS = [
   {
     id:19, category:'oversize', name:'R7 Unleashed',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
-    price:799, original:1599, badge:'Trending', colors:['#1a1a1a'],
+    price:899, original:1599, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/ronaldo1.png`,
       back:`${CL}/ronaldo2.png`,
