@@ -34,37 +34,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/cthird.png`
     }
   },
-  // 2 — Customized Tees Black
-  {
-    id:15, category:'oversize', name:'Customized Tees – Black',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:699, original:1399, badge:'New', colors:['#1a1a1a'],
-    images:{
-      front:`${CL}/cust5.png`,
-      back:`${CL}/cust6.png`
-    }
-  },
-  // 2 — Customized Tees White I
-  {
-    id:16, category:'oversize', name:'Customized Tees – White I',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:699, original:1399, badge:'New', colors:['#ffffff'],
-    images:{
-      front:`${CL}/cust3.png`,
-      back:`${CL}/cust4.png`
-    }
-  },
-  // 3 — Customized Tees White II
-  {
-    id:17, category:'oversize', name:'Customized Tees – White II',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:699, original:1399, badge:'New', colors:['#ffffff'],
-    images:{
-      front:`${CL}/cust1.png`,
-      back:`${CL}/cust2.png`
-    }
-  },
-  // 4 — Inner Rebel
+  // 3 — Inner Rebel
   {
     id:14, category:'hoodie', name:'Inner Rebel',
     desc:'430 GSM, 100% Premium Cotton Hoodie',
@@ -75,7 +45,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/hoodie3.png`
     }
   },
-  // 2 — GT3 RS Apex
+  // 4 — GT3 RS Apex
   {
     id:12, category:'oversize', name:'GT3 RS Apex',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -86,7 +56,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/porche3.png`
     }
   },
-  // 2 — MAUT MODE
+  // 5 — MAUT MODE
   {
     id:13, category:'oversize', name:'MAUT MODE',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -97,7 +67,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/maut3.png`
     }
   },
-  // 3 — The King of Hell
+  // 6 — The King of Hell
   {
     id:10, category:'oversize', name:'The King of Hell',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -108,7 +78,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/zoro-third.png`
     }
   },
-  // 2 — Grand Line Legacy
+  // 7 — Grand Line Legacy
   {
     id:9, category:'oversize', name:'Grand Line Legacy',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -119,7 +89,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/onepiece-third.png`
     }
   },
-  // 3 — The 1975 Original
+  // 8 — The 1975 Original
   {
     id:8, category:'oversize', name:'The 1975 Original',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -130,7 +100,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/new-third.png`
     }
   },
-  // 4 — Spider-Verse
+  // 9 — Spider-Verse
   {
     id:5, category:'oversize', name:'Spider-Verse Legacy Tee – Black Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -140,7 +110,7 @@ const TRENDING_PRODUCTS = [
       back:`${CL}/spiderman-new-front.jpeg`
     }
   },
-  // 5 — The Red Legacy
+  // 10 — The Red Legacy
   {
     id:4, category:'oversize', name:'The Red Legacy',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -151,7 +121,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/lewis-both.png`
     }
   },
-  // 6 — Modern Renaissance
+  // 11 — Modern Renaissance
   {
     id:7, category:'oversize', name:'Modern Renaissance',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -160,7 +130,7 @@ const TRENDING_PRODUCTS = [
       front:`${CL}/Ren-first.png`
     }
   },
-  // 7 — Legend in Red
+  // 12 — Legend in Red
   {
     id:1, category:'oversize', name:'Legend in Red',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -171,7 +141,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/F1-1-both.jpg`
     }
   },
-  // 8 — Colosseum Drop
+  // 13 — Colosseum Drop
   {
     id:2, category:'oversize', name:'Colosseum Drop',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -182,7 +152,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/rome-both.jpeg`
     }
   },
-  // 9 — The GOAT Edition
+  // 14 — The GOAT Edition
   {
     id:3, category:'oversize', name:'The GOAT Edition',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
@@ -193,13 +163,53 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/new-both.png`
     }
   },
-  // 10 — The Brand: Rise
+  // 15 — The Brand: Rise
   {
     id:11, category:'oversize', name:'The Brand: Rise',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:499, original:999, badge:'New', colors:['#b3121c','#1e2a4a','#000000','#ffffff'],
     images:{
       front:`${CL}/cc-first.png`
+    }
+  },
+  // 16 — Customized Tees Black
+  {
+    id:15, category:'oversize', name:'Customized Tees – Black',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:1399, badge:'New', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/cust5.png`,
+      back:`${CL}/cust6.png`
+    }
+  },
+  // 17 — Customized Tees Black II
+  {
+    id:20, category:'oversize', name:'Customized Tees – Black II',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:599, original:1199, badge:'New', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/customizedblack2front.png`,
+      back:`${CL}/customizedblack2back.png`
+    }
+  },
+  // 18 — Customized Tees White I
+  {
+    id:16, category:'oversize', name:'Customized Tees – White I',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:1399, badge:'New', colors:['#ffffff'],
+    images:{
+      front:`${CL}/cust3.png`,
+      back:`${CL}/cust4.png`
+    }
+  },
+  // 19 — Customized Tees White II
+  {
+    id:17, category:'oversize', name:'Customized Tees – White II',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:699, original:1399, badge:'New', colors:['#ffffff'],
+    images:{
+      front:`${CL}/cust1.png`,
+      back:`${CL}/cust2.png`
     }
   },
 ];
