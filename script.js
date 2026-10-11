@@ -34,7 +34,18 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/cthird.png`
     }
   },
-  // 3 — Inner Rebel
+  // 3 — Spirit
+  {
+    id:21, category:'hoodie', name:'Spirit',
+    desc:'430 GSM, 100% Premium Cotton Hoodie',
+    price:1199, original:2399, badge:'Trending', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/H1.png`,
+      back:`${CL}/H2.png`,
+      both:`${CL}/H3.png`
+    }
+  },
+  // 4 — Inner Rebel
   {
     id:14, category:'hoodie', name:'Inner Rebel',
     desc:'430 GSM, 100% Premium Cotton Hoodie',
@@ -45,7 +56,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/hoodie3.png`
     }
   },
-  // 4 — GT3 RS Apex
+  // 5 — GT3 RS Apex
   {
     id:12, category:'oversize', name:'GT3 RS Apex',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
