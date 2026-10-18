@@ -12,7 +12,18 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — R7 Unleashed
+  // 1 — CRIMSON REVERIE
+  {
+    id:22, category:'oversize', name:'CRIMSON REVERIE',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton',
+    price:599, original:1199, badge:'New', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/S1.png`,
+      back:`${CL}/S2.png`,
+      both:`${CL}/S3.png`
+    }
+  },
+  // 2 — R7 Unleashed
   {
     id:19, category:'oversize', name:'R7 Unleashed',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
