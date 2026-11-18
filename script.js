@@ -34,7 +34,18 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/S3grey.png`
     }
   },
-  // 3 — R7 Unleashed
+  // 3 — Spirit of Flame
+  {
+    id:25, category:'hoodie', name:'Spirit of Flame',
+    desc:'430 GSM, 100% Premium Cotton Hoodie',
+    price:1099, original:2198, badge:'', colors:['#1a1a1a'],
+    images:{
+      front:`${CL}/h1.png`,
+      back:`${CL}/h2.png`,
+      both:`${CL}/h3.png`
+    }
+  },
+  // 4 — R7 Unleashed
   {
     id:19, category:'tshirt', name:'R7 Unleashed',
     desc:'240 GSM, Acid Wash T-Shirt',
