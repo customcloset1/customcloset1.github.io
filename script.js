@@ -287,10 +287,22 @@ function renderSizeTable(cat){
 }
 
 // ══ BUILD CARD — minimal, click to product page ══
+// Seeded random so stock label stays stable per product (doesn't change on re-render)
+function seededRand(seed){ let x=Math.sin(seed+1)*10000; return x-Math.floor(x); }
+function getStockLabel(id){
+  const r=seededRand(id);
+  if(r<0.20) return {text:'⚠️ Only 3 left!', color:'#dc2626'};
+  if(r<0.35) return {text:'🔥 Might sell out soon', color:'#ea580c'};
+  if(r<0.42) return {text:'🚫 Out of Stock', color:'#6b7280'};
+  return null;
+}
+
 function buildCard(p) {
   const discount=Math.round((1-p.price/p.original)*100);
   const badge=p.badge?`<div class="trend-badge ${p.badge==='New'?'new':p.badge==='Hot'?'hot':''}">${p.badge}</div>`:'';
   const src=p.images.front||'';
+  const stock=getStockLabel(p.id);
+  const stockHtml=stock?`<div style="font-size:11px;font-weight:600;color:${stock.color};margin-top:6px;letter-spacing:0.2px;">${stock.text}</div>`:'';
 
   return `
   <div class="trend-card minimal-card" data-category="${p.category}" onclick="window.location.href='product.html?id=${p.id}'" style="cursor:pointer;">
@@ -309,6 +321,7 @@ function buildCard(p) {
         <span class="trend-original">₹${p.original.toLocaleString('en-IN')}</span>
         <span class="trend-discount">${discount}% off</span>
       </div>
+      ${stockHtml}
     </div>
   </div>`;
 }
