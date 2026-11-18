@@ -23,29 +23,18 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/P3.png`
     }
   },
-  // 2 — DUNE DRIFTERS Grey
+  // 2 — DUNE DRIFTERS
   {
-    id:23, category:'oversize', name:'DUNE DRIFTERS – Grey',
+    id:23, category:'oversize', name:'DUNE DRIFTERS',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
-    price:699, original:1399, badge:'New', colors:['#9e9e9e'],
+    price:699, original:1399, badge:'New', colors:['#9e9e9e','#8B6914'],
     images:{
       front:`${CL}/S1grey.png`,
       back:`${CL}/S2grey.png`,
       both:`${CL}/S3grey.png`
     }
   },
-  // 3 — DUNE DRIFTERS Brown
-  {
-    id:231, category:'oversize', name:'DUNE DRIFTERS – Brown',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
-    price:699, original:1399, badge:'New', colors:['#8B6914'],
-    images:{
-      front:`${CL}/S1brown.png`,
-      back:`${CL}/S2brown.png`,
-      both:`${CL}/S3brown.png`
-    }
-  },
-  // 4 — R7 Unleashed
+  // 3 — R7 Unleashed
   {
     id:19, category:'oversize', name:'R7 Unleashed',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
