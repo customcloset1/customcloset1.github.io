@@ -12,18 +12,40 @@ const SIZE_CHARTS = {
 };
 
 const TRENDING_PRODUCTS = [
-  // 1 — CRIMSON REVERIE
+  // 1 — Pune Souls
   {
-    id:22, category:'oversize', name:'CRIMSON REVERIE',
+    id:24, category:'oversize', name:'Pune Souls',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:599, original:1199, badge:'New', colors:['#1a1a1a'],
+    price:599, original:1199, badge:'Trending', colors:['#1a1a1a'],
     images:{
-      front:`${CL}/S1.png`,
-      back:`${CL}/S2.png`,
-      both:`${CL}/S3.png`
+      front:`${CL}/P1.png`,
+      back:`${CL}/P2.png`,
+      both:`${CL}/P3.png`
     }
   },
-  // 2 — R7 Unleashed
+  // 2 — DUNE DRIFTERS Grey
+  {
+    id:23, category:'oversize', name:'DUNE DRIFTERS – Grey',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
+    price:699, original:1399, badge:'New', colors:['#9e9e9e'],
+    images:{
+      front:`${CL}/S1grey.png`,
+      back:`${CL}/S2grey.png`,
+      both:`${CL}/S3grey.png`
+    }
+  },
+  // 3 — DUNE DRIFTERS Brown
+  {
+    id:231, category:'oversize', name:'DUNE DRIFTERS – Brown',
+    desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
+    price:699, original:1399, badge:'New', colors:['#8B6914'],
+    images:{
+      front:`${CL}/S1brown.png`,
+      back:`${CL}/S2brown.png`,
+      both:`${CL}/S3brown.png`
+    }
+  },
+  // 4 — R7 Unleashed
   {
     id:19, category:'oversize', name:'R7 Unleashed',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
@@ -45,18 +67,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/cthird.png`
     }
   },
-  // 3 — Spirit
-  {
-    id:21, category:'hoodie', name:'Spirit',
-    desc:'430 GSM, 100% Premium Cotton Hoodie',
-    price:1199, original:2399, badge:'Trending', colors:['#1a1a1a'],
-    images:{
-      front:`${CL}/H1.png`,
-      back:`${CL}/H2.png`,
-      both:`${CL}/H3.png`
-    }
-  },
-  // 4 — Inner Rebel
+  // 3 — Inner Rebel
   {
     id:14, category:'hoodie', name:'Inner Rebel',
     desc:'430 GSM, 100% Premium Cotton Hoodie',
@@ -67,7 +78,7 @@ const TRENDING_PRODUCTS = [
       both:`${CL}/hoodie3.png`
     }
   },
-  // 5 — GT3 RS Apex
+  // 4 — GT3 RS Apex
   {
     id:12, category:'oversize', name:'GT3 RS Apex',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
