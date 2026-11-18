@@ -82,7 +82,7 @@ const TRENDING_PRODUCTS = [
   {
     id:12, category:'oversize', name:'GT3 RS Apex',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
-    price:699, original:1399, badge:'New', colors:['#1a1a1a'],
+    price:699, original:1399, badge:'New', colors:['#1a1a1a','#c0392b'],
     images:{
       front:`${CL}/porche1.png`,
       back:`${CL}/porche2.png`,
