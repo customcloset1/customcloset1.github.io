@@ -25,8 +25,8 @@ const TRENDING_PRODUCTS = [
   },
   // 2 — DUNE DRIFTERS
   {
-    id:23, category:'oversize', name:'DUNE DRIFTERS',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
+    id:23, category:'tshirt', name:'DUNE DRIFTERS',
+    desc:'240 GSM, Acid Wash T-Shirt',
     price:699, original:1399, badge:'New', colors:['#9e9e9e','#8B6914'],
     images:{
       front:`${CL}/S1grey.png`,
@@ -36,8 +36,8 @@ const TRENDING_PRODUCTS = [
   },
   // 3 — R7 Unleashed
   {
-    id:19, category:'oversize', name:'R7 Unleashed',
-    desc:'240 GSM, Drop Shoulder, French Terry Cotton — Acid Wash',
+    id:19, category:'tshirt', name:'R7 Unleashed',
+    desc:'240 GSM, Acid Wash T-Shirt',
     price:899, original:1599, badge:'Trending', colors:['#1a1a1a'],
     images:{
       front:`${CL}/ronaldo1.png`,
