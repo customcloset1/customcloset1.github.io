@@ -321,19 +321,19 @@ const PRODUCTS = [
     desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee in Black with a comfortable relaxed silhouette.',
     price:599, original:1199, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
     images:[`${CL}/cfirst.png`,`${CL}/csecond.png`,`${CL}/cthird.png`,`${CL}/cforth.png`,`${CL}/cfifth.png`] },
-  { id:15, category:'oversize', name:'Customized Tees – Black',
+  { id:15, category:'customized', name:'Customized Tees – Black',
     desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee in Black with a comfortable relaxed silhouette.',
     price:699, original:1399, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
     images:[`${CL}/cust5.png`,`${CL}/cust6.png`] },
-  { id:16, category:'oversize', name:'Customized Tees – White I',
+  { id:16, category:'customized', name:'Customized Tees – White I',
     desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee in White with a comfortable relaxed silhouette.',
     price:699, original:1399, color:'White', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
     images:[`${CL}/cust3.png`,`${CL}/cust4.png`] },
-  { id:17, category:'oversize', name:'Customized Tees – White II',
+  { id:17, category:'customized', name:'Customized Tees – White II',
     desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee in White with a comfortable relaxed silhouette.',
     price:699, original:1399, color:'White', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
     images:[`${CL}/cust1.png`,`${CL}/cust2.png`] },
-  { id:20, category:'oversize', name:'Customized Tees – Black II',
+  { id:20, category:'customized', name:'Customized Tees – Black II',
     desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee in Black with a comfortable relaxed silhouette.',
     price:599, original:1199, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
     images:[`${CL}/customizedblack2front.png`,`${CL}/customizedblack2back.png`] },
@@ -346,7 +346,7 @@ const PRODUCTS = [
     price:699, original:1399, color:'Black', fabric:'100% Cotton', gsm:'240 GSM', fit:'Boxy / Drop shoulder',
     colorVariants:{
       Black:{ swatch:'#1a1a1a', images:[`${CL}/porche1.png`,`${CL}/porche2.png`,`${CL}/porche3.png`,`${CL}/porche4.png`] },
-      Red:{ swatch:'#c0392b', images:[`${CL}/po1.png`,`${CL}/po2.png`,`${CL}/po3.png`,`${CL}/po4.png`] }
+      Red:{ swatch:'#c0392b', price:899, original:1798, desc:'Acid Wash 240 GSM Pure Cotton T-Shirt in Red — rugged washed finish with a relaxed fit.', images:[`${CL}/po1.png`,`${CL}/po2.png`,`${CL}/po3.png`,`${CL}/po4.png`] }
     } },
   { id:13, category:'oversize', name:'MAUT MODE',
     desc:'240 GSM French Terry Cotton, Drop Shoulder boxy fit. Premium quality oversize tee with a comfortable relaxed silhouette.',
@@ -436,12 +436,28 @@ function renderGallery(){
 // COLOR (only used when a product has colorVariants)
 function pickColor(colorName, btn){
   activeColorName = colorName;
-  activeImages = product.colorVariants[colorName].images;
+  const variant = product.colorVariants[colorName];
+  activeImages = variant.images;
   document.querySelectorAll('.color-swatch-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('selectedColorLabel').textContent = colorName;
   const colorVal = document.getElementById('colorDetailVal');
   if(colorVal) colorVal.textContent = colorName;
+  // Update price/desc if this variant has its own
+  if(variant.price){
+    document.getElementById('pPrice').textContent='₹'+variant.price.toLocaleString('en-IN');
+    document.getElementById('pOriginal').textContent='₹'+variant.original.toLocaleString('en-IN');
+    document.getElementById('pDiscount').textContent=Math.round((1-variant.price/variant.original)*100)+'% off';
+  } else {
+    document.getElementById('pPrice').textContent='₹'+product.price.toLocaleString('en-IN');
+    document.getElementById('pOriginal').textContent='₹'+product.original.toLocaleString('en-IN');
+    document.getElementById('pDiscount').textContent=Math.round((1-product.price/product.original)*100)+'% off';
+  }
+  if(variant.desc){
+    const descEl=document.getElementById('pDesc'); if(descEl) descEl.textContent=variant.desc;
+  } else {
+    const descEl=document.getElementById('pDesc'); if(descEl) descEl.textContent=product.desc;
+  }
   renderGallery();
 }
 

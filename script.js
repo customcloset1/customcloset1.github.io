@@ -207,7 +207,7 @@ const TRENDING_PRODUCTS = [
   },
   // 16 — Customized Tees Black
   {
-    id:15, category:'oversize', name:'Customized Tees – Black',
+    id:15, category:'customized', name:'Customized Tees – Black',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:699, original:1399, badge:'New', colors:['#1a1a1a'],
     images:{
@@ -217,7 +217,7 @@ const TRENDING_PRODUCTS = [
   },
   // 17 — Customized Tees Black II
   {
-    id:20, category:'oversize', name:'Customized Tees – Black II',
+    id:20, category:'customized', name:'Customized Tees – Black II',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:599, original:1199, badge:'New', colors:['#1a1a1a'],
     images:{
@@ -227,7 +227,7 @@ const TRENDING_PRODUCTS = [
   },
   // 18 — Customized Tees White I
   {
-    id:16, category:'oversize', name:'Customized Tees – White I',
+    id:16, category:'customized', name:'Customized Tees – White I',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:699, original:1399, badge:'New', colors:['#ffffff'],
     images:{
@@ -237,7 +237,7 @@ const TRENDING_PRODUCTS = [
   },
   // 19 — Customized Tees White II
   {
-    id:17, category:'oversize', name:'Customized Tees – White II',
+    id:17, category:'customized', name:'Customized Tees – White II',
     desc:'240 GSM, Drop Shoulder, French Terry Cotton',
     price:699, original:1399, badge:'New', colors:['#ffffff'],
     images:{
@@ -331,7 +331,7 @@ function setSlide(cardId,idx){}
 function slideNav(cardId,dir){}
 
 // ══ RENDER / FILTER / PAGINATION ══
-const ITEMS_PER_PAGE=15; let currentPage=1; let currentFilter='all'; let filteredProducts=[...TRENDING_PRODUCTS];
+const ITEMS_PER_PAGE=15; let currentPage=1; let currentFilter='all'; let filteredProducts=TRENDING_PRODUCTS.filter(p=>p.category!=='customized');
 
 function renderProducts(){
   const grid=document.getElementById('trendingGrid'); if(!grid) return;
@@ -358,7 +358,8 @@ function changePage(delta){const total=Math.ceil(filteredProducts.length/ITEMS_P
 function filterProducts(category,clickedTab){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   clickedTab.classList.add('active'); currentFilter=category; currentPage=1;
-  filteredProducts=category==='all'?[...TRENDING_PRODUCTS]:TRENDING_PRODUCTS.filter(p=>p.category===category);
+  if(category==='all') filteredProducts=TRENDING_PRODUCTS.filter(p=>p.category!=='customized');
+  else filteredProducts=TRENDING_PRODUCTS.filter(p=>p.category===category);
   renderProducts();
 }
 function toggleWishlist(heart){heart.textContent=heart.textContent==='♡'?'♥':'♡';heart.style.color=heart.textContent==='♥'?'red':'';}
